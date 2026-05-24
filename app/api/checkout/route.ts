@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(request: Request) {
   try {
-    const { lines, metodoPago, datosCliente } = await request.json();
+    const { lines, metodoPago, datosCliente }: { lines: CartLine[]; metodoPago: string; datosCliente: any } = await request.json();
 
     if (!lines || lines.length === 0) {
       return NextResponse.json({ error: "El carrito está vacío" }, { status: 400 });
@@ -14,7 +14,8 @@ export async function POST(request: Request) {
 
     // CASO A: Pago por Tarjeta o PayPal (Stripe)
     if (metodoPago === "stripe") {
-      const lineItems = lines.map((line) => {
+      // CORRECCIÓN AQUÍ: Añadimos explícitamente ": CartLine" al parámetro 'line'
+      const lineItems = lines.map((line: CartLine) => {
         const urlImagenCompleta = line.imagen.startsWith("http")
           ? line.imagen
           : `${process.env.NEXT_PUBLIC_SITE_URL}${line.imagen}`;
@@ -49,13 +50,13 @@ export async function POST(request: Request) {
     // CASO B: Transferencia Bancaria
     if (metodoPago === "transferencia") {
       const numeroPedido = `VL-${Math.floor(10000 + Math.random() * 90000)}`;
-      const resumenPiezas = lines.map(line => `${line.quantity}x ${line.nombre}`).join(", ");
+      
+      // CORRECCIÓN AQUÍ: También añadimos ": CartLine" en este mapa por si acaso
+      const resumenPiezas = lines.map((line: CartLine) => `${line.quantity}x ${line.nombre}`).join(", ");
 
-      // Capturamos el correo electrónico y nombre que ha puesto el cliente
       const emailCliente = datosCliente?.email || "No proporcionado";
       const nombreCliente = datosCliente?.nombre || "No proporcionado";
 
-      // Pista técnica para el futuro: Aquí es donde harías un "prisma.order.create(...)" para guardarlo en Base de Datos.
       console.log(`📩 ¡NUEVO PEDIDO DE TRANSFERENCIA RECIBIDO!`);
       console.log(`Pedido: ${numeroPedido} | Cliente: ${nombreCliente} (${emailCliente}) | Items: ${resumenPiezas}`);
 
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
         method: "transferencia",
         orderId: numeroPedido,
         items: resumenPiezas,
-        clientEmail: emailCliente // Lo mandamos a la URL de éxito para comprobarlo en local
+        clientEmail: emailCliente
       });
 
       return NextResponse.json({ url: `/checkout/success?${params.toString()}` });
