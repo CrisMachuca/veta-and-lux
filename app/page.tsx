@@ -2,9 +2,34 @@ import Link from "next/link";
 import { ProductGallery } from "./components/product-gallery";
 import { SiteFooter } from "./components/site-footer";
 import { SiteNav } from "./components/site-nav";
-import { productos } from "./lib/productos";
+import { client } from "@/sanity/lib/client";
 
-export default function Page() {
+// 1. Modificamos la consulta para filtrar por productos donde 'destacado == true'
+async function getProductosDestacados() {
+  const query = `*[_type == "producto" && destacado == true] | order(_createdAt desc) {
+    _id,
+    nombre,
+    "slug": slug.current,
+    precio,
+    descripcion,
+    descripcionLarga,
+    imagen,
+    imagenes,
+    materialBase,
+    materialPantalla,
+    cable,
+    medidas,
+    cuidados,
+    estado
+  }`;
+
+  return await client.fetch(query);
+}
+
+export default async function Page() {
+  // 3. Traemos las lámparas destacadas en tiempo real
+  const productosSanity = await getProductosDestacados();
+
   return (
     <main className="min-h-screen bg-stone-50">
       <SiteNav />
@@ -40,13 +65,16 @@ export default function Page() {
         </div>
       </section>
       {/* AQUÍ TERMINA EL CÓDIGO DEL HERO */}
+      
       <section className="max-w-5xl mx-auto px-6 py-16">
         <h2 className="text-2xl font-light text-stone-800 mb-12 text-center uppercase tracking-widest">
           Piezas Destacadas
         </h2>
 
-        <ProductGallery productos={productos} />
+        {/* 4. Muestra exclusivamente las piezas seleccionadas en Sanity */}
+        <ProductGallery productos={productosSanity} />
       </section>
+
       <section className="max-w-5xl mx-auto px-6 py-24 border-t border-stone-200">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="relative aspect-square bg-stone-100 overflow-hidden rounded-2xl ring-1 ring-stone-200/80 shadow-sm">

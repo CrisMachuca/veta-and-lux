@@ -1,17 +1,25 @@
-/** Convierte etiquetas tipo "230€" o "1.234,50€" a número (EUR). */
-export function precioToNumber(precio: string): number {
+// 1. Convierte cualquier precio (texto o número) en un número limpio para operar
+export function precioToNumber(precio: string | number): number {
+  if (typeof precio === "number") {
+    return precio;
+  }
+
+  if (!precio) return 0;
+
   const normalized = precio
     .replace(/\s/g, "")
     .replace(/€/g, "")
     .replace(/\./g, "")
     .replace(",", ".");
-  const n = parseFloat(normalized);
-  return Number.isFinite(n) ? n : 0;
+
+  return parseFloat(normalized) || 0;
 }
 
-export function formatEUR(value: number): string {
+// 2. Devuelve la función que tu carrito necesita para formatear los totales
+export function formatEUR(valor: number): string {
   return new Intl.NumberFormat("es-ES", {
     style: "currency",
     currency: "EUR",
-  }).format(value);
+    minimumFractionDigits: 0, // Cambia a 2 si prefieres que muestre siempre los céntimos (ej: 230,00€)
+  }).format(valor);
 }

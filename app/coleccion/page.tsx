@@ -2,9 +2,35 @@ import Link from "next/link";
 import { ProductGallery } from "@/app/components/product-gallery";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteNav } from "@/app/components/site-nav";
-import { productos } from "@/app/lib/productos";
+import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
 
-export default function ColeccionPage() {
+// 1. Consulta GROQ para traernos la colección completa en vivo
+async function getColeccionCompleta() {
+  const query = `*[_type == "producto"] | order(_createdAt desc) {
+    _id,
+    nombre,
+    "slug": slug.current,
+    precio,
+    descripcion,
+    descripcionLarga,
+    imagen,
+    imagenes,
+    materialBase,
+    materialPantalla,
+    cable,
+    medidas,
+    cuidados,
+    estado
+  }`;
+
+  return await client.fetch(query);
+}
+
+// 2. Transformamos la función en asíncrona (async)
+export default async function ColeccionPage() {
+  // 3. Obtenemos los datos reales de la base de datos de Sanity
+  const productosSanity = await getColeccionCompleta();
+
   return (
     <main className="min-h-screen bg-stone-50">
       <SiteNav />
@@ -33,7 +59,8 @@ export default function ColeccionPage() {
 
       <section className="max-w-5xl mx-auto px-6 pb-20">
         <h2 className="sr-only">Piezas disponibles</h2>
-        <ProductGallery productos={productos} />
+        {/* 4. Pasamos los productos reales de Sanity a la galería */}
+        <ProductGallery productos={productosSanity} />
       </section>
 
       <SiteFooter />

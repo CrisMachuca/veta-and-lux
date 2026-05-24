@@ -3,10 +3,36 @@ import { notFound } from "next/navigation";
 import { ProductDetailClient } from "@/app/components/product-detail-client";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteNav } from "@/app/components/site-nav";
-import { getProductoBySlug, productos } from "@/app/lib/productos";
+import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
+import { ProductoSanity } from "@/app/lib/productos";
 
-export function generateStaticParams() {
-  return productos.map((producto) => ({ slug: producto.slug }));
+// 1. Modificamos generateStaticParams para que Next.js pre-renderice usando Sanity si lo deseas
+export async function generateStaticParams() {
+  const query = `*[_type == "producto"] { "slug": slug.current }`;
+  const productos = await client.fetch(query);
+  return productos.map((producto: { slug: string }) => ({ slug: producto.slug }));
+}
+
+// 2. Creamos la función que consulta la lámpara específica en la nube de Sanity
+async function getProductoSanityBySlug(slug: string): Promise<ProductoSanity | null> {
+  const query = `*[_type == "producto" && slug.current == $slug][0] {
+    _id,
+    nombre,
+    "slug": slug.current,
+    precio,
+    descripcion,
+    descripcionLarga,
+    imagen,
+    imagenes,
+    materialBase,
+    materialPantalla,
+    cable,
+    medidas,
+    cuidados,
+    estado
+  }`;
+
+  return await client.fetch(query, { slug });
 }
 
 export default async function ProductoPage({
@@ -15,11 +41,22 @@ export default async function ProductoPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const producto = getProductoBySlug(slug);
+  
+  // 3. Traemos la información en tiempo real desde Sanity
+  const producto = await getProductoSanityBySlug(slug);
 
   if (!producto) {
     notFound();
   }
+
+  // 4. Adaptamos el objeto antes de pasárselo a ProductDetailClient 
+  // Esto evita tener que reescribir todo el componente visual del cliente,
+  // inyectándole un "id" de imitación y el precio formateado con el símbolo "€"
+  const productoAdaptado = {
+    ...producto,
+    id: producto._id,
+    precio: `${producto.precio}€`
+  };
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -34,7 +71,8 @@ export default async function ProductoPage({
           </Link>
         </p>
       </section>
-      <ProductDetailClient producto={producto} />
+      {/* Le enviamos el producto adaptado para que tu diseño siga funcionando perfecto */}
+      <ProductDetailClient producto={productoAdaptado as any} />
       <SiteFooter />
     </main>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/app/components/cart-provider";
-import type { Producto } from "@/app/lib/productos";
+import { urlFor } from "@/sanity/lib/client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // --- Constantes y Utilidades (Magnifier) ---
@@ -74,89 +74,209 @@ function MagnifierImage({ src, alt }: { src: string; alt: string }) {
 }
 
 // --- Componente Principal ---
-export function ProductDetailClient({ producto }: { producto: Producto }) {
+export function ProductDetailClient({ producto }: { producto: any }) {
   const { addItem } = useCart();
-  const [selectedImage, setSelectedImage] = useState(producto.imagenes[0] ?? producto.imagen);
+  
+  const [selectedImage, setSelectedImage] = useState(
+    producto.imagenes && producto.imagenes.length > 0 
+      ? producto.imagenes[0] 
+      : producto.imagen
+  );
+  
   const [openImage, setOpenImage] = useState<string | null>(null);
   const [addedFeedback, setAddedFeedback] = useState(false);
+  const feedbackTimeoutRef = useRef<number | null>(null);
 
-  const handleAddToCart = () => {
-    addItem(producto);
+  function handleAddToCart() {
+    const imagenUrl = producto.imagen ? urlFor(producto.imagen).url() : "";
+
+    const productoMapeado = {
+      ...producto,
+      id: producto._id,       // Mapeamos _id a id para que mantenga coherencia con el carrito
+      imagen: imagenUrl,      // URL de texto plano optimizada desde Sanity
+    };
+    
+    addItem(productoMapeado);
     setAddedFeedback(true);
-    setTimeout(() => setAddedFeedback(false), 1500);
+    
+    if (feedbackTimeoutRef.current) {
+      window.clearTimeout(feedbackTimeoutRef.current);
+    }
+    feedbackTimeoutRef.current = window.setTimeout(() => {
+      setAddedFeedback(false);
+    }, 1500);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimeoutRef.current) {
+        window.clearTimeout(feedbackTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const esImagenSeleccionada = (img: any) => {
+    if (!selectedImage || !img) return false;
+    if (selectedImage.asset?._ref && img.asset?._ref) {
+      return selectedImage.asset._ref === img.asset._ref;
+    }
+    return selectedImage === img;
   };
 
   return (
     <>
       <section className="max-w-6xl mx-auto px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Galería */}
+          
+          {/* Galería (Mantiene el sticky original de tu diseño) */}
           <div className="lg:sticky lg:top-24">
-            <button onClick={() => setOpenImage(selectedImage)} className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80">
-              <img src={selectedImage} alt={producto.nombre} className="w-full aspect-[4/5] object-cover" />
+            <button 
+              onClick={() => setOpenImage(selectedImage ? urlFor(selectedImage).url() : null)} 
+              className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80"
+            >
+              {selectedImage ? (
+                <img 
+                  src={urlFor(selectedImage).url()} 
+                  alt={producto.nombre} 
+                  className="w-full aspect-[4/5] object-cover" 
+                />
+              ) : (
+                <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-400 text-sm">
+                  Sin imagen disponible
+                </div>
+              )}
             </button>
-            <div className="grid grid-cols-3 gap-4 mt-4">
-              {producto.imagenes.map((img) => (
-                <button key={img} onClick={() => setSelectedImage(img)} className={`rounded-xl overflow-hidden ring-1 transition-all ${img === selectedImage ? "ring-stone-900" : "ring-stone-200 opacity-60"}`}>
-                  <img src={img} alt="Miniatura" className="w-full aspect-square object-cover" />
-                </button>
-              ))}
-            </div>
+            
+            {producto.imagenes && producto.imagenes.length > 0 && (
+              <div className="grid grid-cols-3 gap-4 mt-4">
+                {producto.imagenes.map((img: any, index: number) => {
+                  const isSelected = esImagenSeleccionada(img);
+                  return (
+                    <button 
+                      key={img._key || index} 
+                      onClick={() => setSelectedImage(img)} 
+                      className={`rounded-xl overflow-hidden ring-1 transition-all ${
+                        isSelected ? "ring-stone-900" : "ring-stone-200 opacity-60"
+                      }`}
+                    >
+                      <img 
+                        src={urlFor(img).url()} 
+                        alt="Miniatura" 
+                        className="w-full aspect-square object-cover" 
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
-          {/* Info */}
+          {/* Info (Diseño Original Restaurado al 100%) */}
           <div className="space-y-10">
             <div>
-              <h1 className="text-4xl md:text-5xl font-serif italic text-stone-900 mb-4">{producto.nombre}</h1>
-              <p className="text-2xl font-light text-stone-800 mb-6">{producto.precio}</p>
-              <p className="text-stone-600 leading-relaxed text-lg font-light">{producto.descripcionLarga}</p>
+              <h1 className="text-4xl md:text-5xl font-serif italic text-stone-900 mb-4">
+                {producto.nombre}
+              </h1>
+              <p className="text-2xl font-light text-stone-800 mb-6">
+                {producto.precio}
+              </p>
+              <p className="text-stone-600 leading-relaxed text-lg font-light">
+                {producto.descripcionLarga || producto.descripcion}
+              </p>
             </div>
 
             <div className="space-y-6">
-              {/* Ficha Técnica */}
+              {/* Ficha Técnica Original */}
               <div className="rounded-sm border-l-2 border-stone-800 bg-stone-100/50 p-6">
-                <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-6">Composición Técnica</h2>
+                <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-6">
+                  Composición Técnica
+                </h2>
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <p className="text-[9px] uppercase text-stone-400 font-bold">Materiales</p>
                     <ul className="space-y-1 font-mono text-xs text-stone-700">
-                      <li className="flex gap-4"><span className="text-stone-400 w-16">BASE:</span> {producto.materialBase}</li>
-                      {producto.materialPantalla && <li className="flex gap-4"><span className="text-stone-400 w-16">PANTALLA:</span> {producto.materialPantalla.tipo} ({producto.materialPantalla.color})</li>}
-                      {producto.cable && <li className="flex gap-4"><span className="text-stone-400 w-16">CABLE:</span> {producto.cable.tipo} — {producto.cable.color}</li>}
+                      <li className="flex gap-4">
+                        <span className="text-stone-400 w-16">BASE:</span> {producto.materialBase}
+                      </li>
+                      {producto.materialPantalla?.tipo && (
+                        <li className="flex gap-4">
+                          <span className="text-stone-400 w-16">PANTALLA:</span> {producto.materialPantalla.tipo} ({producto.materialPantalla.color})
+                        </li>
+                      )}
+                      {producto.cable?.tipo && (
+                        <li className="flex gap-4">
+                          <span className="text-stone-400 w-16">CABLE:</span> {producto.cable.tipo} — {producto.cable.color}
+                        </li>
+                      )}
                     </ul>
                   </div>
-                  <div className="pt-4 border-t border-stone-200">
-                    <p className="text-[9px] uppercase text-stone-400 font-bold">Dimensiones</p>
-                    <ul className="space-y-1 font-mono text-xs text-stone-700">
-                      {producto.medidas.map(m => <li key={m} className="flex gap-4"><span className="text-stone-400 w-16">SIZE:</span> {m}</li>)}
-                    </ul>
-                  </div>
+                  
+                  {producto.medidas && producto.medidas.length > 0 && (
+                    <div className="pt-4 border-t border-stone-200">
+                      <p className="text-[9px] uppercase text-stone-400 font-bold">Dimensiones</p>
+                      <ul className="space-y-1 font-mono text-xs text-stone-700">
+                        {producto.medidas.map((m: string) => (
+                          <li key={m} className="flex gap-4">
+                            <span className="text-stone-400 w-16">SIZE:</span> {m}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Cuidados */}
-              <div className="rounded-3xl border border-stone-200 bg-white p-8">
-                <h2 className="text-sm font-serif italic text-stone-800 mb-4">Preservación</h2>
-                <ul className="space-y-3">
-                  {producto.cuidados.map(c => <li key={c} className="text-stone-500 text-sm flex gap-3"><span className="text-amber-800/40">•</span>{c}</li>)}
-                </ul>
-              </div>
+              {/* Cuidados Originales */}
+              {producto.cuidados && producto.cuidados.length > 0 && (
+                <div className="rounded-3xl border border-stone-200 bg-white p-8">
+                  <h2 className="text-sm font-serif italic text-stone-800 mb-4">Preservación</h2>
+                  <ul className="space-y-3">
+                    {producto.cuidados.map((c: string) => (
+                      <li key={c} className="text-stone-500 text-sm flex gap-3">
+                        <span className="text-amber-800/40">•</span>
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
-            <button onClick={handleAddToCart} className={`w-full md:w-auto rounded-full px-12 py-4 text-xs uppercase tracking-widest transition-all ${addedFeedback ? "bg-stone-100 text-stone-400" : "bg-stone-900 text-stone-50 hover:bg-stone-800"}`}>
-              {addedFeedback ? "Pieza Reservada" : "Adquirir Pieza Única"}
+            {/* Botón de compra original */}
+            <button 
+              onClick={handleAddToCart} 
+              disabled={producto.estado === 'vendido'}
+              className={`w-full md:w-auto rounded-full px-12 py-4 text-xs uppercase tracking-widest transition-all ${
+                producto.estado === 'vendido'
+                  ? "bg-stone-200 text-stone-400 cursor-not-allowed line-through"
+                  : addedFeedback 
+                    ? "bg-stone-100 text-stone-400" 
+                    : "bg-stone-900 text-stone-50 hover:bg-stone-800 cursor-pointer"
+              }`}
+            >
+              {producto.estado === 'vendido'
+                ? "Pieza Agotada"
+                : addedFeedback 
+                  ? "Pieza Reservada" 
+                  : "Adquirir Pieza Única"
+              }
             </button>
           </div>
         </div>
       </section>
 
-      {/* Modal Lupa */}
+      {/* Modal Lupa Avanzada */}
       {openImage && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-stone-950/80 backdrop-blur-sm" onClick={() => setOpenImage(null)} />
           <div className="relative z-[101] w-full max-w-5xl bg-stone-50 rounded-2xl overflow-hidden p-8 flex flex-col items-center">
-            <MagnifierImage src={openImage} alt="Zoom" />
-            <button onClick={() => setOpenImage(null)} className="mt-4 text-xs uppercase tracking-widest font-bold">Cerrar</button>
+            <MagnifierImage src={openImage} alt={producto.nombre} />
+            <button 
+              onClick={() => setOpenImage(null)} 
+              className="mt-4 text-xs uppercase tracking-widest font-bold text-stone-700 hover:text-stone-900 transition-colors"
+            >
+              Cerrar
+            </button>
           </div>
         </div>
       )}
