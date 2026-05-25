@@ -87,6 +87,9 @@ export function ProductDetailClient({ producto }: { producto: any }) {
   const [addedFeedback, setAddedFeedback] = useState(false);
   const feedbackTimeoutRef = useRef<number | null>(null);
 
+  // 📝 Configura aquí el teléfono del taller (con código de país, ej: 34600000000)
+  const TELEFONO_TALLER = "34600000000"; 
+
   function handleAddToCart() {
     const imagenUrl = producto.imagen ? urlFor(producto.imagen).url() : "";
 
@@ -128,7 +131,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
       <section className="max-w-6xl mx-auto px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           
-          {/* Galería (Mantiene el sticky original de tu diseño) */}
+          {/* Galería */}
           <div className="lg:sticky lg:top-24">
             <button 
               onClick={() => setOpenImage(selectedImage ? urlFor(selectedImage).url() : null)} 
@@ -171,7 +174,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
             )}
           </div>
 
-          {/* Info (Diseño Original Restaurado al 100%) */}
+          {/* Info */}
           <div className="space-y-10">
             <div>
               <h1 className="text-4xl md:text-5xl font-serif italic text-stone-900 mb-4">
@@ -186,7 +189,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
             </div>
 
             <div className="space-y-6">
-              {/* Ficha Técnica Original */}
+              {/* Ficha Técnica */}
               <div className="rounded-sm border-l-2 border-stone-800 bg-stone-100/50 p-6">
                 <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-6">
                   Composición Técnica
@@ -226,7 +229,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
                 </div>
               </div>
 
-              {/* Cuidados Originales */}
+              {/* Cuidados */}
               {producto.cuidados && producto.cuidados.length > 0 && (
                 <div className="rounded-3xl border border-stone-200 bg-white p-8">
                   <h2 className="text-sm font-serif italic text-stone-800 mb-4">Preservación</h2>
@@ -242,25 +245,69 @@ export function ProductDetailClient({ producto }: { producto: any }) {
               )}
             </div>
 
-            {/* Botón de compra original */}
-            <button 
-              onClick={handleAddToCart} 
-              disabled={producto.estado === 'vendido'}
-              className={`w-full md:w-auto rounded-full px-12 py-4 text-xs uppercase tracking-widest transition-all ${
-                producto.estado === 'vendido'
-                  ? "bg-stone-200 text-stone-400 cursor-not-allowed line-through"
-                  : addedFeedback 
-                    ? "bg-stone-100 text-stone-400" 
-                    : "bg-stone-900 text-stone-50 hover:bg-stone-800 cursor-pointer"
-              }`}
-            >
-              {producto.estado === 'vendido'
-                ? "Pieza Agotada"
-                : addedFeedback 
-                  ? "Pieza Reservada" 
-                  : "Adquirir Pieza Única"
-              }
-            </button>
+            {/* 🔥 Sección Comercial de Compra y Captación de Encargos Personalizados */}
+            <div className="pt-2 space-y-4">
+              
+              {/* Etiquetas de aviso */}
+              {producto.estado && producto.estado !== 'disponible' && (
+                <div className={`p-3 rounded-xl text-xs uppercase tracking-widest font-medium inline-block ${
+                  producto.estado === 'reservado' 
+                    ? 'bg-amber-50 text-amber-800 border border-amber-200/60' 
+                    : 'bg-red-50 text-red-800 border border-red-200/60'
+                }`}>
+                  {producto.estado === 'reservado' 
+                    ? '💡 Esta pieza única de colección está reservada temporalmente' 
+                    : '🔴 Esta pieza única ya ha sido adquirida'}
+                </div>
+              )}
+
+              {/* Botón condicional según estado en Sanity */}
+              {producto.estado === 'reservado' ? (
+                /* CASO RESERVADO: Envía un WhatsApp automático preguntando por encargar una similar */
+                <a
+                  href={`https://wa.me/${TELEFONO_TALLER}?text=¡Hola!%20He%20visto%20la%20lámpara%20"${encodeURIComponent(producto.nombre)}"%20en%20la%20web%20y%20veo%20que%20está%20reservada.%20¿Podríamos%20hablar%20para%20encargar%20una%20pieza%20similar%20en%20el%20taller?`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full md:w-auto inline-block text-center rounded-full bg-stone-900 text-stone-50 px-12 py-4 text-xs uppercase tracking-widest hover:bg-stone-800 transition-all font-medium shadow-sm"
+                >
+                  Encargar una pieza similar →
+                </a>
+              ) : producto.estado === 'vendido' ? (
+                /* CASO VENDIDO: Invita a pedir un proyecto a medida inspirado en el modelo agotado */
+                <a
+                  href={`https://wa.me/${TELEFONO_TALLER}?text=¡Hola!%20Me%20ha%20encantado%20la%20lámpara%20"${encodeURIComponent(producto.nombre)}"%20pero%20veo%20que%20ya%20está%20agotada.%20¿Es%20posible%20hacer%20un%20proyecto%20a%20medida%20inspirado%20en%20ella?`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full md:w-auto inline-block text-center rounded-full bg-stone-100 text-stone-800 border border-stone-300 px-12 py-4 text-xs uppercase tracking-widest hover:bg-stone-200 transition-all font-medium"
+                >
+                  Solicitar proyecto a medida
+                </a>
+              ) : (
+                /* CASO DISPONIBLE: Flujo de compra normal del e-commerce */
+                <button 
+                  type="button"
+                  onClick={handleAddToCart} 
+                  className={`w-full md:w-auto rounded-full px-12 py-4 text-xs uppercase tracking-widest transition-all ${
+                    addedFeedback 
+                      ? "bg-stone-100 text-stone-400" 
+                      : "bg-stone-900 text-stone-50 hover:bg-stone-800 cursor-pointer shadow-sm"
+                  }`}
+                >
+                  {addedFeedback ? "Pieza Añadida ✓" : "Adquirir Pieza Única"}
+                </button>
+              )}
+
+              {/* Bloque informativo de Lista de Espera (Solo visible si el producto está reservado) */}
+              {producto.estado === 'reservado' && (
+                <div className="mt-4 p-4 rounded-xl border border-stone-200/60 bg-stone-50/50 text-xs text-stone-600 space-y-2 max-w-md leading-relaxed">
+                  <p className="font-medium text-stone-800">¿Te interesa esta lámpara?</p>
+                  <p>
+                    Las reservas de piezas únicas suelen mantenerse activas durante un máximo de 48 horas a la espera del pago. Si deseas entrar en la <strong>lista de espera prioritaria</strong> por si vuelve a quedar libre, o si prefieres que busquemos una madera similar en el taller para ti, escríbenos directamente.
+                  </p>
+                </div>
+              )}
+            </div>
+
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/app/components/cart-provider";
-import { urlFor } from "@/sanity/lib/client"; // Importamos urlFor para procesar las imágenes de Sanity
+import { urlFor } from "@/sanity/lib/client"; 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -11,17 +11,16 @@ export function ProductGallery({ productos }: { productos: any[] }) {
   const feedbackTimeoutRef = useRef<number | null>(null);
 
   function handleAdd(producto: any) {
-    // Generamos la URL real optimizada de Sanity para que el carrito la entienda como texto plano
     const imagenUrl = producto.imagen ? urlFor(producto.imagen).url() : "";
 
     const productoMapeado = {
       ...producto,
-      id: producto._id,       // Mapeamos _id a id para la estructura interna de tu carrito
-      imagen: imagenUrl,      // Reemplazamos el objeto de Sanity por la URL de texto real
+      id: producto._id,       
+      imagen: imagenUrl,      
     };
 
     addItem(productoMapeado);
-    setAddedProductId(producto._id); // Usamos el ._id dinámico de Sanity
+    setAddedProductId(producto._id); 
 
     if (feedbackTimeoutRef.current) {
       window.clearTimeout(feedbackTimeoutRef.current);
@@ -47,10 +46,11 @@ export function ProductGallery({ productos }: { productos: any[] }) {
             href={`/coleccion/${producto.slug}`}
             className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50"
           >
+            {/* Contenedor relativo de la imagen */}
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-stone-100 ring-1 ring-stone-200/50 shadow-sm transition-all duration-500 group-hover:shadow-md group-hover:ring-stone-300/80">
               {producto.imagen ? (
                 <img
-                  src={urlFor(producto.imagen).url()} // Corregido: Renderiza la URL real desde la CDN de Sanity
+                  src={urlFor(producto.imagen).url()} 
                   alt={producto.nombre}
                   className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   loading="lazy"
@@ -61,9 +61,13 @@ export function ProductGallery({ productos }: { productos: any[] }) {
                 </div>
               )}
               
-              {/* Etiqueta de estado si la pieza no está disponible */}
+              {/* ✨ ETIQUETA FLOTANTE DE ESTADO (Muestra Reservada o Vendida sobre la foto) */}
               {producto.estado && producto.estado !== "disponible" && (
-                <div className="absolute top-4 right-4 bg-stone-900/95 backdrop-blur-sm text-[10px] text-stone-100 uppercase tracking-widest px-3 py-1.5 rounded-full font-medium shadow-sm">
+                <div className={`absolute top-4 right-4 backdrop-blur-md text-[10px] text-white uppercase tracking-widest px-3 py-1.5 rounded-full font-medium shadow-sm z-10 transition-all ${
+                  producto.estado === "reservado"
+                    ? "bg-amber-800/90 border border-amber-600/30"
+                    : "bg-stone-900/95 border border-stone-700/30"
+                }`}>
                   {producto.estado === "reservado" ? "Reservada" : "Vendida"}
                 </div>
               )}
@@ -89,25 +93,27 @@ export function ProductGallery({ productos }: { productos: any[] }) {
                 
                 <button
                   type="button"
-                  disabled={producto.estado === "vendido"}
+                  disabled={producto.estado === "vendido" || producto.estado === "reservado"}
                   onClick={() => handleAdd(producto)}
                   className={`transition-all duration-300 font-medium ${
-                    producto.estado === "vendido"
+                    producto.estado === "vendido" || producto.estado === "reservado"
                       ? "text-stone-400 cursor-not-allowed line-through"
                       : "cursor-pointer"
                   } ${
                     addedProductId === producto._id
                       ? "text-stone-900 underline decoration-stone-800 underline-offset-4 bg-stone-200/70 px-2 py-1 rounded-md shadow-sm"
-                      : producto.estado !== "vendido"
+                      : producto.estado !== "vendido" && producto.estado !== "reservado"
                         ? "text-stone-800 underline decoration-stone-400 underline-offset-4 hover:decoration-stone-900 hover:text-stone-900"
                         : ""
                   }`}
                 >
                   {producto.estado === "vendido"
                     ? "Agotado"
-                    : addedProductId === producto._id
-                      ? "Añadido al carrito"
-                      : "Añadir al carrito"}
+                    : producto.estado === "reservado"
+                      ? "Reservado"
+                      : addedProductId === producto._id
+                        ? "Añadido al carrito"
+                        : "Añadir al carrito"}
                 </button>
               </div>
             </div>
