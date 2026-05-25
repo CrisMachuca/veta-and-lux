@@ -171,7 +171,7 @@ export async function POST(request: Request) {
         const productIds = productIdsString.split(",");
 
         // Generamos y disparamos las promesas de parcheo en lote hacia Sanity
-        const promesasSanity = productIds.map((id) =>
+        const promesasSanity = productIds.map((id: string) =>
           writeClient
             .patch(String(id).trim())
             .set({ estado: "vendido" })
