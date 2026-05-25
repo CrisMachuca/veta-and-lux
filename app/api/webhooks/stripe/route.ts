@@ -48,7 +48,8 @@ export async function POST(request: Request) {
 
   // Escuchamos únicamente cuando el pago con tarjeta ha sido un éxito rotundo
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+    // 🌟 CORRECCIÓN: Usamos 'as any' para evitar que TypeScript bloquee las propiedades de envío
+    const session = event.data.object as any;
 
     console.log(`💰 [WEBHOOK] Procesando sesión completada con éxito: ${session.id}`);
 
