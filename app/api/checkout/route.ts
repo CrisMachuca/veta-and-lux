@@ -55,10 +55,17 @@ export async function POST(request: Request) {
         };
       });
 
+      // Creamos la sesión de Stripe inyectando los IDs de Sanity en los metadatos
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
+        
+        // 🌟 CLAVE: Enviamos los IDs de los productos para que el Webhook pueda leerlos al pagar
+        metadata: {
+          productIds: lines.map((line: CartLine) => line.productId).join(","),
+        },
+
         success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success?method=stripe`,
         cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/carrito`,
         shipping_address_collection: {
@@ -87,7 +94,7 @@ export async function POST(request: Request) {
       // Calculamos el precio total acumulado del pedido
       const totalPedido = lines.reduce((acc, line) => acc + (line.precioUnit * line.quantity), 0);
 
-      // 🌟 TAREA 1: Bloquear las piezas en Sanity mutando el estado a "reservado"
+      // 🌟 TAREA 1: Bloquear las piezas en Sanity mutando el estado a "reservado" de inmediato
       const promesasSanity = lines.map((line: CartLine) =>
         writeClient
           .patch(line.productId)
@@ -133,7 +140,7 @@ export async function POST(request: Request) {
         `,
       });
 
-      // ✉️ TAREA 3: Correo para el CLIENTE (Estética artesanal de certificado/factura con tu IBAN)
+      // ✉️ TAREA 3: Correo de instrucciones con tu IBAN para el CLIENTE
       await transporter.sendMail({
         from: `"Veta & Lux" <info@vetandlux.com>`, 
         to: emailCliente, 
