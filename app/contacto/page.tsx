@@ -32,7 +32,9 @@ export default function ContactoPage() {
 
       <section className="max-w-5xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6">
+            
+            {/* Taller */}
             <div className="rounded-2xl border border-stone-200/80 bg-stone-100/50 p-6 ring-1 ring-stone-100">
               <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
                 Taller
@@ -43,20 +45,42 @@ export default function ContactoPage() {
                 disponibles.
               </p>
             </div>
+
+            {/* Email */}
             <div className="rounded-2xl border border-stone-200/80 bg-stone-100/50 p-6 ring-1 ring-stone-100">
               <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
                 Email
               </h2>
               <a
-                href="mailto:info@vetaylux.com"
+                href="mailto:info@vetandlux.com"
                 className="text-stone-900 text-lg border-b border-stone-400 hover:border-stone-900 transition-colors"
               >
-                info@vetaylux.com
+                info@vetandlux.com
               </a>
               <p className="text-stone-600 text-sm mt-3 leading-relaxed">
                 Pedidos, encargos personalizados y consultas generales.
               </p>
             </div>
+
+            {/* 🟢 NUEVO: WhatsApp Directo */}
+            <div className="rounded-2xl border border-stone-200/80 bg-stone-100/50 p-6 ring-1 ring-stone-100">
+              <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
+                WhatsApp
+              </h2>
+              <a
+                href="https://wa.me/34600000000" // 👈 Pon tu número aquí (SIn espacios ni símbolos)
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-stone-900 text-lg border-b border-stone-400 hover:border-stone-900 transition-colors inline-flex items-center gap-2"
+              >
+                +34 660 80 06 31
+              </a>
+              <p className="text-stone-600 text-sm mt-3 leading-relaxed">
+                Atención rápida para dudas inmediatas o consultas de stock en vivo.
+              </p>
+            </div>
+
+            {/* Horario */}
             <div className="rounded-2xl border border-stone-200/80 bg-white/60 p-6 ring-1 ring-stone-100">
               <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
                 Horario
@@ -69,6 +93,7 @@ export default function ContactoPage() {
               </p>
             </div>
           </div>
+
           <div className="lg:col-span-3">
             <h2 className="sr-only">Formulario de contacto</h2>
             <ContactForm />

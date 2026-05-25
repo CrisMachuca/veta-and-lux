@@ -88,7 +88,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
   const feedbackTimeoutRef = useRef<number | null>(null);
 
   // 📝 Configura aquí el teléfono del taller (con código de país, ej: 34600000000)
-  const TELEFONO_TALLER = "34600000000"; 
+  const TELEFONO_TALLER = "34660800631"; 
 
   function handleAddToCart() {
     const imagenUrl = producto.imagen ? urlFor(producto.imagen).url() : "";

@@ -99,7 +99,7 @@ export function SiteFooter() {
               href="mailto:info@vetaylux.com"
               className="hover:text-stone-200 transition-colors"
             >
-              info@vetaylux.com
+              info@vetandlux.com
             </a>
           </p>
           <div className="flex gap-4 mt-6">
