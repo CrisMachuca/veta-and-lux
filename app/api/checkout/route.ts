@@ -97,7 +97,7 @@ export async function POST(request: Request) {
       // 🌟 TAREA 1: Bloquear las piezas en Sanity mutando el estado a "reservado" de inmediato
       const promesasSanity = lines.map((line: CartLine) =>
         writeClient
-          .patch(line.productId)
+          .patch(String(line.productId))
           .set({ estado: "reservado" })
           .commit()
       );
