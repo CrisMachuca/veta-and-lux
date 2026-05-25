@@ -32,7 +32,7 @@ function SuccessContent() {
       </div>
 
       <div className="space-y-4">
-        <h1 className="text-3xl md:text-4xl font-serif italic text-stone-900">
+        <h1 className="text-3xl md:text-4xl font-serif italic text-amber-100/90 ">
           {metodo === "transferencia" ? "Pedido Reservado" : "Gracias por tu pedido"}
         </h1>
         

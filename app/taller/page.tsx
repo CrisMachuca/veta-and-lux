@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { SiteNav } from "../components/site-nav";
+import { SiteFooter } from "../components/site-footer";
 
 export default function TallerPage() {
   return (
     <main className="min-h-screen bg-stone-50 text-stone-800">
+    <SiteNav />
       <section className="max-w-5xl mx-auto px-6 pt-16 md:pt-20 pb-12">
         <div className="mb-10">
           <Link
@@ -137,6 +140,7 @@ export default function TallerPage() {
           </div>
         </div>
       </section>
+      <SiteFooter />
     </main>
   );
 }
