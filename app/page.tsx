@@ -1,6 +1,6 @@
 // 🌟 OBLIGATORIO: Forzamos a Next.js a tratar la Home como dinámica en producción.
 // Esto evita que Hostinger cachee el estado anterior ("disponible") de las lámparas.
-export const revalidate = 10; // La página se mantiene ultra rápida y se actualiza sola cada 10 segundos
+export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { ProductGallery } from "./components/product-gallery";
