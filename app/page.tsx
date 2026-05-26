@@ -58,7 +58,7 @@ export default async function Page() {
           </span>
 
           <h1 className="text-5xl md:text-7xl font-light text-stone-900 mb-6 tracking-tight">
-            Veta <span className="font-serif italic">&</span> Lux
+            Veta<span className="font-serif italic">&</span>Lux
           </h1>
 
           <p className="max-w-xl text-lg text-stone-600 leading-relaxed mb-10">
