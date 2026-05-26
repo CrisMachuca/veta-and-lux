@@ -95,8 +95,8 @@ export function ProductDetailClient({ producto }: { producto: any }) {
 
     const productoMapeado = {
       ...producto,
-      id: producto._id,       // Mapeamos _id a id para que mantenga coherencia con el carrito
-      imagen: imagenUrl,      // URL de texto plano optimizada desde Sanity
+      id: producto._id || producto.id, // Soportamos ambos casos de mapeo dinámico
+      imagen: imagenUrl,               // URL de texto plano optimizada desde Sanity
     };
     
     addItem(productoMapeado);

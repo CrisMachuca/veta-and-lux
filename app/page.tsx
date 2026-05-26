@@ -1,10 +1,14 @@
+// 🌟 OBLIGATORIO: Forzamos a Next.js a tratar la Home como dinámica en producción.
+// Esto evita que Hostinger cachee el estado anterior ("disponible") de las lámparas.
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { ProductGallery } from "./components/product-gallery";
 import { SiteFooter } from "./components/site-footer";
 import { SiteNav } from "./components/site-nav";
 import { client } from "@/sanity/lib/client";
 
-// 1. Modificamos la consulta para filtrar por productos donde 'destacado == true'
+// Modificamos la consulta para filtrar por productos donde 'destacado == true'
 async function getProductosDestacados() {
   const query = `*[_type == "producto" && destacado == true] | order(_createdAt desc) {
     _id,
@@ -23,16 +27,23 @@ async function getProductosDestacados() {
     estado
   }`;
 
-  return await client.fetch(query);
+  // 🌟 CLAVE: Forzamos a que no almacene datos en el fetch ("no-store") 
+  // para obtener el estado "reservado" o "vendido" al segundo desde Sanity.
+  return await client.fetch(
+    query, 
+    {}, 
+    { cache: "no-store", next: { revalidate: 0 } }
+  );
 }
 
 export default async function Page() {
-  // 3. Traemos las lámparas destacadas en tiempo real
+  // Traemos las lámparas destacadas en tiempo real sin caché
   const productosSanity = await getProductosDestacados();
 
   return (
     <main className="min-h-screen bg-stone-50">
       <SiteNav />
+      
       {/* CODIGO HERO */}
       <section className="relative flex flex-col items-center justify-center py-20 px-6 text-center overflow-hidden rounded-2xl mx-4 md:mx-8 mt-6">
         <img
@@ -52,7 +63,7 @@ export default async function Page() {
 
           <p className="max-w-xl text-lg text-stone-600 leading-relaxed mb-10">
             Iluminación con alma. Rescatamos la belleza oculta en maderas
-            antiguas para crear piezas únicas que cuentan una historia en cada
+            antiguas para crear piezas uniques que cuentan una historia en cada
             destello.
           </p>
 
@@ -60,7 +71,7 @@ export default async function Page() {
             href="/coleccion"
             className="inline-block bg-stone-900 text-stone-50 px-8 py-3 rounded-full hover:bg-stone-800 transition-colors duration-300"
           >
-            Explorar Colección
+            Explore Colección
           </Link>
         </div>
       </section>
@@ -71,7 +82,7 @@ export default async function Page() {
           Piezas Destacadas
         </h2>
 
-        {/* 4. Muestra exclusivamente las piezas seleccionadas en Sanity */}
+        {/* Muestra exclusivamente las piezas seleccionadas en Sanity (con estados en tiempo real) */}
         <ProductGallery productos={productosSanity} />
       </section>
 
@@ -111,6 +122,7 @@ export default async function Page() {
           </div>
         </div>
       </section>
+      
       <SiteFooter />
     </main>
   );
