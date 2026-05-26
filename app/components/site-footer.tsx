@@ -65,19 +65,19 @@ export function SiteFooter() {
           </h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <a href="#" className="hover:text-stone-50 transition-colors">
+              <Link href="/envios-devoluciones" className="hover:text-stone-50 transition-colors">
                 Envíos y Devoluciones
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-stone-50 transition-colors">
+              <Link href="/aviso-legal" className="hover:text-stone-50 transition-colors">
                 Aviso Legal
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-stone-50 transition-colors">
+              <Link href="/politica-cookies" className="hover:text-stone-50 transition-colors">
                 Política de Cookies
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
