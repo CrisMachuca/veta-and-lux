@@ -1,5 +1,5 @@
 // 🌟 OBLIGATORIO: Forzamos a Next.js a tratar el detalle del producto como dinámico.
-// Esto invalida cualquier caché estática generada por generateStaticParams al entrar en la web.
+// Esto evita que el botón de compra o el estado de la lámpara se queden congelados en la caché.
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { SiteNav } from "@/app/components/site-nav";
 import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
 import { ProductoSanity } from "@/app/lib/productos";
 
-// Modificamos generateStaticParams para que Next.js sepa qué rutas existen inicialmente
+// Modificamos generateStaticParams para que Next.js conozca las rutas base inicialmente
 export async function generateStaticParams() {
   const query = `*[_type == "producto"] { "slug": slug.current }`;
   const productos = await client.fetch(query);
@@ -36,7 +36,7 @@ async function getProductoSanityBySlug(slug: string): Promise<ProductoSanity | n
     estado
   }`;
 
-  // 🌟 CLAVE: Forzamos de forma explícita a que no use la caché ("no-store")
+  // Forzamos de forma explícita a que no use la caché ("no-store")
   // para obtener el campo 'estado' en vivo cada vez que un cliente abre la ficha.
   return await client.fetch(
     query, 
@@ -45,12 +45,15 @@ async function getProductoSanityBySlug(slug: string): Promise<ProductoSanity | n
   );
 }
 
-export default async function ProductoPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+// El tipado acepta tanto Promesas como objetos directos para asegurar máxima compatibilidad con motores JS antiguos
+interface PageProps {
+  params: Promise<{ slug: string }> | { slug: string };
+}
+
+export default async function ProductoPage(props: PageProps) {
+  // 🌟 SOLUCIÓN PANTALLA EN BLANCO: Resolvemos params de forma segura y tolerante a fallos
+  const resolvedParams = await props.params;
+  const { slug } = resolvedParams;
   
   // Traemos la información en tiempo real desde Sanity sin intermediarios de caché
   const producto = await getProductoSanityBySlug(slug);
