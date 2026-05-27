@@ -4,6 +4,7 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteNav } from "@/app/components/site-nav";
 import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
 
+export const dynamic = "force-dynamic";
 // 1. Consulta GROQ para traernos la colección completa en vivo con revalidación de caché
 async function getColeccionCompleta() {
   const query = `*[_type == "producto"] | order(_createdAt desc) {
