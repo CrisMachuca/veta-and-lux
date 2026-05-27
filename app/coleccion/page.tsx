@@ -4,7 +4,7 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteNav } from "@/app/components/site-nav";
 import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
 
-// 1. Consulta GROQ para traernos la colección completa en vivo
+// 1. Consulta GROQ para traernos la colección completa en vivo con revalidación de caché
 async function getColeccionCompleta() {
   const query = `*[_type == "producto"] | order(_createdAt desc) {
     _id,
@@ -23,10 +23,11 @@ async function getColeccionCompleta() {
     estado
   }`;
 
-  return await client.fetch(query);
+  // Corregido: Pasamos las opciones de Next.js para romper la caché estática cada 10 segundos
+  return await client.fetch(query, {}, { next: { revalidate: 10 } });
 }
 
-// 2. Transformamos la función en asíncrona (async)
+// 2. Función del Server Component asíncrona
 export default async function ColeccionPage() {
   // 3. Obtenemos los datos reales de la base de datos de Sanity
   const productosSanity = await getColeccionCompleta();
