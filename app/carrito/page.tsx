@@ -16,8 +16,7 @@ export default function CarritoPage() {
           Carrito
         </h1>
         <p className="text-stone-600 leading-relaxed">
-          Revisa las piezas y cantidades. Para formalizar el pedido, escríbenos
-          desde contacto con el detalle de tu carrito.
+          Revisa las piezas y selleciona el método de pago elegido, si tienes cualquier duda sobre tu pedido contacta con nosotros directamente desde la sección de contacto.
         </p>
         <p className="mt-6 text-sm text-stone-500">
           <Link

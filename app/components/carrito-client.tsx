@@ -6,11 +6,11 @@ import { useCart } from "@/app/components/cart-provider";
 import { formatEUR } from "@/app/lib/precio";
 
 export function CarritoClient() {
-  const { lines, subtotal, setLineQuantity, removeLine, clearCart } = useCart();
+  const { lines, subtotal, removeLine, clearCart } = useCart(); // Removido setLineQuantity que ya no se usa
   const [cargando, setCargando] = useState(false);
   const [metodoPago, setMetodoPago] = useState<"stripe" | "transferencia">("stripe");
 
-  // NUEVO: Estados para los datos del cliente (solo obligatorios en transferencia)
+  // Estados para los datos del cliente (solo obligatorios en transferencia)
   const [email, setEmail] = useState("");
   const [nombre, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -86,43 +86,22 @@ export function CarritoClient() {
             <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div>
                 <h2 className="text-lg font-medium text-stone-900">{line.nombre}</h2>
-                <p className="text-stone-500 text-sm mt-1">{line.precioLabel} / unidad</p>
+                {/* Modificado: Quitamos el "por unidad" y reflejamos la naturaleza de la pieza */}
+                <p className="text-stone-400 text-xs uppercase tracking-wider mt-1">Pieza única exclusiva</p>
               </div>
-              <div className="flex flex-col items-stretch sm:items-end gap-3">
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    disabled={cargando}
-                    onClick={() => setLineQuantity(line.productId, line.quantity - 1)}
-                    className="h-10 w-10 rounded-lg border border-stone-200 text-stone-700 hover:bg-stone-100 text-lg leading-none disabled:opacity-50"
-                  >
-                    −
-                  </button>
-                  <input
-                    type="number"
-                    min={1}
-                    disabled={cargando}
-                    value={line.quantity}
-                    onChange={(e) => setLineQuantity(line.productId, parseInt(e.target.value, 10) || 1)}
-                    className="w-14 text-center rounded-lg border border-stone-200 py-2 text-stone-900 tabular-nums disabled:opacity-50"
-                  />
-                  <button
-                    type="button"
-                    disabled={cargando}
-                    onClick={() => setLineQuantity(line.productId, line.quantity + 1)}
-                    className="h-10 w-10 rounded-lg border border-stone-200 text-stone-700 hover:bg-stone-100 text-lg leading-none disabled:opacity-50"
-                  >
-                    +
-                  </button>
+              <div className="flex flex-col items-stretch sm:items-end gap-2.5">
+                {/* Modificado: Reemplazados los botones selectores por una etiqueta de texto elegante */}
+                <div className="text-sm text-stone-500 bg-stone-50 border border-stone-200/60 px-3 py-1 rounded-md self-start sm:self-end tabular-nums">
+                  Cantidad: 1
                 </div>
-                <p className="text-stone-900 font-medium tabular-nums">
-                  {formatEUR(line.precioUnit * line.quantity)}
+                <p className="text-stone-900 font-medium tabular-nums text-lg">
+                  {formatEUR(line.precioUnit)}
                 </p>
                 <button
                   type="button"
                   disabled={cargando}
                   onClick={() => removeLine(line.productId)}
-                  className="text-sm text-stone-500 hover:text-stone-900 underline decoration-stone-300 underline-offset-2 self-start sm:self-end disabled:opacity-50"
+                  className="text-sm text-stone-400 hover:text-stone-900 underline decoration-stone-200 hover:decoration-stone-400 transition-colors underline-offset-4 self-start sm:self-end disabled:opacity-50"
                 >
                   Quitar
                 </button>
@@ -175,7 +154,7 @@ export function CarritoClient() {
         </div>
       </div>
 
-      {/* NUEVO: Formulario de datos de envío Desplegable (Solo si elige transferencia) */}
+      {/* Formulario de datos de envío Desplegable (Solo si elige transferencia) */}
       {metodoPago === "transferencia" && (
         <div className="rounded-2xl border border-stone-200 bg-white p-6 md:p-8 space-y-4 animate-fadeIn">
           <h3 className="text-sm uppercase tracking-widest text-stone-500 font-medium mb-2">
@@ -197,7 +176,7 @@ export function CarritoClient() {
               <label htmlFor="emailClient" className="text-xs text-stone-500 block">Correo Electrónico</label>
               <input
                 id="emailClient"
-                type="email"
+                type="type"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="cristina@ejemplo.com"
