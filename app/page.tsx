@@ -1,5 +1,4 @@
 // 🌟 OBLIGATORIO: Forzamos a Next.js a tratar la Home como dinámica en producción.
-// Esto evita que Hostinger cachee el estado anterior ("disponible") de las lámparas.
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
@@ -8,7 +7,6 @@ import { SiteFooter } from "./components/site-footer";
 import { SiteNav } from "./components/site-nav";
 import { client } from "@/sanity/lib/client";
 
-// Modificamos la consulta para filtrar por productos donde 'destacado == true'
 async function getProductosDestacados() {
   const query = `*[_type == "producto" && destacado == true] | order(_createdAt desc) {
     _id,
@@ -27,8 +25,6 @@ async function getProductosDestacados() {
     estado
   }`;
 
-  // 🌟 CLAVE: Forzamos a que no almacene datos en el fetch ("no-store") 
-  // para obtener el estado "reservado" o "vendido" al segundo desde Sanity.
   return await client.fetch(
     query, 
     {}, 
@@ -37,61 +33,82 @@ async function getProductosDestacados() {
 }
 
 export default async function Page() {
-  // Traemos las lámparas destacadas en tiempo real sin caché
   const productosSanity = await getProductosDestacados();
 
   return (
     <main className="min-h-screen bg-stone-50 antialiased text-stone-800">
       <SiteNav />
       
-      {/* SECCIÓN HERO */}
-      <section className="relative flex flex-col items-center justify-center py-20 px-6 text-center overflow-hidden rounded-2xl mx-4 md:mx-8 mt-6">
+      {/* SECCIÓN HERO (Enfoque Galería de Lujo) */}
+      <section className="relative flex flex-col items-center justify-center py-24 px-6 text-center overflow-hidden rounded-2xl mx-4 md:mx-8 mt-6">
         <img
           src="/detalle.png"
-          alt="Fondo de madera artesanal"
+          alt="Textura de madera recuperada premium"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-stone-950/30"></div>
-        <div className="relative z-10 bg-stone-50/80 backdrop-blur-sm border border-stone-200/70 rounded-xl px-8 py-10 md:px-12 md:py-12 shadow-lg">
-          <span className="text-sm uppercase tracking-widest text-stone-500 mb-4 block">
-            Hecho a mano · Madera recuperada
+        <div className="absolute inset-0 bg-stone-950/25"></div>
+        <div className="relative z-10 bg-stone-50/85 backdrop-blur-md border border-stone-200/60 rounded-xl px-8 py-12 md:px-16 md:py-16 shadow-xl max-w-2xl">
+          <span className="text-xs uppercase tracking-[0.25em] text-stone-500 mb-5 block font-medium">
+            Esculturas de Luz · Ediciones Únicas
           </span>
 
           <h1 className="text-5xl md:text-7xl font-light text-stone-900 mb-6 tracking-tight">
             Veta<span className="font-serif italic">&</span>Lux
           </h1>
 
-          <p className="max-w-xl text-lg text-stone-600 leading-relaxed mb-10">
-            Iluminación con alma. Rescatamos la belleza oculta en maderas
-            antiguas para crear piezas únicas que cuentan una historia en cada
-            destello.
+          <p className="text-stone-600 font-light leading-relaxed text-base md:text-lg mb-10">
+            Piezas de alta iluminación esculpidas a partir de maderas antiguas recuperadas. 
+            Arte atemporal y alma orgánica preservados en piezas numeradas de diseño exclusivo.
           </p>
 
           <Link
             href="/coleccion"
-            className="inline-block bg-stone-900 text-stone-50 px-8 py-3 rounded-full hover:bg-stone-800 transition-colors duration-300 text-sm tracking-wider"
+            className="inline-block bg-stone-900 text-stone-50 px-10 py-3.5 rounded-full hover:bg-stone-800 transition-all duration-300 text-xs uppercase tracking-widest font-medium shadow-md hover:shadow-lg"
           >
-            Explorar Colección
+            Adquirir Pieza Única
           </Link>
         </div>
       </section>
       
       {/* SECCIÓN PIEZAS DESTACADAS */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-2xl font-light text-stone-800 mb-12 text-center uppercase tracking-widest">
-          Piezas Destacadas
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="text-xs font-medium text-stone-400 mb-12 text-center uppercase tracking-[0.3em]">
+          Obras Disponibles en Taller
         </h2>
 
-        {/* Muestra exclusivamente las piezas seleccionadas en Sanity */}
         <ProductGallery productos={productosSanity} />
       </section>
 
-      {/* 🌟 NUEVA SECCIÓN: ADELANTO EDITORIAL DEL PROCESO ARTESANAL */}
-      <section className="max-w-5xl mx-auto px-6 py-24 border-t border-stone-200">
+      {/* 🌟 NUEVA SECCIÓN: GARANTÍA Y VALORES LUXURY */}
+      <section className="bg-stone-100/60 border-t border-b border-stone-200/80 py-16 px-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+          <div className="space-y-2">
+            <h4 className="font-serif text-sm italic text-stone-900 font-medium">01 / Autenticidad Certificada</h4>
+            <p className="text-stone-600 text-xs font-light leading-relaxed">
+              Cada obra se entrega firmada por el autor y acompañada de un certificado físico que detalla la procedencia histórica, especie y coordenadas de hallazgo de la madera.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-serif text-sm italic text-stone-900 font-medium">02 / Embalaje de Alta Custodia</h4>
+            <p className="text-stone-600 text-xs font-light leading-relaxed">
+              Diseñamos y fabricamos de manera artesanal cajas de alta protección a medida para cada lámpara, garantizando una preservación absoluta durante el trayecto.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-serif text-sm italic text-stone-900 font-medium">03 / Logística Premium de Cortesía</h4>
+            <p className="text-stone-600 text-xs font-light leading-relaxed">
+              El valor de la obra incluye un seguro a todo riesgo y envío especializado sin coste adicional para la Península, gestionado por transportistas de obras de arte.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECCIÓN: ADELANTO EDITORIAL DEL PROCESO ARTESANAL */}
+      <section className="max-w-5xl mx-auto px-6 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           
           {/* Bloque Imagen Izquierda */}
-          <div className="relative aspect-[4/5] md:aspect-square bg-stone-100 overflow-hidden rounded-sm ring-1 ring-stone-200/60 shadow-sm flex items-center justify-center text-stone-400 text-xs tracking-widest uppercase font-mono">
+          <div className="relative aspect-[4/5] md:aspect-square bg-stone-100 overflow-hidden rounded-sm ring-1 ring-stone-200/60 shadow-sm flex items-center justify-center">
             <img
               src="/detalle.png"
               alt="Madera recuperada y herramientas en el banco de trabajo"
@@ -100,7 +117,7 @@ export default async function Page() {
             <div className="absolute inset-0 border-[12px] border-stone-50/20 m-4 rounded-sm"></div>
           </div>
 
-          {/* Bloque Texto Derecha (El Adelanto de la historia) */}
+          {/* Bloque Texto Derecha */}
           <div className="space-y-6">
             <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">
               El Manifiesto del Taller
@@ -116,10 +133,10 @@ export default async function Page() {
             </p>
             
             <p className="text-stone-600 font-light leading-relaxed text-sm md:text-base">
-              Cada tronco o raíz inicia un letargo de meses en nuestro banco de trabajo para estabilizar su fibra. Solo entonces, mediante un saneado manual humilde y una electrónica de alta custodia con acabados de latón y lino, liberamos la luz que reside en su veta.
+              Cada tronco o raíz inicia un letargo de meses en nuestro banco de trabajo para asegurar su estabilidad natural. Solo entonces, mediante un saneado manual y componentes de alta custodia en latón macizo y lino puro, liberamos la luz latente en su veta.
             </p>
             
-            {/* Pequeño índice visual de las fases para picar la curiosidad */}
+            {/* Pequeño índice visual de las fases */}
             <div className="grid grid-cols-3 gap-2 py-4 border-t border-b border-stone-200 font-mono text-[10px] text-stone-400 uppercase tracking-wider">
               <div>01. El Hallazgo</div>
               <div>02. El Letargo</div>
@@ -135,7 +152,26 @@ export default async function Page() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
 
+      {/* 🌟 NUEVA SECCIÓN: CONSULTAS PRIVADAS / ENCARGOS */}
+      <section className="bg-stone-900 text-stone-100 py-20 px-6 text-center">
+        <div className="max-w-2xl mx-auto space-y-6">
+          <h3 className="text-2xl md:text-3xl font-serif font-light text-stone-50">
+            ¿Busca un proyecto a medida o asesoramiento técnico?
+          </h3>
+          <p className="text-stone-400 font-light text-sm md:text-base leading-relaxed">
+            Trabajamos mano a mano con interioristas, arquitectos y coleccionistas privados para concebir piezas exclusivas adaptadas a espacios singulares.
+          </p>
+          <div className="pt-4">
+            <Link
+              href="/contacto"
+              className="inline-block bg-stone-50 text-stone-950 px-8 py-3 rounded-full hover:bg-stone-200 transition-all text-xs uppercase tracking-widest font-medium"
+            >
+              Contactar con el Atelier
+            </Link>
+          </div>
         </div>
       </section>
       
