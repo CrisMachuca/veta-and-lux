@@ -15,8 +15,9 @@ export default function CarritoPage() {
         <h1 className="text-4xl md:text-5xl font-light text-stone-900 tracking-tight mb-6">
           Carrito
         </h1>
+        {/* MODIFICADO: Añadido el texto de envío de cortesía y embalaje premium integrado en el precio */}
         <p className="text-stone-600 leading-relaxed">
-          Revisa las piezas y selleciona el método de pago elegido, si tienes cualquier duda sobre tu pedido contacta con nosotros directamente desde la sección de contacto.
+        Revisa tus piezas, introduce tus datos de destino y selecciona el método de pago. El valor de cada obra incluye un embalaje artesanal de alta protección a medida. Ofrecemos envío asegurado de cortesía a toda la Península y tarifas optimizadas con cobertura total para Islas y Europa. Si tienes cualquier duda, contacta con nosotros directamente.
         </p>
         <p className="mt-6 text-sm text-stone-500">
           <Link
