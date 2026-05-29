@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ContactForm } from "@/app/components/contact-form";
-import { SiteFooter } from "@/app/components/site-footer";
-import { SiteNav } from "@/app/components/site-nav";
+import { ContactForm } from "@/app/[locale]/components/contact-form";
+import { SiteFooter } from "@/app/[locale]/components/site-footer";
+import { SiteNav } from "@/app/[locale]/components/site-nav";
 
 export default function ContactoPage() {
   return (

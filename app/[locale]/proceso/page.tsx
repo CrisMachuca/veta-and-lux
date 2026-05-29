@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { SiteNav } from "@/app/components/site-nav";
-import { SiteFooter } from "@/app/components/site-footer";
+import { SiteNav } from "@/app/[locale]/components/site-nav";
+import { SiteFooter } from "@/app/[locale]/components/site-footer";
 
 export default function ElProcesoPage() {
   return (

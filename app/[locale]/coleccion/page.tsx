@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ProductGallery } from "@/app/components/product-gallery";
-import { SiteFooter } from "@/app/components/site-footer";
-import { SiteNav } from "@/app/components/site-nav";
+import { ProductGallery } from "@/app/[locale]/components/product-gallery";
+import { SiteFooter } from "@/app/[locale]/components/site-footer";
+import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
 
 export const dynamic = "force-dynamic";

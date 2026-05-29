@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/app/components/cart-provider";
+import { useCart } from "@/app/[locale]/components/cart-provider";
 import { urlFor } from "@/sanity/lib/client"; 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";

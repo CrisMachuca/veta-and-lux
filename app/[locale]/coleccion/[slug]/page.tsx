@@ -4,9 +4,9 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ProductDetailClient } from "@/app/components/product-detail-client";
-import { SiteFooter } from "@/app/components/site-footer";
-import { SiteNav } from "@/app/components/site-nav";
+import { ProductDetailClient } from "@/app/[locale]/components/product-detail-client";
+import { SiteFooter } from "@/app/[locale]/components/site-footer";
+import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
 import { ProductoSanity } from "@/app/lib/productos";
 

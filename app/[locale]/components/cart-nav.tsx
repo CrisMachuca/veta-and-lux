@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCart } from "@/app/components/cart-provider";
+import { useCart } from "@/app/[locale]/components/cart-provider";
 import { useEffect, useRef, useState } from "react";
 
 export function CartNav() {

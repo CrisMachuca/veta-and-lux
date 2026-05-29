@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { CarritoClient } from "@/app/components/carrito-client";
-import { SiteFooter } from "@/app/components/site-footer";
-import { SiteNav } from "@/app/components/site-nav";
+import { CarritoClient } from "@/app/[locale]/components/carrito-client";
+import { SiteFooter } from "@/app/[locale]/components/site-footer";
+import { SiteNav } from "@/app/[locale]/components/site-nav";
 
 export default function CarritoPage() {
   return (

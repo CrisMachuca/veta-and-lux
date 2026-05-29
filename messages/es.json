@@ -1,0 +1,22 @@
+{
+    "Hero": {
+      "subtitle": "Esculturas de Luz · Ediciones Únicas",
+      "title1": "Veta",
+      "title2": "Lux",
+      "description1": "Piezas de alta iluminación esculpidas a partir de maderas antiguas recuperadas.",
+      "description2": "Arte atemporal y alma orgánica preservados en piezas numeradas.",
+      "cta": "Adquirir Pieza Única"
+    },
+    "Gallery": {
+      "title": "Obras Disponibles en Taller",
+      "cta": "Ver Colección Completa"
+    },
+    "Values": {
+      "v1_title": "01 / Certificado de Autenticidad",
+      "v1_desc": "Cada obra se entrega firmada por el autor con un documento físico que certifica su número de serie único y su especie botánica.",
+      "v2_title": "02 / Acondicionamiento de Custodia",
+      "v2_desc": "Preparamos minuciosamente un embalaje técnico de alta protección para cada lámpara, asegurando una presentación impecable.",
+      "v3_title": "03 / Logística de Cortesía",
+      "v3_desc": "El valor de la obra incluye el envío asegurado y prioritario sin coste adicional para toda la Península."
+    }
+  }

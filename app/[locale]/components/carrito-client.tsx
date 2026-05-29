@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useCart } from "@/app/components/cart-provider";
-import { formatEUR } from "@/app/lib/precio";
+import { useCart } from "@/app/[locale]/components/cart-provider";
+import { formatEUR } from "@/app/[locale]/lib/precio";
 
 const COSTES_ENVIO = {
   peninsula: 0,

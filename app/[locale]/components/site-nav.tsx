@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { CartNav } from "@/app/components/cart-nav";
+import { CartNav } from "@/app/[locale]/components/cart-nav";
+import { SelectorIdioma } from "./selector-idioma";
 
 export function SiteNav() {
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -20,7 +21,7 @@ export function SiteNav() {
           Veta <span className="italic font-serif">&</span> Lux
         </Link>
 
-        {/* NAVEGACIÓN ESCRITORIO (Ahora con Proceso incluido) */}
+        {/* NAVEGACIÓN ESCRITORIO */}
         <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest text-stone-600">
           <Link href="/" className="hover:text-stone-900 transition-colors">
             Inicio
@@ -28,7 +29,6 @@ export function SiteNav() {
           <Link href="/coleccion" className="hover:text-stone-900 transition-colors">
             Colección
           </Link>
-          {/* 🌟 NUEVO ENLACE ESTRATÉGICO */}
           <Link href="/proceso" className="hover:text-stone-900 transition-colors">
             Proceso
           </Link>
@@ -39,6 +39,11 @@ export function SiteNav() {
 
         {/* CONTENEDOR DERECHO */}
         <div className="flex items-center gap-4 z-50">
+          {/* 🌟 SELECTOR IDIOMA ESCRITORIO: Al lado del carrito */}
+          <div className="hidden md:block">
+            <SelectorIdioma />
+          </div>
+
           <CartNav />
 
           {/* BOTÓN HAMBURGUESA MÓVIL */}
@@ -64,20 +69,27 @@ export function SiteNav() {
       <div 
         className={`fixed top-0 right-0 h-screen w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-xl transition-transform duration-300 ease-in-out transform md:hidden ${menuAbierto ? "translate-x-0" : "translate-x-full"}`}
       >
-        <div className="flex flex-col gap-6 text-sm uppercase tracking-widest text-stone-600 font-medium">
-          <Link href="/" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-            Inicio
-          </Link>
-          <Link href="/coleccion" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-            Colección
-          </Link>
-          {/* 🌟 MÓVIL: ENLACE A PROCESO */}
-          <Link href="/proceso" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-            Proceso
-          </Link>
-          <Link href="/contacto" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-            Contacto
-          </Link>
+        <div className="flex flex-col h-full justify-between">
+          {/* ENLACES MÓVIL */}
+          <div className="flex flex-col gap-6 text-sm uppercase tracking-widest text-stone-600 font-medium">
+            <Link href="/" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
+              Inicio
+            </Link>
+            <Link href="/coleccion" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
+              Colección
+            </Link>
+            <Link href="/proceso" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
+              Proceso
+            </Link>
+            <Link href="/contacto" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
+              Contacto
+            </Link>
+          </div>
+
+          {/* 🌟 SELECTOR IDIOMA MÓVIL: Abajo del todo en el menú lateral */}
+          <div className="border-t border-stone-200 pt-6 mb-16 flex justify-start">
+            <SelectorIdioma />
+          </div>
         </div>
       </div>
     </nav>

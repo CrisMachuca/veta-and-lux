@@ -1,0 +1,22 @@
+{
+    "Hero": {
+      "subtitle": "Sculptures of Light · Unique Editions",
+      "title1": "Veta",
+      "title2": "Lux",
+      "description1": "High-end lighting pieces sculpted from ancient reclaimed wood.",
+      "description2": "Timeless art and organic soul preserved in numbered pieces.",
+      "cta": "Acquire Unique Piece"
+    },
+    "Gallery": {
+      "title": "Works Available in Workshop",
+      "cta": "View Full Collection"
+    },
+    "Values": {
+      "v1_title": "01 / Certificate of Authenticity",
+      "v1_desc": "Each work is delivered signed by the author with a physical document certifying its unique serial number and botanical species.",
+      "v2_title": "02 / Custody Packaging",
+      "v2_desc": "We meticulously prepare high-protection technical packaging for each lamp, ensuring an impeccable presentation.",
+      "v3_title": "03 / Complimentary Logistics",
+      "v3_desc": "The value of the work includes insured and priority shipping at no additional cost throughout the Peninsula."
+    }
+  }

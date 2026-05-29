@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCart } from "@/app/components/cart-provider";
+import { useCart } from "@/app/[locale]/components/cart-provider";
 
 function SuccessContent() {
   const { clearCart } = useCart();

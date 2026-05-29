@@ -1,7 +1,7 @@
 "use client";
 
-import type { Producto } from "@/app/lib/productos";
-import { precioToNumber } from "@/app/lib/precio";
+import type { Producto } from "@/app/[locale]/lib/productos";
+import { precioToNumber } from "@/app/[locale]/lib/precio";
 import {
   createContext,
   useCallback,
