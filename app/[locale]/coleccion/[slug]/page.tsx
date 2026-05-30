@@ -8,7 +8,7 @@ import { ProductDetailClient } from "@/app/[locale]/components/product-detail-cl
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client"; 
-import { ProductoSanity } from "@/app/lib/productos";
+import { ProductoSanity } from "@/app/[locale]/productos";
 
 // Modificamos generateStaticParams para incluir el parámetro 'locale' en el enrutamiento dinámico
 export async function generateStaticParams() {
