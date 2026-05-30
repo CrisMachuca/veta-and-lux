@@ -1,8 +1,12 @@
-import Link from "next/link";
+import { Link } from "@/navigation"; // Usamos nuestro Link localizado
+import { getTranslations } from "next-intl/server"; //getTranslations para Server Components
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 
-export default function ElProcesoPage() {
+export default async function ElProcesoPage() {
+  // Activamos las traducciones del nodo "Proceso"
+  const t = await getTranslations("Proceso");
+
   return (
     <main className="min-h-screen bg-stone-50 text-stone-800 antialiased">
       <SiteNav />
@@ -10,13 +14,13 @@ export default function ElProcesoPage() {
       {/* Cabecera Editorial */}
       <header className="max-w-4xl mx-auto px-6 pt-24 pb-20 text-center">
         <p className="text-[10px] uppercase tracking-[0.4em] text-stone-400 font-bold mb-4">
-          La Filosofía del Elogio a la Madera
+          {t("Header.tagline")}
         </p>
         <h1 className="text-4xl md:text-6xl font-serif italic text-stone-900 font-light leading-tight">
-          Del secreto de la naturaleza <br />a la calidez del hogar
+          {t("Header.titulo")}
         </h1>
         <p className="max-w-xl mx-auto mt-6 text-stone-500 font-light text-sm md:text-base leading-relaxed">
-          Cada lámpara de Veta & Lux no se fabrica; se escucha y se libera. Seguimos un proceso honesto, pausado y profundamente respetuoso con los ciclos del tiempo.
+          {t("Header.descripcion")}
         </p>
         <div className="w-12 h-[1px] bg-stone-300 mx-auto mt-10"></div>
       </header>
@@ -41,13 +45,17 @@ export default function ElProcesoPage() {
             <div className="absolute inset-0 border-[12px] border-stone-50/10 m-4 rounded-sm pointer-events-none"></div>
           </div>
           <div className="md:col-span-5 space-y-4">
-            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">Fase 01 // El Origen</p>
-            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">El Hallazgo Ético</h2>
+            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">
+              {t("Fase1.tagline")}
+            </p>
+            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">
+              {t("Fase1.titulo")}
+            </h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              Nuestra materia prima no proviene de la tala comercial. Buscamos piezas con historia: maderas a la deriva esculpidas por el salitre en la costa o ramas caídas en bosques antiguos procedentes de podas controladas y totalmente legales.
+              {t("Fase1.p1")}
             </p>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              Buscamos maderas que ya han vivido, prestando especial atención a sus nudos y cicatrices. El vídeo evoca el entorno natural donde nace cada historia.
+              {t("Fase1.p2")}
             </p>
           </div>
         </div>
@@ -62,13 +70,17 @@ export default function ElProcesoPage() {
             />
           </div>
           <div className="md:col-span-5 md:order-1 space-y-4">
-            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">Fase 02 // El Tiempo</p>
-            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">El Letargo y Curado</h2>
+            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">
+              {t("Fase2.tagline")}
+            </p>
+            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">
+              {t("Fase2.titulo")}
+            </h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              La madera viva retiene humedad y tensiones. Al llegar al taller, cada pieza inicia un periodo de reposo absoluto que puede durar meses en nuestro espacio.
+              {t("Fase2.p1")}
             </p>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              Se estabilizan de forma natural, permitiendo que la fibra se asiente. Es un ejercicio de paciencia donde determinamos si la estructura es apta para albergar la luz y perdurar durante generaciones.
+              {t("Fase2.p2")}
             </p>
           </div>
         </div>
@@ -83,13 +95,17 @@ export default function ElProcesoPage() {
             />
           </div>
           <div className="md:col-span-5 space-y-4">
-            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">Fase 03 // El Respeto</p>
-            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">Saneado y Escultura</h2>
+            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">
+              {t("Fase3.tagline")}
+            </p>
+            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">
+              {t("Fase3.titulo")}
+            </h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              Retiramos las partes debilitadas de forma manual mediante cepillos y gubias, respetando estrictamente la corteza sana, las texturas y las grietas estables que otorgan carácter a la pieza.
+              {t("Fase3.p1")}
             </p>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              Tratamos la madera mediante técnicas no invasivas y aplicamos aceites orgánicos texturizados a mano hasta alcanzar un grano 1000, nutriendo el poro sin ocultar el tacto puro y marmóleo de la madera.
+              {t("Fase3.p2")}
             </p>
           </div>
         </div>
@@ -104,29 +120,35 @@ export default function ElProcesoPage() {
             />
           </div>
           <div className="md:col-span-5 md:order-1 space-y-4">
-            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">Fase 04 // La Unión</p>
-            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">Arquitectura Lumínica</h2>
+            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">
+              {t("Fase4.tagline")}
+            </p>
+            <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">
+              {t("Fase4.titulo")}
+            </h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              Una lámpara premium requiere una electrónica impecable. Diseñamos las canalizaciones internas ocultas de forma milimétrica para no alterar la estética orgánica del tronco.
+              {t("Fase4.p1")}
             </p>
             <p className="text-stone-600 font-light text-sm leading-relaxed">
-              Utilizamos exclusivamente cables con sutiles fundas de lino o algodón textil, portalámparas de latón macizo y sistemas eléctricos que cumplen los más estrictos estándares de seguridad europeos.
+              {t("Fase4.p2")}
             </p>
           </div>
         </div>
 
         {/* Cierre / Manifiesto */}
         <div className="bg-stone-900 text-stone-100 p-8 md:p-16 rounded-sm text-center space-y-6 max-w-3xl mx-auto shadow-md">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 font-mono">El Manifiesto Veta & Lux</p>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 font-mono">
+            {t("Cierre.tagline")}
+          </p>
           <blockquote className="font-serif italic text-xl md:text-2xl text-stone-200 font-light max-w-xl mx-auto leading-relaxed">
-            "No creamos dos piezas iguales porque la naturaleza jamás repite el mismo trazo. Llevar una de nuestras lámparas a su espacio es adoptar un fragmento de tiempo suspendido."
+            {t("Cierre.cita")}
           </blockquote>
           <div className="pt-4">
             <Link
               href="/coleccion"
               className="inline-block border-b border-stone-500 text-stone-300 hover:text-white hover:border-white transition-colors text-xs uppercase tracking-widest pb-1 font-mono"
             >
-              Explorar la colección actual →
+              {t("Cierre.boton")}
             </Link>
           </div>
         </div>

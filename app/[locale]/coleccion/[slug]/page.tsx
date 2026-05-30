@@ -1,23 +1,33 @@
 // 🌟 OBLIGATORIO: Forzamos a Next.js a tratar el detalle del producto como dinámico.
-// Esto evita que el botón de compra o el estado de la lámpara se queden congelados en la caché.
 export const dynamic = "force-dynamic";
 
-import Link from "next/link";
+import { Link } from "@/navigation"; // 🌟 Usamos el Link configurado para next-intl
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server"; // 🌟 getTranslations para Server Components asíncronos
 import { ProductDetailClient } from "@/app/[locale]/components/product-detail-client";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
-import { client } from "@/sanity/lib/client"; // Importamos el cliente de Sanity
+import { client } from "@/sanity/lib/client"; 
 import { ProductoSanity } from "@/app/lib/productos";
 
-// Modificamos generateStaticParams para que Next.js conozca las rutas base inicialmente
+// Modificamos generateStaticParams para incluir el parámetro 'locale' en el enrutamiento dinámico
 export async function generateStaticParams() {
   const query = `*[_type == "producto"] { "slug": slug.current }`;
   const productos = await client.fetch(query);
-  return productos.map((producto: { slug: string }) => ({ slug: producto.slug }));
+  
+  // Idiomas soportados por el ecosistema de tu aplicación
+  const locales = ["es", "en"];
+
+  // Multiplicamos las rutas para mapear tanto /es/coleccion/slug como /en/coleccion/slug
+  return productos.flatMap((producto: { slug: string }) =>
+    locales.map((locale) => ({
+      locale,
+      slug: producto.slug,
+    }))
+  );
 }
 
-// Creamos la función que consulta la lámpara específica en la nube de Sanity
+// Consultamos la lámpara directamente en el almacenamiento de Sanity
 async function getProductoSanityBySlug(slug: string): Promise<ProductoSanity | null> {
   const query = `*[_type == "producto" && slug.current == $slug][0] {
     _id,
@@ -36,8 +46,6 @@ async function getProductoSanityBySlug(slug: string): Promise<ProductoSanity | n
     estado
   }`;
 
-  // Forzamos de forma explícita a que no use la caché ("no-store")
-  // para obtener el campo 'estado' en vivo cada vez que un cliente abre la ficha.
   return await client.fetch(
     query, 
     { slug }, 
@@ -45,26 +53,27 @@ async function getProductoSanityBySlug(slug: string): Promise<ProductoSanity | n
   );
 }
 
-// El tipado acepta tanto Promesas como objetos directos para asegurar máxima compatibilidad con motores JS antiguos
+// Soportamos de forma nativa los params asíncronos de Next.js
 interface PageProps {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string; locale: string }> | { slug: string; locale: string };
 }
 
 export default async function ProductoPage(props: PageProps) {
-  // 🌟 SOLUCIÓN PANTALLA EN BLANCO: Resolvemos params de forma segura y tolerante a fallos
+  // Resolvemos los parámetros con seguridad
   const resolvedParams = await props.params;
   const { slug } = resolvedParams;
   
-  // Traemos la información en tiempo real desde Sanity sin intermediarios de caché
+  // Solicitamos los datos a Sanity
   const producto = await getProductoSanityBySlug(slug);
 
   if (!producto) {
     notFound();
   }
 
-  // Adaptamos el objeto antes de pasárselo a ProductDetailClient 
-  // Esto evita tener que reescribir todo el componente visual del cliente,
-  // inyectándole un "id" de imitación y el precio formateado con el símbolo "€"
+  // 🌟 Cargamos el diccionario traducible para los botones fijos de la ficha
+  const t = await getTranslations("FichaProducto");
+
+  // Mapeamos el objeto para mantener compatibilidad con el resto de componentes de UI
   const productoAdaptado = {
     ...producto,
     id: producto._id,
@@ -74,18 +83,21 @@ export default async function ProductoPage(props: PageProps) {
   return (
     <main className="min-h-screen bg-stone-50">
       <SiteNav />
+      
       <section className="max-w-6xl mx-auto px-6 pt-12">
         <p className="text-sm text-stone-500">
           <Link
             href="/coleccion"
             className="border-b border-stone-400 hover:text-stone-800 hover:border-stone-800 transition-colors"
           >
-            ← Volver a colección
+            {t("botonVolver")}
           </Link>
         </p>
       </section>
-      {/* Le enviamos el producto adaptado para que tu diseño siga funcionando perfecto */}
+      
+      {/* Pasamos los datos estructurados al componente de cliente */}
       <ProductDetailClient producto={productoAdaptado as any} />
+      
       <SiteFooter />
     </main>
   );

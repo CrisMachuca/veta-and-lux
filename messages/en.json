@@ -1,22 +1,187 @@
 {
+  "Nav": {
+    "inicio": "Home",
+    "coleccion": "Collection",
+    "proceso": "Process",
+    "contacto": "Contact"
+  },
+  "Inicio": {
     "Hero": {
-      "subtitle": "Sculptures of Light · Unique Editions",
-      "title1": "Veta",
-      "title2": "Lux",
-      "description1": "High-end lighting pieces sculpted from ancient reclaimed wood.",
-      "description2": "Timeless art and organic soul preserved in numbered pieces.",
-      "cta": "Acquire Unique Piece"
+      "tagline": "Sculptural Lighting · Unique Editions",
+      "parrafo": "High-end lighting pieces sculpted from ancient reclaimed wood.",
+      "subParrafo": "Timeless art and organic soul preserved in numbered pieces of exclusive design.",
+      "botonAdquirir": "Acquire Unique Piece"
     },
-    "Gallery": {
-      "title": "Works Available in Workshop",
-      "cta": "View Full Collection"
+    "Galeria": {
+      "titulo": "Available Works in the Workshop",
+      "botonVerColeccion": "View Full Collection"
     },
-    "Values": {
-      "v1_title": "01 / Certificate of Authenticity",
-      "v1_desc": "Each work is delivered signed by the author with a physical document certifying its unique serial number and botanical species.",
-      "v2_title": "02 / Custody Packaging",
-      "v2_desc": "We meticulously prepare high-protection technical packaging for each lamp, ensuring an impeccable presentation.",
-      "v3_title": "03 / Complimentary Logistics",
-      "v3_desc": "The value of the work includes insured and priority shipping at no additional cost throughout the Peninsula."
+    "Garantias": {
+      "g1Titulo": "01 / Certificate of Authenticity",
+      "g1Texto": "Each work is delivered signed by the author with a physical document certifying its unique serial number and botanical species.",
+      "g2Titulo": "02 / Custody Conditioning",
+      "g2Texto": "We meticulously prepare high-protection technical packaging for each lamp, ensuring an impeccable presentation.",
+      "g3Titulo": "03 / Complimentary Logistics",
+      "g3Texto": "The value of the work includes fully insured and priority shipping at no additional cost throughout the Peninsula."
+    },
+    "Manifiesto": {
+      "tagline": "The Workshop Manifesto",
+      "titulo": "In praise of wood:",
+      "subtitulo": "The value of the unhurried",
+      "p1": "Our works begin far from commercial noise. We look for woods that have already lived: pieces sculpted by the sea on the coast, fallen branches in the forest, or remains from controlled and fully ethical pruning.",
+      "p2": "Each log or root begins a lethargy of months on our workbench to ensure its natural stability. Only then, through manual sanitation and high-custody components in solid brass and pure linen, do we release the latent light within its grain.",
+      "fase1": "01. The Discovery",
+      "fase2": "02. The Lethargy",
+      "fase3": "03. The Light",
+      "botonProceso": "Discover the full process →"
+    },
+    "Encargos": {
+      "titulo": "Looking for a bespoke project or technical advice?",
+      "texto": "We work hand in hand with interior designers, architects, and private collectors to conceive exclusive pieces adapted to singular spaces.",
+      "botonContacto": "Contact the Atelier"
     }
+  },
+  "Proceso": {
+    "Header": {
+      "tagline": "The Philosophy of Praising Wood",
+      "titulo": "From the secret of nature to the warmth of the home",
+      "descripcion": "Each Veta & Lux lamp is not manufactured; it is listened to and released. We follow an honest, unhurried process that is deeply respectful of the cycles of time."
+    },
+    "Fase1": {
+      "tagline": "Phase 01 // The Origin",
+      "titulo": "The Ethical Discovery",
+      "p1": "Our raw material does not come from commercial logging. We look for pieces with history: driftwood sculpted by the sea salt on the coast or fallen branches in ancient forests from controlled and fully legal pruning.",
+      "p2": "We seek woods that have already lived, paying special attention to their knots and scars. The video evokes the natural environment where each story is born."
+    },
+    "Fase2": {
+      "tagline": "Phase 02 // Time",
+      "titulo": "Lethargy and Curing",
+      "p1": "Living wood retains moisture and tension. Upon arrival at the workshop, each piece begins a period of absolute rest that can last for months in our space.",
+      "p2": "They stabilize naturally, allowing the fiber to settle. It is an exercise in patience where we determine if the structure is fit to hold light and endure for generations."
+    },
+    "Fase3": {
+      "tagline": "Phase 03 // Respect",
+      "titulo": "Sanitation and Sculpture",
+      "p1": "We remove the weakened parts manually using planes and gouges, strictly respecting the healthy bark, textures, and stable cracks that give character to the piece.",
+      "p2": "We treat the wood using non-invasive techniques and apply texturized organic oils by hand up to a 1000 grain, nourishing the pore without hiding the pure, marble-like feel of the wood."
+    },
+    "Fase4": {
+      "tagline": "Phase 04 // The Union",
+      "titulo": "Lighting Architecture",
+      "p1": "A premium lamp requires impeccable electronics. We design hidden internal channels down to the millimeter so as not to alter the organic aesthetics of the log.",
+      "p2": "We exclusively use cables with subtle natural linen or textile cotton sheaths, solid brass lamp holders, and electrical systems that comply with the strictest European safety standards."
+    },
+    "Cierre": {
+      "tagline": "The Veta & Lux Manifesto",
+      "cita": "\"We do not create two identical pieces because nature never repeats the same stroke. Bringing one of our lamps into your space is adopting a fragment of suspended time.\"",
+      "boton": "Explore the current collection →"
+    }
+  },
+  "Coleccion": {
+    "tagline": "Catalog",
+    "titulo": "Collection",
+    "descripcion": "Table lamps, beams, and log pieces with warm light. Each reference is handcrafted; click an image to enter its full profile with gallery, care instructions, and detailed zoom.",
+    "botonVolver": "← Back to home",
+    "srObras": "Available pieces"
+  },
+  "FichaProducto": {
+    "botonVolver": "← Back to collection"
+  },
+  "DetalleCliente": {
+    "sinImagen": "No image available",
+    "miniaturaAlt": "Thumbnail",
+    "compTecnica": "Technical Specifications",
+    "materiales": "Materials",
+    "dimensiones": "Dimensions",
+    "preservacion": "Care Instructions",
+    "cerrar": "Close",
+    "status": {
+      "reservado": "💡 This unique collection piece is temporarily reserved",
+      "vendido": "🔴 This unique piece has already been acquired"
+    },
+    "botones": {
+      "encargar": "Order a similar piece →",
+      "solicitar": "Request a custom project",
+      "adquirir": "Acquire Unique Piece",
+      "anadido": "Piece Added ✓"
+    },
+    "listaEspera": {
+      "titulo": "Interested in this lamp?",
+      "texto": "Reservations for unique pieces typically remain active for a maximum of 48 hours awaiting payment. If you wish to join the priority waiting list in case it becomes available again, or if you prefer us to find a similar wood in the workshop for you, write to us directly."
+    },
+    "whatsapp": {
+      "reservado": "Hello! I saw the lamp \"{nombre}\" on the website and I see it is reserved. Could we talk about ordering a similar piece from the workshop?",
+      "vendido": "Hello! I loved the lamp \"{nombre}\" but I see it is already sold out. Is it possible to make a custom project inspired by it?"
+    }
+  },
+  "Contacto": {
+    "tagline": "Let's talk",
+    "titulo": "Contact",
+    "descripcion": "Would you like a custom piece, have questions about shipping, or want to drop by the workshop? Write to us: we reply with the same calm with which we work the wood.",
+    "botonVolver": "← Back to home",
+    "srFormulario": "Contact form",
+    "taller": {
+      "titulo": "Workshop",
+      "ubicacion": "Malaga, Spain",
+      "texto": "Visits by appointment only to discover the process and see available pieces."
+    },
+    "email": {
+      "titulo": "Email",
+      "texto": "Orders, custom requests, and general inquiries."
+    },
+    "whatsapp": {
+      "titulo": "WhatsApp",
+      "texto": "Quick assistance for immediate questions or live stock inquiries."
+    },
+    "horario": {
+      "titulo": "Hours",
+      "linea1": "Monday to Friday, mornings ",
+      "horas": "9:00 AM – 2:00 PM",
+      "linea2": "Afternoons by appointment."
+    }
+  },
+  "ContactForm": {
+    "via": "Send inquiry via:",
+    "emailBtn": "✉️ Email",
+    "wappBtn": "💬 WhatsApp",
+    "nombreLabel": "Name",
+    "nombrePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "mensajeLabel": "Message",
+    "mensajePlaceholder": "Tell us about the piece you're interested in, deadlines, or any questions...",
+    "pieInfo": {
+      "email": "Sending will open your email app with the message ready.",
+      "whatsapp": "Sending will open your WhatsApp chat with the structured text ready to send.",
+      "directo": "If you prefer to write directly, our email is"
+    },
+    "botonSubmit": {
+      "email": "Send by Email",
+      "whatsapp": "Open WhatsApp chat"
+    }
+  },
+  "Footer": {
+    "descripcion": "Handcrafted lighting with reclaimed wood. Each piece is unique, sustainable, and handmade.",
+    "nav": {
+      "titulo": "Navigation",
+      "inicio": "Home",
+      "coleccion": "Collection",
+      "proceso": "Process",
+      "contacto": "Contact",
+      "carrito": "Cart"
+    },
+    "ayuda": {
+      "titulo": "Help",
+      "envios": "Shipping & Returns",
+      "aviso": "Legal Notice",
+      "cookies": "Cookie Policy"
+    },
+    "contacto": {
+      "titulo": "Contact",
+      "ubicacion": "Workshop in Malaga, Spain",
+      "irContacto": "Go to contact"
+    },
+    "copy": "© 2026 Veta & Lux. All rights reserved.",
+    "hecho": "Made with ❤️ and reclaimed wood."
   }
+}

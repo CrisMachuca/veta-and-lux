@@ -1,12 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+// 🌟 IMPORTANTE: Cambiamos el Link de 'next/link' por el nuestro localizado
+import { Link } from "@/navigation"; 
+import { useTranslations } from "next-intl";
 import { CartNav } from "@/app/[locale]/components/cart-nav";
 import { SelectorIdioma } from "./selector-idioma";
 
 export function SiteNav() {
   const [menuAbierto, setMenuAbierto] = useState(false);
+  
+  // 🌟 Hook para activar las traducciones del objeto "Nav" de los JSON
+  const t = useTranslations("Nav");
 
   return (
     <nav className="sticky top-0 z-50 bg-stone-50/80 backdrop-blur-md border-b border-stone-200">
@@ -21,25 +26,24 @@ export function SiteNav() {
           Veta <span className="italic font-serif">&</span> Lux
         </Link>
 
-        {/* NAVEGACIÓN ESCRITORIO */}
+        {/* NAVEGACIÓN ESCRITORIO (Dinamizada con t('...')) */}
         <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest text-stone-600">
           <Link href="/" className="hover:text-stone-900 transition-colors">
-            Inicio
+            {t("inicio")}
           </Link>
           <Link href="/coleccion" className="hover:text-stone-900 transition-colors">
-            Colección
+            {t("coleccion")}
           </Link>
           <Link href="/proceso" className="hover:text-stone-900 transition-colors">
-            Proceso
+            {t("proceso")}
           </Link>
           <Link href="/contacto" className="hover:text-stone-900 transition-colors">
-            Contacto
+            {t("contacto")}
           </Link>
         </div>
 
         {/* CONTENEDOR DERECHO */}
         <div className="flex items-center gap-4 z-50">
-          {/* 🌟 SELECTOR IDIOMA ESCRITORIO: Al lado del carrito */}
           <div className="hidden md:block">
             <SelectorIdioma />
           </div>
@@ -70,23 +74,22 @@ export function SiteNav() {
         className={`fixed top-0 right-0 h-screen w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-xl transition-transform duration-300 ease-in-out transform md:hidden ${menuAbierto ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="flex flex-col h-full justify-between">
-          {/* ENLACES MÓVIL */}
+          {/* ENLACES MÓVIL (Dinamizados con t('...')) */}
           <div className="flex flex-col gap-6 text-sm uppercase tracking-widest text-stone-600 font-medium">
             <Link href="/" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-              Inicio
+              {t("inicio")}
             </Link>
             <Link href="/coleccion" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-              Colección
+              {t("coleccion")}
             </Link>
             <Link href="/proceso" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-              Proceso
+              {t("proceso")}
             </Link>
             <Link href="/contacto" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
-              Contacto
+              {t("contacto")}
             </Link>
           </div>
 
-          {/* 🌟 SELECTOR IDIOMA MÓVIL: Abajo del todo en el menú lateral */}
           <div className="border-t border-stone-200 pt-6 mb-16 flex justify-start">
             <SelectorIdioma />
           </div>

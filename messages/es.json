@@ -1,22 +1,189 @@
 {
+    
+  "Nav": {
+    "inicio": "Inicio",
+    "coleccion": "Colección",
+    "proceso": "Proceso",
+    "contacto": "Contacto"
+  },
+  "Inicio": {
     "Hero": {
-      "subtitle": "Esculturas de Luz · Ediciones Únicas",
-      "title1": "Veta",
-      "title2": "Lux",
-      "description1": "Piezas de alta iluminación esculpidas a partir de maderas antiguas recuperadas.",
-      "description2": "Arte atemporal y alma orgánica preservados en piezas numeradas.",
-      "cta": "Adquirir Pieza Única"
+      "tagline": "Esculturas de Luz · Ediciones Únicas",
+      "parrafo": "Piezas de alta iluminación esculpidas a partir de maderas antiguas recuperadas.",
+      "subParrafo": "Arte atemporal y alma orgánica preservados en piezas numeradas de diseño exclusivo.",
+      "botonAdquirir": "Adquirir Pieza Única"
     },
-    "Gallery": {
-      "title": "Obras Disponibles en Taller",
-      "cta": "Ver Colección Completa"
+    "Galeria": {
+      "titulo": "Obras Disponibles en Taller",
+      "botonVerColeccion": "Ver Colección Completa"
     },
-    "Values": {
-      "v1_title": "01 / Certificado de Autenticidad",
-      "v1_desc": "Cada obra se entrega firmada por el autor con un documento físico que certifica su número de serie único y su especie botánica.",
-      "v2_title": "02 / Acondicionamiento de Custodia",
-      "v2_desc": "Preparamos minuciosamente un embalaje técnico de alta protección para cada lámpara, asegurando una presentación impecable.",
-      "v3_title": "03 / Logística de Cortesía",
-      "v3_desc": "El valor de la obra incluye el envío asegurado y prioritario sin coste adicional para toda la Península."
+    "Garantias": {
+      "g1Titulo": "01 / Certificado de Autenticidad",
+      "g1Texto": "Cada obra se entrega firmada por el autor con un documento físico que certifica su número de serie único y su especie botánica.",
+      "g2Titulo": "02 / Acondicionamiento de Custodia",
+      "g2Texto": "Preparamos minuciosamente un embalaje técnico de alta protección para cada lámpara, asegurando una presentación impecable.",
+      "g3Titulo": "03 / Logística de Cortesía",
+      "g3Texto": "El valor de la obra incluye el envío asegurado y prioritario sin coste adicional para toda la Península."
+    },
+    "Manifiesto": {
+      "tagline": "El Manifiesto del Taller",
+      "titulo": "Elogio a la madera:",
+      "subtitulo": "El valor de lo pausado",
+      "p1": "Nuestras obras comienzan lejos del ruido comercial. Buscamos maderas que ya han vivido: piezas esculpidas por el mar en la costa, ramas caídas en el bosque o restos procedentes de podas controladas y totalmente éticas.",
+      "p2": "Cada tronco o raíz inicia un letargo de meses en nuestro banco de trabajo para asegurar su estabilidad natural. Solo entonces, mediante un saneado manual y componentes de alta custodia en latón macizo y lino puro, liberamos la luz latente en su veta.",
+      "fase1": "01. El Hallazgo",
+      "fase2": "02. El Letargo",
+      "fase3": "03. La Luz",
+      "botonProceso": "Descubrir el proceso completo →"
+    },
+    "Encargos": {
+      "titulo": "¿Busca un proyecto a medida o asesoramiento técnico?",
+      "texto": "Trabajamos mano a mano con interioristas, arquitectos y coleccionistas privados para concebir piezas exclusivas adaptadas a espacios singulares.",
+      "botonContacto": "Contactar con el Atelier"
     }
+  },
+  "Proceso": {
+    "Header": {
+      "tagline": "La Filosofía del Elogio a la Madera",
+      "titulo": "Del secreto de la naturaleza a la calidez del hogar",
+      "descripcion": "Cada lámpara de Veta & Lux no se fabrica; se escucha y se libera. Seguimos un proceso honesto, pausado y profundamente respetuoso con los ciclos del tiempo."
+    },
+    "Fase1": {
+      "tagline": "Fase 01 // El Origen",
+      "titulo": "El Hallazgo Ético",
+      "p1": "Nuestra materia prima no proviene de la tala comercial. Buscamos piezas con historia: maderas a la deriva esculpidas por el salitre en la costa o ramas caídas en bosques antiguos procedentes de podas controladas y totalmente legales.",
+      "p2": "Buscamos maderas que ya han vivido, prestando especial atención a sus nudos y cicatrices. El vídeo evoca el entorno natural donde nace cada historia."
+    },
+    "Fase2": {
+      "tagline": "Fase 02 // El Tiempo",
+      "titulo": "El Letargo y Curado",
+      "p1": "La madera viva retiene humedad y tensiones. Al llegar al taller, cada pieza inicia un periodo de reposo absoluto que puede durar meses en nuestro espacio.",
+      "p2": "Se estabilizan de forma natural, permitiendo que la fibra se asiente. Es un ejercicio de paciencia donde determinamos si la estructura es apta para albergar la luz y perdurar durante generaciones."
+    },
+    "Fase3": {
+      "tagline": "Fase 03 // El Respeto",
+      "titulo": "Saneado y Escultura",
+      "p1": "Retiramos las partes debilitadas de forma manual mediante cepillos y gubias, respetando estrictamente la corteza sana, las texturas y las grietas estables que otorgan carácter a la pieza.",
+      "p2": "Tratamos la madera mediante técnicas no invasivas y aplicamos aceites orgánicos texturizados a mano hasta alcanzar un grano 1000, nutriendo el poro sin ocultar el tacto puro y marmóleo de la madera."
+    },
+    "Fase4": {
+      "tagline": "Fase 04 // La Unión",
+      "titulo": "Arquitectura Lumínica",
+      "p1": "Una lámpara premium requiere una electrónica impecable. Diseñamos las canalizaciones internas ocultas de forma milimétrica para no alterar la estética orgánica del tronco.",
+      "p2": "Utilizamos exclusivamente cables con sutiles fundas de lino o algodón textil, portalámparas de latón macizo y sistemas eléctricos que cumplen los más estrictos estándares de seguridad europeos."
+    },
+    "Cierre": {
+      "tagline": "El Manifiesto Veta & Lux",
+      "cita": "\"No creamos dos piezas iguales porque la naturaleza jamás repite el mismo trazo. Llevar una de nuestras lámparas a su espacio es adoptar un fragmento de tiempo suspendido.\"",
+      "boton": "Explorar la colección actual →"
+    }
+  },
+  "Coleccion": {
+    "tagline": "Catálogo",
+    "titulo": "Colección",
+    "descripcion": "Sobremesas, vigas y piezas de tronco con luz cálida. Cada referencia es artesanal; pulsa una imagen para entrar a su ficha completa con galería, cuidados y zoom detallado.",
+    "botonVolver": "← Volver al inicio",
+    "srObras": "Piezas disponibles"
+  },
+  "FichaProducto": {
+    "botonVolver": "← Volver a colección"
+  },
+  "DetalleCliente": {
+    "sinImagen": "Sin imagen disponible",
+    "miniaturaAlt": "Miniatura",
+    "compTecnica": "Composición Técnica",
+    "materiales": "Materiales",
+    "dimensiones": "Dimensiones",
+    "preservacion": "Preservación",
+    "cerrar": "Cerrar",
+    "status": {
+      "reservado": "💡 Esta pieza única de colección está reservada temporalmente",
+      "vendido": "🔴 Esta pieza única ya ha sido adquirida"
+    },
+    "botones": {
+      "encargar": "Encargar una pieza similar →",
+      "solicitar": "Solicitar proyecto a medida",
+      "adquirir": "Adquirir Pieza Única",
+      "anadido": "Pieza Añadida ✓"
+    },
+    "listaEspera": {
+      "titulo": "¿Te interesa esta lámpara?",
+      "texto": "Las reservas de piezas únicas suelen mantenerse activas durante un máximo de 48 horas a la espera del pago. Si deseas entrar en la lista de espera prioritaria por si vuelve a quedar libre, o si prefieres que busquemos una madera similar en el taller para ti, escríbenos directamente."
+    },
+    "whatsapp": {
+      "reservado": "¡Hola! He visto la lámpara \"{nombre}\" en la web y veo que está reservada. ¿Podríamos hablar para encargar una pieza similar en el taller?",
+      "vendido": "¡Hola! Me ha encantado la lámpara \"{nombre}\" pero veo que ya está agotada. ¿Es posible hacer un proyecto a medida inspirado en ella?"
+    }
+  },
+  "Contacto": {
+    "tagline": "Hablemos",
+    "titulo": "Contacto",
+    "descripcion": "¿Te gustaría una pieza a medida, resolver dudas sobre envíos o pasar por el taller? Escríbenos: respondemos con la misma calma con la que trabajamos la madera.",
+    "botonVolver": "← Volver al inicio",
+    "srFormulario": "Formulario de contacto",
+    "taller": {
+      "titulo": "Taller",
+      "ubicacion": "Málaga, España",
+      "texto": "Visitas con cita previa para conocer el proceso y ver piezas disponibles."
+    },
+    "email": {
+      "titulo": "Email",
+      "texto": "Pedidos, encargos personalizados y consultas generales."
+    },
+    "whatsapp": {
+      "titulo": "WhatsApp",
+      "texto": "Atención rápida para dudas inmediatas o consultas de stock en vivo."
+    },
+    "horario": {
+      "titulo": "Horario",
+      "linea1": "Lunes a viernes, mañanas ",
+      "horas": "9:00 – 14:00",
+      "linea2": "Tardes con cita concertada."
+    }
+  },
+  "ContactForm": {
+    "via": "Enviar consulta a través de:",
+    "emailBtn": "✉️ Email",
+    "wappBtn": "💬 WhatsApp",
+    "nombreLabel": "Nombre",
+    "nombrePlaceholder": "Tu nombre",
+    "emailLabel": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "mensajeLabel": "Mensaje",
+    "mensajePlaceholder": "Cuéntanos qué pieza te interesa, plazos o cualquier duda…",
+    "pieInfo": {
+      "email": "Al enviar se abrirá tu aplicación de correo con el mensaje preparado.",
+      "whatsapp": "Al enviar se abrirá tu chat de WhatsApp con el texto estructurado listo para mandar.",
+      "directo": "Si prefieres escribir de forma directa, nuestro correo es"
+    },
+    "botonSubmit": {
+      "email": "Enviar por Email",
+      "whatsapp": "Abrir chat de WhatsApp"
+    }
+  },
+  "Footer": {
+    "descripcion": "Artesanía en iluminación con madera recuperada. Cada pieza es única, sostenible y hecha a mano.",
+    "nav": {
+      "titulo": "Navegación",
+      "inicio": "Inicio",
+      "coleccion": "Colección",
+      "proceso": "Proceso",
+      "contacto": "Contacto",
+      "carrito": "Carrito"
+    },
+    "ayuda": {
+      "titulo": "Ayuda",
+      "envios": "Envíos y Devoluciones",
+      "aviso": "Aviso Legal",
+      "cookies": "Política de Cookies"
+    },
+    "contacto": {
+      "titulo": "Contacto",
+      "ubicacion": "Taller en Málaga, España",
+      "irContacto": "Ir a contacto"
+    },
+    "copy": "© 2026 Veta & Lux. Todos los derechos reservados.",
+    "hecho": "Hecho con ❤️ y madera recuperada."
   }
+  
+}

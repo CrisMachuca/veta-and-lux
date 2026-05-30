@@ -1,31 +1,33 @@
-import Link from "next/link";
+import { Link } from "@/navigation"; // 🌟 Usamos el Link localizado
+import { getTranslations } from "next-intl/server"; // 🌟 getTranslations para Server Components
 import { ContactForm } from "@/app/[locale]/components/contact-form";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 
-export default function ContactoPage() {
+export default async function ContactoPage() {
+  // 🌟 Cargamos el diccionario del nodo "Contacto"
+  const t = await getTranslations("Contacto");
+
   return (
     <main className="min-h-screen bg-stone-50">
       <SiteNav />
 
       <section className="max-w-5xl mx-auto px-6 pt-14 pb-10 md:pt-20 md:pb-12">
         <p className="text-sm uppercase tracking-widest text-stone-500 mb-4">
-          Hablemos
+          {t("tagline")}
         </p>
         <h1 className="text-4xl md:text-5xl font-light text-stone-900 tracking-tight mb-6">
-          Contacto
+          {t("titulo")}
         </h1>
         <p className="max-w-2xl text-lg text-stone-600 leading-relaxed">
-          ¿Te gustaría una pieza a medida, resolver dudas sobre envíos o pasar
-          por el taller? Escríbenos: respondemos con la misma calma con la que
-          trabajamos la madera.
+          {t("descripcion")}
         </p>
         <p className="mt-6 text-sm text-stone-500">
           <Link
             href="/"
             className="border-b border-stone-400 hover:text-stone-800 hover:border-stone-800 transition-colors"
           >
-            ← Volver al inicio
+            {t("botonVolver")}
           </Link>
         </p>
       </section>
@@ -37,19 +39,18 @@ export default function ContactoPage() {
             {/* Taller */}
             <div className="rounded-2xl border border-stone-200/80 bg-stone-100/50 p-6 ring-1 ring-stone-100">
               <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
-                Taller
+                {t("taller.titulo")}
               </h2>
-              <p className="text-stone-800 font-medium">Málaga, España</p>
+              <p className="text-stone-800 font-medium">{t("taller.ubicacion")}</p>
               <p className="text-stone-600 text-sm mt-2 leading-relaxed">
-                Visitas con cita previa para conocer el proceso y ver piezas
-                disponibles.
+                {t("taller.texto")}
               </p>
             </div>
 
             {/* Email */}
             <div className="rounded-2xl border border-stone-200/80 bg-stone-100/50 p-6 ring-1 ring-stone-100">
               <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
-                Email
+                {t("email.titulo")}
               </h2>
               <a
                 href="mailto:info@vetandlux.com"
@@ -58,17 +59,17 @@ export default function ContactoPage() {
                 info@vetandlux.com
               </a>
               <p className="text-stone-600 text-sm mt-3 leading-relaxed">
-                Pedidos, encargos personalizados y consultas generales.
+                {t("email.texto")}
               </p>
             </div>
 
-            {/* 🟢 NUEVO: WhatsApp Directo */}
+            {/* WhatsApp Directo */}
             <div className="rounded-2xl border border-stone-200/80 bg-stone-100/50 p-6 ring-1 ring-stone-100">
               <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
-                WhatsApp
+                {t("whatsapp.titulo")}
               </h2>
               <a
-                href="https://wa.me/34600000000" // 👈 Pon tu número aquí (SIn espacios ni símbolos)
+                href="https://wa.me/34660800631" // 👈 Corregido el número real aquí
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-stone-900 text-lg border-b border-stone-400 hover:border-stone-900 transition-colors inline-flex items-center gap-2"
@@ -76,26 +77,26 @@ export default function ContactoPage() {
                 +34 660 80 06 31
               </a>
               <p className="text-stone-600 text-sm mt-3 leading-relaxed">
-                Atención rápida para dudas inmediatas o consultas de stock en vivo.
+                {t("whatsapp.texto")}
               </p>
             </div>
 
             {/* Horario */}
             <div className="rounded-2xl border border-stone-200/80 bg-white/60 p-6 ring-1 ring-stone-100">
               <h2 className="text-xs uppercase tracking-widest text-stone-500 mb-3">
-                Horario
+                {t("horario.titulo")}
               </h2>
               <p className="text-stone-700 text-sm leading-relaxed">
-                Lunes a viernes, mañanas{" "}
-                <span className="text-stone-900">9:00 – 14:00</span>
+                {t("horario.linea1")}
+                <span className="text-stone-900">{t("horario.horas")}</span>
                 <br />
-                Tardes con cita concertada.
+                {t("horario.linea2")}
               </p>
             </div>
           </div>
 
           <div className="lg:col-span-3">
-            <h2 className="sr-only">Formulario de contacto</h2>
+            <h2 className="sr-only">{t("srFormulario")}</h2>
             <ContactForm />
           </div>
         </div>

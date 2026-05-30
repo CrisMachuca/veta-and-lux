@@ -1,8 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { FormEvent, useState } from "react";
 
 export function ContactForm() {
+  const t = useTranslations("ContactForm");
+  
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -24,11 +27,10 @@ export function ContactForm() {
       );
       window.location.href = `mailto:info@vetandlux.com?subject=${subject}&body=${body}`;
     } else {
-      // 🟢 Flujo Nuevo: WhatsApp Directo con texto limpio
+      // Flujo WhatsApp Directo con texto limpio
       const textoWhatsApp = encodeURIComponent(
         `🪵 *Nueva consulta desde la Web*\n\n*Nombre:* ${nombreLimpio}\n*Email:* ${emailLimpio}\n\n*Mensaje:*\n${mensajeLimpio}`
       );
-      // Sustituye el '34600000000' por tu número real de taller
       window.open(`https://wa.me/34660800631?text=${textoWhatsApp}`, "_blank");
     }
   }
@@ -41,7 +43,7 @@ export function ContactForm() {
       {/* Selector premium de vía de contacto */}
       <div>
         <span className="block text-xs uppercase tracking-widest text-stone-500 mb-3">
-          Enviar consulta a través de:
+          {t("via")}
         </span>
         <div className="grid grid-cols-2 gap-2 bg-stone-100/80 p-1 rounded-xl border border-stone-200/40">
           <button
@@ -53,7 +55,7 @@ export function ContactForm() {
                 : "text-stone-500 hover:text-stone-800"
             }`}
           >
-            ✉️ Email
+            {t("emailBtn")}
           </button>
           <button
             type="button"
@@ -64,17 +66,18 @@ export function ContactForm() {
                 : "text-stone-500 hover:text-stone-800"
             }`}
           >
-            💬 WhatsApp
+            {t("wappBtn")}
           </button>
         </div>
       </div>
 
+      {/* Inputs del formulario */}
       <div>
         <label
           htmlFor="contacto-nombre"
           className="block text-xs uppercase tracking-widest text-stone-500 mb-2"
         >
-          Nombre
+          {t("nombreLabel")}
         </label>
         <input
           id="contacto-nombre"
@@ -85,7 +88,7 @@ export function ContactForm() {
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           className="w-full rounded-lg border border-stone-200 bg-stone-50/80 px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-800/20 focus:border-stone-400"
-          placeholder="Tu nombre"
+          placeholder={t("nombrePlaceholder")}
         />
       </div>
 
@@ -94,7 +97,7 @@ export function ContactForm() {
           htmlFor="contacto-email"
           className="block text-xs uppercase tracking-widest text-stone-500 mb-2"
         >
-          Email
+          {t("emailLabel")}
         </label>
         <input
           id="contacto-email"
@@ -105,7 +108,7 @@ export function ContactForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full rounded-lg border border-stone-200 bg-stone-50/80 px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-800/20 focus:border-stone-400"
-          placeholder="tu@email.com"
+          placeholder={t("emailPlaceholder")}
         />
       </div>
 
@@ -114,7 +117,7 @@ export function ContactForm() {
           htmlFor="contacto-mensaje"
           className="block text-xs uppercase tracking-widest text-stone-500 mb-2"
         >
-          Mensaje
+          {t("mensajeLabel")}
         </label>
         <textarea
           id="contacto-mensaje"
@@ -124,15 +127,16 @@ export function ContactForm() {
           value={mensaje}
           onChange={(e) => setMensaje(e.target.value)}
           className="w-full resize-y rounded-lg border border-stone-200 bg-stone-50/80 px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-800/20 focus:border-stone-400"
-          placeholder="Cuéntanos qué pieza te interesa, plazos o cualquier duda…"
+          placeholder={t("mensajePlaceholder")}
         />
       </div>
 
+      {/* Nota de pie */}
       <p className="text-xs text-stone-500 leading-relaxed">
-        {viaContacto === "email" 
-          ? "Al enviar se abrirá tu aplicación de correo con el mensaje preparado." 
-          : "Al enviar se abrirá tu chat de WhatsApp con el texto estructurado listo para mandar."}
-        {" "}Si prefieres escribir de forma directa, nuestro correo es{" "}
+        {viaContacto === "email" ? t("pieInfo.email") : t("pieInfo.whatsapp")}
+        {" "}
+        {t("pieInfo.directo")}
+        {" "}
         <a
           href="mailto:info@vetandlux.com"
           className="text-stone-800 underline decoration-stone-300 hover:decoration-stone-800"
@@ -142,11 +146,12 @@ export function ContactForm() {
         .
       </p>
 
+      {/* Botón de envío */}
       <button
         type="submit"
         className="w-full rounded-full bg-stone-900 text-stone-50 px-6 py-3 text-sm font-medium uppercase tracking-widest hover:bg-stone-800 transition-colors"
       >
-        {viaContacto === "email" ? "Enviar por Email" : "Abrir chat de WhatsApp"}
+        {viaContacto === "email" ? t("botonSubmit.email") : t("botonSubmit.whatsapp")}
       </button>
     </form>
   );
