@@ -39,13 +39,13 @@ export default function ElProcesoPage() {
             <video autoPlay loop muted playsInline className="w-full h-full object-cover filter brightness-[0.95]">
               <source src="/hallazgo.mp4" type="video/mp4" />
             </video>
-            {/* Solo aquí está el marco */}
             <div className="absolute inset-0 border-[12px] border-stone-50/10 m-4 rounded-sm pointer-events-none"></div>
           </div>
           <div className="md:col-span-5 space-y-4">
             <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">{t("Fase1.tagline")}</p>
             <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">{t("Fase1.titulo")}</h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase1.p1")}</p>
+            <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase1.p2")}</p>
           </div>
         </div>
 
@@ -58,6 +58,7 @@ export default function ElProcesoPage() {
             <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">{t("Fase2.tagline")}</p>
             <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">{t("Fase2.titulo")}</h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase2.p1")}</p>
+            <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase2.p2")}</p>
           </div>
         </div>
 
@@ -67,8 +68,10 @@ export default function ElProcesoPage() {
             <ClickableImage src="/saneado.jpeg" alt="Saneado" />
           </div>
           <div className="md:col-span-5 space-y-4">
+            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">{t("Fase3.tagline")}</p>
             <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">{t("Fase3.titulo")}</h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase3.p1")}</p>
+            <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase3.p2")}</p>
           </div>
         </div>
 
@@ -78,8 +81,10 @@ export default function ElProcesoPage() {
             <ClickableImage src="/tronco2.jpeg" alt="Arquitectura" />
           </div>
           <div className="md:col-span-5 md:order-1 space-y-4">
+            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">{t("Fase4.tagline")}</p>
             <h2 className="text-2xl md:text-3xl font-serif text-stone-900 font-light">{t("Fase4.titulo")}</h2>
             <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase4.p1")}</p>
+            <p className="text-stone-600 font-light text-sm leading-relaxed">{t("Fase4.p2")}</p>
           </div>
         </div>
       </section>
