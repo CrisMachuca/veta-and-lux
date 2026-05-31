@@ -25,7 +25,7 @@ export function SiteFooter() {
           <ul className="space-y-2 text-sm">
             <li><Link href="/" className="hover:text-stone-50 transition-colors">{t("nav.inicio")}</Link></li>
             <li><Link href="/coleccion" className="hover:text-stone-50 transition-colors">{t("nav.coleccion")}</Link></li>
-            <li><Link href="/taller" className="hover:text-stone-50 transition-colors">{t("nav.proceso")}</Link></li>
+            <li><Link href="/proceso" className="hover:text-stone-50 transition-colors">{t("nav.proceso")}</Link></li>
             <li><Link href="/contacto" className="hover:text-stone-50 transition-colors">{t("nav.contacto")}</Link></li>
             <li><Link href="/carrito" className="hover:text-stone-50 transition-colors">{t("nav.carrito")}</Link></li>
           </ul>
