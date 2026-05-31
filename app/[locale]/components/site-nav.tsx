@@ -44,11 +44,12 @@ export function SiteNav() {
 
         {/* CONTENEDOR DERECHO */}
         <div className="flex items-center gap-4 z-50">
+        <CartNav />
           <div className="hidden md:block">
             <SelectorIdioma />
           </div>
 
-          <CartNav />
+          
 
           {/* BOTÓN HAMBURGUESA MÓVIL */}
           <button

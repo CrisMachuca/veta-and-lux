@@ -39,16 +39,22 @@ export function ProductGallery({ productos }: { productos: any[] }) {
   }, []);
 
   return (
-    /* 🌟 MEJORA 1: Grid dinámico. grid-cols-3 en móvil, cambia a 2 en tablets y 3 grandes en PC. 
-       El espacio (gap) se reduce en móvil para maximizar el tamaño de las imágenes. */
-    <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-12">
+    /* 
+       🌟 MEJORA RESPONSIVE: 
+       - En móvil: flex, snap-x (carrusel con peek).
+       - En escritorio (md+): grid de 3 columnas.
+    */
+    <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-12 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-hide pb-4">
       {productos.map((producto) => (
-        <article key={producto._id} className="group flex flex-col justify-between">
+        <article 
+          key={producto._id} 
+          /* flex-none y w-[75vw] aseguran el efecto peek en móviles */
+          className="group flex flex-col justify-between flex-none w-[75vw] md:w-auto snap-start"
+        >
           <Link
             href={`/coleccion/${producto.slug}`}
             className="block rounded-xl md:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50"
           >
-            {/* Contenedor relativo de la imagen (mantiene la proporción 4/5 elegante) */}
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl md:rounded-2xl bg-stone-100 ring-1 ring-stone-200/50 shadow-sm transition-all duration-500 group-hover:shadow-md group-hover:ring-stone-300/80">
               {producto.imagen ? (
                 <img
@@ -63,7 +69,6 @@ export function ProductGallery({ productos }: { productos: any[] }) {
                 </div>
               )}
               
-              {/* ✨ ETIQUETA FLOTANTE ADAPTADA: Se hace más compacta en móviles para no devorar la foto */}
               {producto.estado && producto.estado !== "disponible" && (
                 <div className={`absolute top-1.5 right-1.5 md:top-4 md:right-4 backdrop-blur-md text-[8px] md:text-[10px] text-white uppercase tracking-wider md:tracking-widest px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-md md:rounded-full font-medium shadow-sm z-10 transition-all ${
                   producto.estado === "reservado"
@@ -76,20 +81,16 @@ export function ProductGallery({ productos }: { productos: any[] }) {
             </div>
           </Link>
 
-          {/* MEJORA 2: Área de textos. Cambiamos flex-row a flex-col en móviles para que el precio no empuje al texto */}
           <div className="mt-2 md:mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 md:gap-4 px-0.5">
             <div className="min-w-0">
-              {/* Título adaptado a tamaño minúsculo en móvil para que no se corte bruscamente */}
               <h3 className="text-[11px] sm:text-xl font-medium text-stone-900 truncate sm:whitespace-normal">
                 {producto.nombre}
               </h3>
               
-              {/* La descripción detallada se oculta en móviles de 3 columnas para mantener la rejilla limpia */}
               <p className="hidden sm:block text-stone-500 mt-1 text-sm line-clamp-1">
                 {producto.descripcion}
               </p>
               
-              {/* MEJORA 3: Enlaces y Botón de añadir adaptados a tamaño micro en móviles */}
               <div className="mt-1 md:mt-4 flex flex-col gap-1 sm:flex-row sm:gap-4 text-[10px] md:text-xs uppercase tracking-wider md:tracking-widest">
                 <Link
                   href={`/coleccion/${producto.slug}`}
@@ -125,7 +126,6 @@ export function ProductGallery({ productos }: { productos: any[] }) {
               </div>
             </div>
             
-            {/* Precio destacado, tipografía sutil en móviles */}
             <span className="text-[11px] sm:text-lg font-mono sm:font-light text-stone-950 shrink-0">
               {producto.precio}€
             </span>
