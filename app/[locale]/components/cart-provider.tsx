@@ -85,15 +85,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const addItem = useCallback((producto: Producto) => {
     const precioUnit = precioToNumber(producto.precio);
     setLines((prev) => {
-      // Si el usuario hace clic antes de que termine la hidratación inicial,
-      // partimos de localStorage para no perder el primer añadido.
       const base = hydratedRef.current ? prev : loadLines();
       const i = base.findIndex((l) => l.productId === producto.id);
+      
+      // CAMBIO AQUÍ: Si el producto ya existe (i >= 0), simplemente retornamos 'base'
+      // sin modificar nada. Esto impide que la cantidad suba a 2 o más.
       if (i >= 0) {
-        const next = [...base];
-        next[i] = { ...next[i], quantity: next[i].quantity + 1 };
-        return next;
+        return base; 
       }
+
+      // Si no existe, lo añadimos con cantidad 1 (garantizado)
       return [
         ...base,
         {
@@ -102,10 +103,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           precioLabel: producto.precio,
           precioUnit,
           imagen: producto.imagen,
-          quantity: 1,
+          quantity: 1, // Siempre será 1 para piezas únicas
         },
       ];
     });
+    
     if (!hydratedRef.current) {
       hydratedRef.current = true;
       setHydrated(true);

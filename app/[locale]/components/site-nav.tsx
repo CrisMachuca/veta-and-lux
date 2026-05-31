@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { CartNav } from "@/app/[locale]/components/cart-nav";
 import { SelectorIdioma } from "./selector-idioma";
 
+
 export function SiteNav() {
   const [menuAbierto, setMenuAbierto] = useState(false);
   

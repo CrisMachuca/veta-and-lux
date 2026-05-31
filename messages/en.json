@@ -19,17 +19,17 @@
     "Garantias": {
       "g1Titulo": "01 / Certificate of Authenticity",
       "g1Texto": "Each work is delivered signed by the author with a physical document certifying its unique serial number and botanical species.",
-      "g2Titulo": "02 / Custody Conditioning",
+      "g2Titulo": "02 / Packaging & Care",
       "g2Texto": "We meticulously prepare high-protection technical packaging for each lamp, ensuring an impeccable presentation.",
-      "g3Titulo": "03 / Complimentary Logistics",
-      "g3Texto": "The value of the work includes fully insured and priority shipping at no additional cost throughout the Peninsula."
+      "g3Titulo": "03 / Shipping & Protection",
+      "g3Texto": "Your piece is shipped with full insurance and personalized tracking. We take care of every detail until the piece is part of your home, ensuring complete security and peace of mind."
     },
     "Manifiesto": {
       "tagline": "The Workshop Manifesto",
       "titulo": "In praise of wood:",
       "subtitulo": "The value of the unhurried",
       "p1": "Our works begin far from commercial noise. We look for woods that have already lived: pieces sculpted by the sea on the coast, fallen branches in the forest, or remains from controlled and fully ethical pruning.",
-      "p2": "Each log or root begins a lethargy of months on our workbench to ensure its natural stability. Only then, through manual sanitation and high-custody components in solid brass and pure linen, do we release the latent light within its grain.",
+      "p2": "Each log or root begins a lethargy of months on our workbench to ensure its natural stability. Only then, through manual sanitation and components in solid brass and pure linen, do we release the latent light within its grain.",
       "fase1": "01. The Discovery",
       "fase2": "02. The Lethargy",
       "fase3": "03. The Light",
@@ -105,6 +105,7 @@
       "adquirir": "Acquire Unique Piece",
       "anadido": "Piece Added ✓"
     },
+    
     "listaEspera": {
       "titulo": "Interested in this lamp?",
       "texto": "Reservations for unique pieces typically remain active for a maximum of 48 hours awaiting payment. If you wish to join the priority waiting list in case it becomes available again, or if you prefer us to find a similar wood in the workshop for you, write to us directly."
@@ -183,5 +184,15 @@
     },
     "copy": "© 2026 Veta & Lux. All rights reserved.",
     "hecho": "Made with ❤️ and reclaimed wood."
-  }
+  },
+   "Gallery": {
+        "detalles": "Details",
+        "agotado": "Sold out",
+        "reservado": "Reserved",
+        "anadido": "✓ Added",
+        "anadir": "Add to bag",
+        "sin_imagen": "No image",
+        "estado_reservado": "Reserved",
+        "estado_vendido": "Sold"
+      }
 }

@@ -79,7 +79,7 @@ export default async function Page() {
 
   {/* Eliminamos el max-w-6xl aquí para que el carrusel respire en móvil */}
   <div className="px-6 md:max-w-6xl md:mx-auto">
-    <ProductGallery productos={productosSanity} />
+    <ProductGallery productos={productosSanity} isHome={true} />
   </div>
 
   <div className="mt-16 text-center px-6">
@@ -102,16 +102,44 @@ export default async function Page() {
       </section>
 
       {/* 🛠️ SECCIÓN: MANIFIESTO */}
-      <section className="max-w-5xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
-        <div className="relative aspect-[4/5] bg-stone-100 overflow-hidden">
-          <Image src="/detalle.png" alt="Artesanía" fill className="object-cover" />
+      <section className="max-w-5xl mx-auto px-6 py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="relative aspect-[4/5] md:aspect-square bg-stone-100 overflow-hidden rounded-sm ring-1 ring-stone-200/60 shadow-sm flex items-center justify-center">
+            <img src="/detalle.png" alt="Artesanía" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 border-[12px] border-stone-50/20 m-4 rounded-sm"></div>
+          </div>
+          <div className="space-y-6">
+            <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">{t("Manifiesto.tagline")}</p>
+            <h2 className="text-3xl md:text-4xl font-serif text-stone-900 font-light leading-tight">
+              {t("Manifiesto.titulo")} <br />
+              <span className="italic">{t("Manifiesto.subtitulo")}</span>
+            </h2>
+            <p className="text-stone-600 font-light leading-relaxed text-sm md:text-base">{t("Manifiesto.p1")}</p>
+            <p className="text-stone-600 font-light leading-relaxed text-sm md:text-base">{t("Manifiesto.p2")}</p>
+            <div className="grid grid-cols-3 gap-2 py-4 border-t border-b border-stone-200 font-mono text-[10px] text-stone-400 uppercase tracking-wider">
+              <div>{t("Manifiesto.fase1")}</div>
+              <div>{t("Manifiesto.fase2")}</div>
+              <div>{t("Manifiesto.fase3")}</div>
+            </div>
+            <div className="pt-2">
+              <Link href="/proceso" className="inline-block text-stone-950 font-medium border-b border-stone-950 pb-1 hover:text-stone-500 hover:border-stone-300 transition-all text-xs uppercase tracking-widest font-mono">
+                {t("Manifiesto.botonProceso")}
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="space-y-6">
-          <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest">{t("Manifiesto.tagline")}</p>
-          <h2 className="text-3xl md:text-4xl font-serif text-stone-900 leading-tight">
-            {t("Manifiesto.titulo")} <span className="italic">{t("Manifiesto.subtitulo")}</span>
-          </h2>
-          <p className="text-stone-600 text-sm md:text-base leading-relaxed">{t("Manifiesto.p1")}</p>
+      </section>
+
+      {/* 💼 SECCIÓN: CONSULTAS PRIVADAS */}
+      <section className="bg-stone-900 text-stone-100 py-24 px-6 text-center">
+        <div className="max-w-2xl mx-auto space-y-6">
+          <h3 className="text-2xl md:text-3xl font-serif font-light text-stone-50">{t("Encargos.titulo")}</h3>
+          <p className="text-stone-400 font-light text-sm md:text-base leading-relaxed">{t("Encargos.texto")}</p>
+          <div className="pt-4">
+            <Link href="/contacto" className="inline-block bg-white text-stone-950 px-10 py-3.5 rounded-none hover:bg-stone-200 transition-all text-xs uppercase tracking-widest font-medium">
+              {t("Encargos.botonContacto")}
+            </Link>
+          </div>
         </div>
       </section>
 

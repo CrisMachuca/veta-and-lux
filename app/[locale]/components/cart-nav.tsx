@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { useEffect, useRef, useState } from "react";
+import { ShoppingBag } from "lucide-react";
 
 export function CartNav() {
   const { totalQuantity } = useCart();
@@ -34,15 +35,20 @@ export function CartNav() {
   return (
     <Link
       href="/carrito"
-      className="text-stone-900 hover:text-stone-600 transition-colors"
+      className="relative flex items-center justify-center p-2 text-stone-900 hover:text-stone-600 transition-colors"
+      aria-label="Carrito de compra"
     >
-      <span
-        className={`inline-block text-xs uppercase tracking-widest font-medium ${
-          isBouncing ? "animate-bounce" : ""
-        }`}
-      >
-        Carrito ({totalQuantity})
-      </span>
+      <div className={isBouncing ? "animate-bounce" : ""}>
+        {/* Icono de bolsa de la compra */}
+        <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
+        
+        {/* Contador pequeño sobre la bolsa */}
+        {totalQuantity > 0 && (
+          <span className="absolute -top-1 -right-0.5 bg-stone-900 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-sm">
+            {totalQuantity}
+          </span>
+        )}
+      </div>
     </Link>
   );
 }

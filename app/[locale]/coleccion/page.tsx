@@ -65,6 +65,7 @@ export default async function ColeccionPage() {
         <h2 className="sr-only">{t("srObras")}</h2>
         {/* 4. Pasamos los productos reales de Sanity a la galería */}
         <ProductGallery productos={productosSanity} />
+        
       </section>
 
       <SiteFooter />

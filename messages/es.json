@@ -20,17 +20,17 @@
     "Garantias": {
       "g1Titulo": "01 / Certificado de Autenticidad",
       "g1Texto": "Cada obra se entrega firmada por el autor con un documento físico que certifica su número de serie único y su especie botánica.",
-      "g2Titulo": "02 / Acondicionamiento de Custodia",
+      "g2Titulo": "02 / Embalaje y cuidado",
       "g2Texto": "Preparamos minuciosamente un embalaje técnico de alta protección para cada lámpara, asegurando una presentación impecable.",
-      "g3Titulo": "03 / Logística de Cortesía",
-      "g3Texto": "El valor de la obra incluye el envío asegurado y prioritario sin coste adicional para toda la Península."
+      "g3Titulo": "03 / Envío y Protección",
+      "g3Texto": "Tu pieza viaja asegurada y bajo un seguimiento personalizado. Nos hacemos responsables de cada detalle hasta que la obra se integra en tu hogar, garantizando tranquilidad y seguridad total."
     },
     "Manifiesto": {
       "tagline": "El Manifiesto del Taller",
       "titulo": "Elogio a la madera:",
       "subtitulo": "El valor de lo pausado",
       "p1": "Nuestras obras comienzan lejos del ruido comercial. Buscamos maderas que ya han vivido: piezas esculpidas por el mar en la costa, ramas caídas en el bosque o restos procedentes de podas controladas y totalmente éticas.",
-      "p2": "Cada tronco o raíz inicia un letargo de meses en nuestro banco de trabajo para asegurar su estabilidad natural. Solo entonces, mediante un saneado manual y componentes de alta custodia en latón macizo y lino puro, liberamos la luz latente en su veta.",
+      "p2": "Cada tronco o raíz inicia un letargo de meses en nuestro banco de trabajo para asegurar su estabilidad natural. Solo entonces, mediante un saneado manual y componentes en latón macizo y lino puro, liberamos la luz latente en su veta.",
       "fase1": "01. El Hallazgo",
       "fase2": "02. El Letargo",
       "fase3": "03. La Luz",
@@ -184,6 +184,17 @@
     },
     "copy": "© 2026 Veta & Lux. Todos los derechos reservados.",
     "hecho": "Hecho con ❤️ y madera recuperada."
-  }
+  },
+  "Gallery": {
+        "detalles": "Detalles",
+        "agotado": "Agotado",
+        "reservado": "Reservado",
+        "anadido": "✓ Añadido",
+        "anadir": "Añadir",
+        "sin_imagen": "Sin imagen",
+        "estado_reservado": "Reservada",
+        "estado_vendido": "Vendida"
+      
+    }
   
 }
