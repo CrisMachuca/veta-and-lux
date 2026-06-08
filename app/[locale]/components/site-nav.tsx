@@ -20,12 +20,14 @@ export function SiteNav() {
         
         {/* LOGOTIPO */}
         <Link
-          href="/"
-          onClick={() => setMenuAbierto(false)}
-          className="text-xl font-medium tracking-tighter text-stone-900 z-50"
-        >
-          Veta <span className="italic font-serif">&</span> Lux
-        </Link>
+  href="/"
+  onClick={() => setMenuAbierto(false)}
+  className="text-xl font-nixie font-bold tracking-tighter text-stone-900 z-50 flex items-center"
+>
+  Veta 
+  <span className="inline-block w-[1em] text-center opacity-90 mx-0.5">&</span> 
+  Lux
+</Link>
 
         {/* NAVEGACIÓN ESCRITORIO (Dinamizada con t('...')) */}
         <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest text-stone-600">

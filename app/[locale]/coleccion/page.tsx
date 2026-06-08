@@ -42,10 +42,10 @@ export default async function ColeccionPage() {
       <SiteNav />
 
       <section className="max-w-5xl mx-auto px-6 pt-14 pb-10 md:pt-20 md:pb-14">
-        <p className="text-sm uppercase tracking-widest text-stone-500 mb-4">
+        <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">
           {t("tagline")}
         </p>
-        <h1 className="text-4xl md:text-5xl font-light text-stone-900 tracking-tight mb-6">
+        <h1 className="text-4xl md:text-5xl font-light text-stone-900 tracking-tight mb-6 font-serif italic">
           {t("titulo")}
         </h1>
         <p className="max-w-2xl text-lg text-stone-600 leading-relaxed">

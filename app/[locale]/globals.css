@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Nixie+One&display=swap');
 @import "tailwindcss";
+
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+
 @theme inline {
+ 
+  --font-nixie: "Nixie One", serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -31,4 +36,21 @@ body {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@keyframes ken-burns {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1.01); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 12s ease-out infinite alternate;
+}
+
+@layer base {
+  body {
+    /* Un tono crema muy suave, más cálido que el stone-50 */
+    background-color: #fcfaf8; 
+    color: #4a4540; /* Un tono café muy suave para el texto */
+  }
 }
