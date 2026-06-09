@@ -62,6 +62,54 @@ export default async function Page() {
         </div>
       </section>
 
+     {/* 💎 SECCIÓN EDITORIAL DE IMPACTO */}
+<section className="my-24 md:my-40 px-6">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    
+    {/* Imagen: Diseño a sangre, con formato 3/4 para máximo empaque visual */}
+    <FadeIn direction="left" duration={1.5}>
+      <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-sm shadow-2xl">
+        <Image 
+          src="/lampara-principal.jpeg" 
+          alt="Detalle artesanal Veta & Lux" 
+          fill 
+          className="object-cover transition-transform duration-[2000ms] ease-out hover:scale-[1.05]"
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          priority
+        />
+      </div>
+    </FadeIn>
+
+    {/* Texto: Jerarquía editorial con espacio negativo */}
+    <FadeIn direction="right" duration={1.5} delay={0.3}>
+      <div className="space-y-8">
+        <span className="text-[11px] uppercase tracking-[0.5em] text-amber-900/60 font-bold font-urbanist">
+          El proceso creativo
+        </span>
+        
+        <h2 className="text-5xl md:text-6xl font-nixie text-[#3a3530] leading-[1.1]">
+          Madera con <br/><span className="italic">voz propia</span>
+        </h2>
+        
+        <div className="w-20 h-[1px] bg-stone-300"></div>
+        
+        <p className="text-stone-600 font-urbanist leading-relaxed text-lg md:text-xl max-w-lg">
+          No solo creamos lámparas; esculpimos el tiempo. Cada pieza de madera es seleccionada por sus cicatrices y su veta, transformándose bajo nuestras manos en una fuente de luz que respira serenidad en tu hogar.
+        </p>
+        
+        <div className="pt-4">
+          <Link 
+            href="/coleccion" 
+            className="inline-block border-b border-[#3a3530] pb-1 uppercase tracking-[0.4em] text-[10px] font-bold font-urbanist hover:text-amber-900 hover:border-amber-900 transition-all"
+          >
+            {t("Galeria.botonVerColeccion")} →
+          </Link>
+        </div>
+      </div>
+    </FadeIn>
+  </div>
+</section>
+
       {/* 🪵 GALERÍA */}
       <section className="py-32">
   <FadeIn direction="up" delay={0.2}>
@@ -85,6 +133,15 @@ export default async function Page() {
   <FadeIn direction="up" delay={0.5} scale={0.96}>
     <div className="px-6 md:max-w-7xl md:mx-auto">
       <ProductGallery productos={productosSanity} isHome={true} />
+      {/* BOTÓN RECUPERADO: Ver Colección Completa */}
+      <div className="flex justify-center mt-16 md:mt-20">
+          <Link 
+            href="/coleccion" 
+            className="px-10 py-3 border border-[#3a3530]/20 text-[#3a3530] text-[10px] uppercase tracking-[0.3em] font-bold font-urbanist rounded-full hover:bg-[#3a3530] hover:text-white transition-all duration-300"
+          >
+            {t("Galeria.botonVerColeccion")}
+          </Link>
+        </div>
     </div>
   </FadeIn>
 </section>

@@ -14,7 +14,7 @@
       "botonAdquirir": "Adquirir Pieza Única"
     },
     "Galeria": {
-      "titulo": "Obras Disponibles en Taller",
+      "titulo": "Obras Destacadas",
       "subtitulo": "Piezas artesanales únicas",
       "botonVerColeccion": "Ver Colección Completa"
     },
@@ -38,7 +38,7 @@
       "botonProceso": "Descubrir el proceso completo →"
     },
     "Encargos": {
-      "titulo": "¿Busca un proyecto a medida o asesoramiento técnico?",
+      "titulo": "¿Buscas un proyecto a medida o asesoramiento técnico?",
       "texto": "Trabajamos mano a mano con interioristas, arquitectos y coleccionistas privados para concebir piezas exclusivas adaptadas a espacios singulares.",
       "botonContacto": "Contactar con el Atelier"
     }

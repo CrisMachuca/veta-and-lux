@@ -46,10 +46,22 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
                 )}
                 
                 {producto.estado && producto.estado !== "disponible" && (
-                  <div className={`absolute top-1.5 right-1.5 md:top-4 md:right-4 backdrop-blur-md text-[8px] md:text-[10px] text-white uppercase tracking-wider md:tracking-widest px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-full font-medium shadow-sm z-10 ${producto.estado === "reservado" ? "bg-amber-800/90" : "bg-stone-900/95"}`}>
-                    {producto.estado === "reservado" ? t("estado_reservado") : t("estado_vendido")}
-                  </div>
-                )}
+  <div className={`
+    absolute top-3 left-3 md:top-4 md:left-4 
+    px-3 py-1 
+    backdrop-blur-md 
+    border 
+    text-[9px] md:text-[10px] 
+    uppercase tracking-[0.2em] font-bold 
+    shadow-sm z-10
+    ${producto.estado === "reservado" 
+      ? "bg-amber-50/80 border-amber-200 text-amber-900" // Tono cálido para reservado
+      : "bg-white/70 border-white/50 text-stone-900"     // Tono neutro para vendido
+    }
+  `}>
+    {producto.estado === "reservado" ? t("estado_reservado") : t("estado_vendido")}
+  </div>
+)}
               </div>
             </Link>
 
