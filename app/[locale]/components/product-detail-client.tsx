@@ -183,10 +183,10 @@ export function ProductDetailClient({ producto }: { producto: any }) {
           {/* Info */}
           <div className="space-y-10">
             <div>
-              <h1 className="text-4xl md:text-5xl font-serif italic text-stone-900 mb-4">
+              <h1 className="text-4xl md:text-5xl font-nixie font-bold text-stone-900 mb-4">
                 {producto.nombre}
               </h1>
-              <p className="text-2xl font-light text-stone-800 mb-6">
+              <p className="text-2xl font-light text-stone-800 mb-6 font-urbanist">
                 {producto.precio}
               </p>
               <p className="text-stone-600 leading-relaxed text-lg font-light">
@@ -303,7 +303,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
               {/* Bloque informativo de Lista de Espera */}
               {producto.estado === 'reservado' && (
                 <div className="mt-4 p-4 rounded-xl border border-stone-200/60 bg-stone-50/50 text-xs text-stone-600 space-y-2 max-w-md leading-relaxed">
-                  <p className="font-medium text-stone-800">{t("listaEspera.titulo")}</p>
+                  <p className="font-medium text-stone-800 font-urbanist">{t("listaEspera.titulo")}</p>
                   <p>{t("listaEspera.texto")}</p>
                 </div>
               )}

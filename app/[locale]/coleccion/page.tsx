@@ -1,5 +1,5 @@
-import { Link } from "@/navigation"; // 🌟 CAMBIO: Usamos nuestro Link localizado
-import { getTranslations } from "next-intl/server"; // 🌟 CAMBIO: getTranslations para Server Components
+import { Link } from "@/navigation"; 
+import { getTranslations } from "next-intl/server"; 
 import { ProductGallery } from "@/app/[locale]/components/product-gallery";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
@@ -7,7 +7,6 @@ import { client } from "@/sanity/lib/client";
 
 export const dynamic = "force-dynamic";
 
-// 1. Consulta GROQ para traernos la colección completa en vivo con revalidación de caché
 async function getColeccionCompleta() {
   const query = `*[_type == "producto"] | order(_createdAt desc) {
     _id,
@@ -29,32 +28,35 @@ async function getColeccionCompleta() {
   return await client.fetch(query, {}, { next: { revalidate: 10 } });
 }
 
-// 2. Función del Server Component asíncrona
 export default async function ColeccionPage() {
-  // 3. Obtenemos los datos reales de la base de datos de Sanity
   const productosSanity = await getColeccionCompleta();
-
-  // 🌟 CAMBIO: Activamos las traducciones del nodo "Coleccion" con await
   const t = await getTranslations("Coleccion");
 
   return (
-    <main className="min-h-screen bg-stone-50">
+    <main className="min-h-screen bg-[#fcfaf8] text-[#3a3530] antialiased">
       <SiteNav />
 
       <section className="max-w-5xl mx-auto px-6 pt-14 pb-10 md:pt-20 md:pb-14">
-        <p className="font-mono text-xs text-amber-800/60 uppercase tracking-widest font-bold">
+        {/* Tagline: Urbanist + Uppercase + tracking */}
+        <p className="text-[10px] uppercase tracking-[0.5em] font-bold text-amber-900/60 font-urbanist">
           {t("tagline")}
         </p>
-        <h1 className="text-4xl md:text-5xl font-light text-stone-900 tracking-tight mb-6 font-serif italic">
+        
+        {/* Título: Nixie One */}
+        <h1 className="text-4xl md:text-6xl font-nixie text-[#3a3530] mt-4 leading-tight">
           {t("titulo")}
         </h1>
-        <p className="max-w-2xl text-lg text-stone-600 leading-relaxed">
+        
+        {/* Descripción: Urbanist */}
+        <p className="max-w-2xl text-lg text-[#6b645d] leading-relaxed font-urbanist">
           {t("descripcion")}
         </p>
-        <p className="mt-6 text-sm text-stone-500">
+        
+        {/* Botón Volver: Urbanist */}
+        <p className="mt-6 text-sm text-[#6b645d] font-urbanist">
           <Link
             href="/"
-            className="border-b border-stone-400 hover:text-stone-800 hover:border-stone-800 transition-colors"
+            className="border-b border-[#a69680] hover:text-[#3a3530] hover:border-[#3a3530] transition-colors"
           >
             {t("botonVolver")}
           </Link>
@@ -63,9 +65,7 @@ export default async function ColeccionPage() {
 
       <section className="max-w-5xl mx-auto px-6 pb-20">
         <h2 className="sr-only">{t("srObras")}</h2>
-        {/* 4. Pasamos los productos reales de Sanity a la galería */}
         <ProductGallery productos={productosSanity} />
-        
       </section>
 
       <SiteFooter />
