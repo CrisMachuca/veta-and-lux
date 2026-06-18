@@ -1,11 +1,34 @@
 // actions/translateAction.ts
 import { DocumentActionComponent, DocumentActionProps, useClient } from 'sanity';
 
+// Definimos la estructura de tus campos para que TypeScript no se queje
+interface TranslatableField {
+  es?: string;
+  en?: string;
+}
+
+interface MaterialField {
+  es?: { tipo?: string; color?: string };
+  en?: { tipo?: string; color?: string };
+}
+
+interface SanityDoc {
+  _id: string;
+  nombre?: TranslatableField;
+  descripcion?: TranslatableField;
+  descripcionLarga?: TranslatableField;
+  materialBase?: TranslatableField;
+  cuidados?: TranslatableField;
+  materialPantalla?: MaterialField;
+  cable?: MaterialField;
+}
+
 export const TranslateAction: DocumentActionComponent = (props: DocumentActionProps) => {
   const client = useClient({ apiVersion: '2026-06-18' });
 
   const handleTranslate = async () => {
-    const doc = props.draft || props.published;
+    // Forzamos el tipo aquí para que TypeScript reconozca los campos
+    const doc = (props.draft || props.published) as SanityDoc | undefined;
     if (!doc) return;
 
     const translate = async (text: string) => {
@@ -18,7 +41,6 @@ export const TranslateAction: DocumentActionComponent = (props: DocumentActionPr
       } catch (e) { return text; }
     };
 
-    // Usamos ?.es || "" para evitar que el programa se detenga si algo no existe
     const patchData: any = {
       nombre: { es: doc.nombre?.es, en: await translate(doc.nombre?.es || "") },
       descripcion: { es: doc.descripcion?.es, en: await translate(doc.descripcion?.es || "") },
@@ -26,12 +48,14 @@ export const TranslateAction: DocumentActionComponent = (props: DocumentActionPr
       materialBase: { es: doc.materialBase?.es, en: await translate(doc.materialBase?.es || "") },
       cuidados: { es: doc.cuidados?.es || "", en: await translate(doc.cuidados?.es || "") },
       materialPantalla: {
+        es: doc.materialPantalla?.es,
         en: {
           tipo: await translate(doc.materialPantalla?.es?.tipo || ""),
           color: await translate(doc.materialPantalla?.es?.color || "")
         }
       },
       cable: {
+        es: doc.cable?.es,
         en: {
           tipo: await translate(doc.cable?.es?.tipo || ""),
           color: await translate(doc.cable?.es?.color || "")
