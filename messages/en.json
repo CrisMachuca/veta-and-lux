@@ -12,6 +12,12 @@
       "subParrafo": "Timeless art and organic soul preserved in numbered pieces of exclusive design.",
       "botonAdquirir": "Acquire Unique Piece"
     },
+    "Editorial": {
+      "tagline": "The creative process",
+      "titulo": "Wood with a",
+      "tituloDestacado": "voice of its own",
+      "descripcion": "We don't just create lamps; we sculpt time. Each piece of wood is selected for its scars and grain, transforming under our hands into a light source that breathes serenity into your home."
+    },
     "Galeria": {
       "titulo": "Featured Works",
       "subtitulo": "Unique artisanal pieces",
@@ -94,7 +100,7 @@
     "compTecnica": "Technical Specifications",
     "materiales": "Materials",
     "dimensiones": "Dimensions",
-    "preservacion": "Care Instructions",
+    "cuidados": "Care",
     "cerrar": "Close",
     "status": {
       "reservado": "💡 This unique collection piece is temporarily reserved",
@@ -110,6 +116,10 @@
     "listaEspera": {
       "titulo": "Interested in this lamp?",
       "texto": "Reservations for unique pieces typically remain active for a maximum of 48 hours awaiting payment. If you wish to join the priority waiting list in case it becomes available again, or if you prefer us to find a similar wood in the workshop for you, write to us directly."
+    },
+    "proyectoMedida": {
+      "titulo": "Custom Project",
+      "texto": "This piece has found its home. If you love the style, we can create a similar one or customize a brand new piece just for you. Contact us!"
     },
     "whatsapp": {
       "reservado": "Hello! I saw the lamp \"{nombre}\" on the website and I see it is reserved. Could we talk about ordering a similar piece from the workshop?",

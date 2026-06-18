@@ -24,9 +24,7 @@ export function SiteNav() {
   onClick={() => setMenuAbierto(false)}
   className="text-xl font-nixie font-bold tracking-tighter text-stone-900 z-50 flex items-center"
 >
-  Veta 
-  <span className="inline-block w-[1em] text-center opacity-90 mx-0.5">&</span> 
-  Lux
+  Veta&Lux
 </Link>
 
         {/* NAVEGACIÓN ESCRITORIO (Dinamizada con t('...')) */}

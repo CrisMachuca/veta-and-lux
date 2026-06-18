@@ -8,10 +8,11 @@ import { client } from "@/sanity/lib/client";
 export const dynamic = "force-dynamic";
 
 async function getColeccionCompleta() {
+  // Traemos el objeto slug completo para que el enlace funcione
   const query = `*[_type == "producto"] | order(_createdAt desc) {
     _id,
     nombre,
-    "slug": slug.current,
+    slug,
     precio,
     descripcion,
     descripcionLarga,
@@ -37,22 +38,18 @@ export default async function ColeccionPage() {
       <SiteNav />
 
       <section className="max-w-5xl mx-auto px-6 pt-14 pb-10 md:pt-20 md:pb-14">
-        {/* Tagline: Urbanist + Uppercase + tracking */}
         <p className="text-[10px] uppercase tracking-[0.5em] font-bold text-amber-900/60 font-urbanist">
           {t("tagline")}
         </p>
         
-        {/* Título: Nixie One */}
         <h1 className="text-4xl md:text-6xl font-nixie text-[#3a3530] mt-4 leading-tight">
           {t("titulo")}
         </h1>
         
-        {/* Descripción: Urbanist */}
         <p className="max-w-2xl text-lg text-[#6b645d] leading-relaxed font-urbanist">
           {t("descripcion")}
         </p>
         
-        {/* Botón Volver: Urbanist */}
         <p className="mt-6 text-sm text-[#6b645d] font-urbanist">
           <Link
             href="/"

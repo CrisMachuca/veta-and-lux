@@ -13,6 +13,12 @@
       "subParrafo": "Arte atemporal y alma orgánica preservados en piezas numeradas de diseño exclusivo.",
       "botonAdquirir": "Adquirir Pieza Única"
     },
+    "Editorial": {
+      "tagline": "El proceso creativo",
+      "titulo": "Madera con",
+      "tituloDestacado": "voz propia",
+      "descripcion": "No solo creamos lámparas; esculpimos el tiempo. Cada pieza de madera es seleccionada por sus cicatrices y su veta, transformándose bajo nuestras manos en una fuente de luz que respira serenidad en tu hogar."
+    },
     "Galeria": {
       "titulo": "Obras Destacadas",
       "subtitulo": "Piezas artesanales únicas",
@@ -95,7 +101,7 @@
     "compTecnica": "Composición Técnica",
     "materiales": "Materiales",
     "dimensiones": "Dimensiones",
-    "preservacion": "Preservación",
+    "cuidados": "Cuidados",
     "cerrar": "Cerrar",
     "status": {
       "reservado": "💡 Esta pieza única de colección está reservada temporalmente",
@@ -110,6 +116,10 @@
     "listaEspera": {
       "titulo": "¿Te interesa esta lámpara?",
       "texto": "Las reservas de piezas únicas suelen mantenerse activas durante un máximo de 48 horas a la espera del pago. Si deseas entrar en la lista de espera prioritaria por si vuelve a quedar libre, o si prefieres que busquemos una madera similar en el taller para ti, escríbenos directamente."
+    },
+    "proyectoMedida": {
+      "titulo": "Proyecto a medida",
+      "texto": "Esta pieza ya ha encontrado un hogar. Si te gusta el estilo, podemos crear una similar o personalizar una nueva para ti. ¡Contáctanos!"
     },
     "whatsapp": {
       "reservado": "¡Hola! He visto la lámpara \"{nombre}\" en la web y veo que está reservada. ¿Podríamos hablar para encargar una pieza similar en el taller?",

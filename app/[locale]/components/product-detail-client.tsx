@@ -2,7 +2,7 @@
 
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { urlFor } from "@/sanity/lib/client";
-import { useTranslations } from "next-intl"; // 🌟 CAMBIO: Importamos el Hook de cliente
+import { useTranslations, useLocale } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // --- Constantes y Utilidades (Magnifier) ---
@@ -77,13 +77,13 @@ function MagnifierImage({ src, alt }: { src: string; alt: string }) {
 // --- Componente Principal ---
 export function ProductDetailClient({ producto }: { producto: any }) {
   const { addItem } = useCart();
-  // 🌟 CAMBIO: Inicializamos el diccionario de cliente
   const t = useTranslations("DetalleCliente");
+  const locale = useLocale();
+  
+  const getTrad = (campo: any) => campo?.[locale] || campo?.es || "";
   
   const [selectedImage, setSelectedImage] = useState(
-    producto.imagenes && producto.imagenes.length > 0 
-      ? producto.imagenes[0] 
-      : producto.imagen
+    producto.imagenes && producto.imagenes.length > 0 ? producto.imagenes[0] : producto.imagen
   );
   
   const [openImage, setOpenImage] = useState<string | null>(null);
@@ -94,237 +94,126 @@ export function ProductDetailClient({ producto }: { producto: any }) {
 
   function handleAddToCart() {
     const imagenUrl = producto.imagen ? urlFor(producto.imagen).url() : "";
-
     const productoMapeado = {
       ...producto,
       id: producto._id || producto.id,
+      nombre: getTrad(producto.nombre),
       imagen: imagenUrl,
     };
     
     addItem(productoMapeado);
     setAddedFeedback(true);
-    
-    if (feedbackTimeoutRef.current) {
-      window.clearTimeout(feedbackTimeoutRef.current);
-    }
-    feedbackTimeoutRef.current = window.setTimeout(() => {
-      setAddedFeedback(false);
-    }, 1500);
+    if (feedbackTimeoutRef.current) window.clearTimeout(feedbackTimeoutRef.current);
+    feedbackTimeoutRef.current = window.setTimeout(() => setAddedFeedback(false), 1500);
   }
 
-  useEffect(() => {
-    return () => {
-      if (feedbackTimeoutRef.current) {
-        window.clearTimeout(feedbackTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  const esImagenSeleccionada = (img: any) => {
-    if (!selectedImage || !img) return false;
-    if (selectedImage.asset?._ref && img.asset?._ref) {
-      return selectedImage.asset._ref === img.asset._ref;
-    }
-    return selectedImage === img;
-  };
-
-  // Construcción dinámica y segura de cadenas de consulta para WhatsApp
-  const textoWhatsappReservado = t("whatsapp.reservado", { nombre: producto.nombre });
-  const textoWhatsappVendido = t("whatsapp.vendido", { nombre: producto.nombre });
+  const nombreTraducido = getTrad(producto.nombre);
+  const textoWhatsappReservado = t.has("whatsapp.reservado") ? t("whatsapp.reservado", { nombre: nombreTraducido }) : "Hola, me interesa reservar " + nombreTraducido;
+  const textoWhatsappVendido = t.has("whatsapp.vendido") ? t("whatsapp.vendido", { nombre: nombreTraducido }) : "Hola, me interesa el producto " + nombreTraducido;
 
   return (
     <>
       <section className="max-w-6xl mx-auto px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           
-          {/* Galería */}
           <div className="lg:sticky lg:top-24">
-            <button 
-              onClick={() => setOpenImage(selectedImage ? urlFor(selectedImage).url() : null)} 
-              className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80"
-            >
-              {selectedImage ? (
-                <img 
-                  src={urlFor(selectedImage).url()} 
-                  alt={producto.nombre} 
-                  className="w-full aspect-[4/5] object-cover" 
-                />
-              ) : (
-                <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-400 text-sm">
-                  {t("sinImagen")}
-                </div>
-              )}
+            <button onClick={() => setOpenImage(selectedImage ? urlFor(selectedImage).url() : null)} className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80">
+              {selectedImage ? <img src={urlFor(selectedImage).url()} alt={nombreTraducido} className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-400 text-sm">{t("sinImagen")}</div>}
             </button>
-            
             {producto.imagenes && producto.imagenes.length > 0 && (
               <div className="grid grid-cols-3 gap-4 mt-4">
-                {producto.imagenes.map((img: any, index: number) => {
-                  const isSelected = esImagenSeleccionada(img);
-                  return (
-                    <button 
-                      key={img._key || index} 
-                      onClick={() => setSelectedImage(img)} 
-                      className={`rounded-xl overflow-hidden ring-1 transition-all ${
-                        isSelected ? "ring-stone-900" : "ring-stone-200 opacity-60"
-                      }`}
-                    >
-                      <img 
-                        src={urlFor(img).url()} 
-                        alt={t("miniaturaAlt")} 
-                        className="w-full aspect-square object-cover" 
-                      />
-                    </button>
-                  );
-                })}
+                {producto.imagenes.map((img: any, index: number) => (
+                  <button key={img._key || index} onClick={() => setSelectedImage(img)} className={`rounded-xl overflow-hidden ring-1 transition-all ${selectedImage?.asset?._ref === img.asset?._ref ? "ring-stone-900" : "ring-stone-200 opacity-60"}`}>
+                    <img src={urlFor(img).url()} alt={t("miniaturaAlt")} className="w-full aspect-square object-cover" />
+                  </button>
+                ))}
               </div>
             )}
           </div>
 
-          {/* Info */}
           <div className="space-y-10">
             <div>
-              <h1 className="text-4xl md:text-5xl font-nixie font-bold text-stone-900 mb-4">
-                {producto.nombre}
-              </h1>
-              <p className="text-2xl font-light text-stone-800 mb-6 font-urbanist">
-                {producto.precio}
-              </p>
+              <h1 className="text-4xl md:text-5xl font-nixie font-bold text-stone-900 mb-4">{nombreTraducido}</h1>
+              <p className="text-2xl font-light text-stone-800 mb-6 font-urbanist">{producto.precio}€</p>
               <p className="text-stone-600 leading-relaxed text-lg font-light">
-                {producto.descripcionLarga || producto.descripcion}
+                {getTrad(producto.descripcionLarga) || getTrad(producto.descripcion)}
               </p>
             </div>
 
-            <div className="space-y-6">
-              {/* Ficha Técnica */}
-              <div className="rounded-sm border-l-2 border-stone-800 bg-stone-100/50 p-6">
-                <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-6">
-                  {t("compTecnica")}
-                </h2>
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <p className="text-[9px] uppercase text-stone-400 font-bold">{t("materiales")}</p>
-                    <ul className="space-y-1 font-mono text-xs text-stone-700">
-                      <li className="flex gap-4">
-                        <span className="text-stone-400 w-16">BASE:</span> {producto.materialBase}
-                      </li>
-                      {producto.materialPantalla?.tipo && (
-                        <li className="flex gap-4">
-                          <span className="text-stone-400 w-16">PANTALLA:</span> {producto.materialPantalla.tipo} ({producto.materialPantalla.color})
-                        </li>
-                      )}
-                      {producto.cable?.tipo && (
-                        <li className="flex gap-4">
-                          <span className="text-stone-400 w-16">CABLE:</span> {producto.cable.tipo} — {producto.cable.color}
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                  
-                  {producto.medidas && producto.medidas.length > 0 && (
-                    <div className="pt-4 border-t border-stone-200">
-                      <p className="text-[9px] uppercase text-stone-400 font-bold">{t("dimensiones")}</p>
-                      <ul className="space-y-1 font-mono text-xs text-stone-700">
-                        {producto.medidas.map((m: string) => (
-                          <li key={m} className="flex gap-4">
-                            <span className="text-stone-400 w-16">SIZE:</span> {m}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
+            <div className="rounded-sm border-l-2 border-stone-800 bg-stone-100/50 p-6 space-y-6">
+              <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-6">{t("compTecnica")}</h2>
+              <div className="space-y-4">
+                <p className="text-[9px] uppercase text-stone-400 font-bold">{t("materiales")}</p>
+                <ul className="space-y-1 font-mono text-xs text-stone-700">
+                  <li className="flex gap-4"><span className="text-stone-400 w-16">BASE:</span> {getTrad(producto.materialBase)}</li>
+                  {producto.materialPantalla?.tipo && <li className="flex gap-4"><span className="text-stone-400 w-16">PANTALLA:</span> {producto.materialPantalla.tipo} ({producto.materialPantalla.color})</li>}
+                </ul>
               </div>
-
-              {/* Cuidados */}
-              {producto.cuidados && producto.cuidados.length > 0 && (
-                <div className="rounded-3xl border border-stone-200 bg-white p-8">
-                  <h2 className="text-sm font-serif italic text-stone-800 mb-4">{t("preservacion")}</h2>
-                  <ul className="space-y-3">
-                    {producto.cuidados.map((c: string) => (
-                      <li key={c} className="text-stone-500 text-sm flex gap-3">
-                        <span className="text-amber-800/40">•</span>
-                        {c}
-                      </li>
-                    ))}
+              
+              {producto.medidas && (
+                <div className="space-y-1">
+                  <p className="text-[9px] uppercase text-stone-400 font-bold">MEDIDAS (CM)</p>
+                  <ul className="space-y-1 font-mono text-xs text-stone-700">
+                    <li className="flex gap-4"><span className="text-stone-400 w-16">ANCHO:</span> {producto.medidas.ancho}</li>
+                    <li className="flex gap-4"><span className="text-stone-400 w-16">LARGO:</span> {producto.medidas.largo}</li>
+                    <li className="flex gap-4"><span className="text-stone-400 w-16">ALTO:</span> {producto.medidas.alto}</li>
                   </ul>
                 </div>
               )}
-            </div>
 
-            {/* Sección Comercial */}
-            <div className="pt-2 space-y-4">
-              
-              {/* Etiquetas de aviso */}
-              {producto.estado && producto.estado !== 'disponible' && (
-                <div className={`p-3 rounded-xl text-xs uppercase tracking-widest font-medium inline-block ${
-                  producto.estado === 'reservado' 
-                    ? 'bg-amber-50 text-amber-800 border border-amber-200/60' 
-                    : 'bg-red-50 text-red-800 border border-red-200/60'
-                }`}>
-                  {producto.estado === 'reservado' 
-                    ? t("status.reservado") 
-                    : t("status.vendido")}
+              {producto.cuidados && (
+                <div className="space-y-1">
+                  <p className="text-[9px] uppercase text-stone-400 font-bold">CUIDADOS</p>
+                  <p className="font-mono text-xs text-stone-700 whitespace-pre-line">{getTrad(producto.cuidados)}</p>
                 </div>
               )}
+            </div>
 
-              {/* Botón condicional según estado */}
+            <div className="pt-2 space-y-4">
+              {producto.estado !== 'disponible' && (
+                <div className={`p-3 rounded-xl text-xs uppercase tracking-widest font-medium inline-block ${producto.estado === 'reservado' ? 'bg-amber-50 text-amber-800' : 'bg-red-50 text-red-800'}`}>
+                  {producto.estado === 'reservado' ? t("status.reservado") : t("status.vendido")}
+                </div>
+              )}
+              
               {producto.estado === 'reservado' ? (
-                <a
-                  href={`https://wa.me/${TELEFONO_TALLER}?text=${encodeURIComponent(textoWhatsappReservado)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full md:w-auto inline-block text-center rounded-full bg-stone-900 text-stone-50 px-12 py-4 text-xs uppercase tracking-widest hover:bg-stone-800 transition-all font-medium shadow-sm"
-                >
-                  {t("botones.encargar")}
-                </a>
+                <a href={`https://wa.me/${TELEFONO_TALLER}?text=${encodeURIComponent(textoWhatsappReservado)}`} target="_blank" className="w-full md:w-auto inline-block text-center rounded-full bg-stone-900 text-stone-50 px-12 py-4 text-xs uppercase tracking-widest hover:bg-stone-800 transition-all">{t("botones.encargar")}</a>
               ) : producto.estado === 'vendido' ? (
-                <a
-                  href={`https://wa.me/${TELEFONO_TALLER}?text=${encodeURIComponent(textoWhatsappVendido)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full md:w-auto inline-block text-center rounded-full bg-stone-100 text-stone-800 border border-stone-300 px-12 py-4 text-xs uppercase tracking-widest hover:bg-stone-200 transition-all font-medium"
-                >
-                  {t("botones.solicitar")}
-                </a>
+                <a href={`https://wa.me/${TELEFONO_TALLER}?text=${encodeURIComponent(textoWhatsappVendido)}`} target="_blank" className="w-full md:w-auto inline-block text-center rounded-full bg-black text-white px-12 py-4 text-xs uppercase tracking-widest hover:bg-stone-800 hover:scale-[1.02] transition-all shadow-lg border border-transparent">{t("botones.solicitar")}</a>
               ) : (
-                <button 
-                  type="button"
-                  onClick={handleAddToCart} 
-                  className={`w-full md:w-auto rounded-full px-12 py-4 text-xs uppercase tracking-widest transition-all ${
-                    addedFeedback 
-                      ? "bg-stone-100 text-stone-400" 
-                      : "bg-stone-900 text-stone-50 hover:bg-stone-800 cursor-pointer shadow-sm"
-                  }`}
-                >
+                <button type="button" onClick={handleAddToCart} className={`w-full md:w-auto rounded-full px-12 py-4 text-xs uppercase tracking-widest transition-all ${addedFeedback ? "bg-stone-100 text-stone-400" : "bg-stone-900 text-stone-50 hover:bg-stone-800"}`}>
                   {addedFeedback ? t("botones.anadido") : t("botones.adquirir")}
                 </button>
               )}
-
-              {/* Bloque informativo de Lista de Espera */}
+              
               {producto.estado === 'reservado' && (
-                <div className="mt-4 p-4 rounded-xl border border-stone-200/60 bg-stone-50/50 text-xs text-stone-600 space-y-2 max-w-md leading-relaxed">
-                  <p className="font-medium text-stone-800 font-urbanist">{t("listaEspera.titulo")}</p>
-                  <p>{t("listaEspera.texto")}</p>
+                <div className="rounded-sm border-l-2 border-amber-600 bg-amber-50/50 p-6 space-y-2">
+                  <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-amber-900/60">{t("listaEspera.titulo")}</h3>
+                  <p className="text-sm text-stone-700 leading-relaxed font-urbanist">{t("listaEspera.texto")}</p>
+                </div>
+              )}
+
+              {producto.estado === 'vendido' && (
+                <div className="rounded-sm border-l-2 border-stone-800 bg-stone-100 p-6 space-y-2">
+                  <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500">
+                    {t("proyectoMedida.titulo")}
+                  </h3>
+                  <p className="text-sm text-stone-700 leading-relaxed font-urbanist">
+                    {t("proyectoMedida.texto")}
+                  </p>
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* Modal Lupa Avanzada */}
       {openImage && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-stone-950/80 backdrop-blur-sm" onClick={() => setOpenImage(null)} />
-          <div className="relative z-[101] w-full max-w-5xl bg-stone-50 rounded-2xl overflow-hidden p-8 flex flex-col items-center">
-            <MagnifierImage src={openImage} alt={producto.nombre} />
-            <button 
-              onClick={() => setOpenImage(null)} 
-              className="mt-4 text-xs uppercase tracking-widest font-bold text-stone-700 hover:text-stone-900 transition-colors"
-            >
-              {t("cerrar")}
-            </button>
+          <div className="relative z-[101] w-full max-w-5xl bg-stone-50 rounded-2xl p-8 flex flex-col items-center">
+            <MagnifierImage src={openImage} alt={nombreTraducido} />
+            <button onClick={() => setOpenImage(null)} className="mt-4 text-xs uppercase tracking-widest font-bold text-stone-700">{t("cerrar")}</button>
           </div>
         </div>
       )}
