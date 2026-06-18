@@ -1,10 +1,18 @@
 // schemaTypes/localeField.js
-export const localeField = (name, title, type = 'string') => ({
+ export const localeField = (name: string, title: string, type: string = 'string') => ({
     name,
     title,
     type: 'object',
     fields: [
-      { name: 'es', title: `${title} (Español)`, type },
-      { name: 'en', title: `${title} (Inglés)`, type },
+      {
+        name: 'es',
+        title: 'Español',
+        type: type,
+      },
+      {
+        name: 'en',
+        title: 'English',
+        type: type,
+      },
     ],
   });
