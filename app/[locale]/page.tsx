@@ -30,9 +30,9 @@ export default async function Page() {
       {/* 💎 HERO GALERÍA OPTIMIZADA */}
 <section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-stone-950 shadow-2xl">
   
-  {["/rodaja-peque.png", "/escultura-olivo-sombra.jpg", "/patilla-baja.jpg"].map((src, i) => (
+  {["/patilla-baja.jpg", "/rodaja-peque.png", "/escultura-olivo-sombra.jpg"].map((src, i) => (
     <div 
-      key={i} 
+      key={src} 
       className={`
         absolute inset-0 z-0 animate-fade-hero overflow-hidden
         ${i === 0 ? 'block' : 'block md:left-[33.33%]'}
@@ -45,15 +45,14 @@ export default async function Page() {
     >
       <div className="relative w-full h-full flex items-center justify-center">
       <Image 
-  src={src} 
-  alt={`Veta & Lux ${i}`} 
-  fill 
-  sizes="(max-width: 768px) 100vw, 33vw"
-  /* Forzamos la carga prioritaria solo para la primera imagen del array */
-  loading={i === 0 ? "eager" : "lazy"}
-  priority={i === 0} 
-  className="object-cover md:object-cover transition-transform duration-[10s] hover:scale-105"
-/>
+        src={src} 
+        alt={`Veta & Lux ${i}`} 
+        fill 
+        sizes="(max-width: 768px) 100vw, 33vw"
+        priority={true} 
+        loading="eager"
+        className="object-cover md:object-cover transition-transform duration-[10s] hover:scale-105"
+      />
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 to-transparent md:bg-stone-950/20"></div>
@@ -70,12 +69,8 @@ export default async function Page() {
       </FadeIn>
 
       <FadeIn direction="none" delay={0.8} duration={1.5}>
-        <h1 className="text-6xl md:text-9xl font-nixie tracking-tight text-white select-none pt-4 drop-shadow-xl">
-          Veta
-          <span className="bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 bg-clip-text text-transparent mx-4">
-            &
-          </span>
-          Lux
+        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none pt-4 drop-shadow-xl">
+          Veta<span className="bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 bg-clip-text text-transparent">&</span>Lux
         </h1>
       </FadeIn>
 
@@ -197,7 +192,7 @@ export default async function Page() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <FadeIn direction="left" delay={0.2} scale={0.9}>
             <div className="relative aspect-[4/5] bg-stone-100 rounded-sm shadow-xl overflow-hidden">
-              <img src="/detalle.png" alt="Artesanía" className="w-full h-full object-cover" />
+              <img src="/baseolivo.jpg" alt="Artesanía" className="w-full h-full object-cover" />
             </div>
           </FadeIn>
           <div className="space-y-8">
