@@ -27,12 +27,12 @@ export default async function Page() {
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
       <SiteNav />
 
-      {/* 💎 HERO GALERÍA OPTIMIZADA - CORRECCIÓN DE CONTRASTE Y PARPADEO */}
-<section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-stone-950 shadow-2xl">
+      <section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#262321] shadow-2xl">
   
-  {/* Capa de oscurecimiento global (Resuelve el parpadeo de fondos) */}
-  <div className="absolute inset-0 z-[1] bg-stone-950/40 md:bg-stone-950/30"></div>
+  {/* Gradiente sutil para dar profundidad en lugar de negro plano */}
+  <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#262321]/60 via-transparent to-[#262321]/80"></div>
 
+  {/* Galería de imágenes (Ajustamos el contraste del borde) */}
   {["/patilla-baja.jpg", "/rodaja-peque.png", "/escultura-olivo-sombra.jpg"].map((src, i) => (
     <div 
       key={src} 
@@ -42,7 +42,7 @@ export default async function Page() {
         ${i === 1 ? 'md:left-[33.33%]' : ''}
         ${i === 2 ? 'md:left-[66.66%]' : ''}
         md:w-1/3 md:h-full
-        ${i < 2 ? 'md:border-r border-white/10' : ''} 
+        ${i < 2 ? 'md:border-r border-white/5' : ''} 
       `}
       style={{ animationDelay: `${i * 3}s` }}
     >
@@ -53,26 +53,28 @@ export default async function Page() {
           fill 
           sizes="(max-width: 768px) 100vw, 33vw"
           priority={true} 
-          loading="eager"
-          className="object-cover transition-transform duration-[10s] hover:scale-105"
+          className="object-cover transition-transform duration-[10s] hover:scale-105 opacity-90"
         />
       </div>
     </div>
   ))}
 
-  {/* Contenido (Texto Estático con Sombra para mejorar lectura en móvil) */}
+  {/* Contenido */}
   <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
-    <div className="pointer-events-auto text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+    <div className="pointer-events-auto text-center">
+      
       <FadeIn direction="down" delay={0.4} duration={1.2}>
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-amber-50/90 font-bold border-b border-white/30 pb-4 mb-8 block select-none">
+        {/* Tagline con espaciado más fino y letra más clara */}
+        <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-amber-100/70 font-light border-b border-white/10 pb-4 mb-10 block select-none">
           {t("Hero.tagline")}
         </span>
       </FadeIn>
 
       <FadeIn direction="none" delay={0.8} duration={1.5}>
-        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none pt-4">
+        {/* Título: quitamos el drop-shadow excesivo y dejamos que la tipografía luzca */}
+        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none">
           Veta
-          <span className="bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent  px-2">
             &
           </span>
           Lux
@@ -80,12 +82,16 @@ export default async function Page() {
       </FadeIn>
 
       <FadeIn direction="up" delay={1.3} duration={1.2}>
-        <div className="mt-10 space-y-10">
-          <p className="text-white font-light leading-relaxed text-base md:text-lg max-w-lg mx-auto tracking-[0.05em] font-urbanist italic opacity-95">
+        <div className="mt-12 space-y-10">
+          <p className="text-stone-200 font-light leading-relaxed text-base md:text-lg max-w-md mx-auto tracking-[0.05em] font-urbanist italic opacity-90">
             {t("Hero.parrafo")}
           </p>
+          
           <div className="pt-6">
-            <Link href="/coleccion" className="group relative inline-block border border-white/60 text-white px-16 py-4 rounded-full transition-all duration-500 text-[10px] uppercase tracking-[0.4em] font-bold overflow-hidden shadow-2xl hover:bg-white hover:text-stone-950 hover:border-white">
+            <Link 
+              href="/coleccion" 
+              className="group relative inline-block border border-white/20 text-white/90 px-12 py-3 rounded-none transition-all duration-700 text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-white hover:text-[#262321] hover:border-white shadow-none hover:shadow-2xl"
+            >
               <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
             </Link>
           </div>

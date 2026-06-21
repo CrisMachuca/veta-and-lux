@@ -59,6 +59,15 @@ body {
   animation: fade-hero 9s infinite ease-in-out;
 }
 
+@keyframes draw-brush {
+  from { stroke-dashoffset: 600; }
+  to { stroke-dashoffset: 50; }
+}
+
+.animate-draw-brush {
+  animation: draw-brush 3s ease-out forwards;
+}
+
 @layer base {
   body {
     /* Un tono crema muy suave, más cálido que el stone-50 */
