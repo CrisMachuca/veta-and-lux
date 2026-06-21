@@ -49,6 +49,16 @@ body {
   animation: ken-burns 12s ease-out infinite alternate;
 }
 
+@keyframes fade-hero {
+  0%, 100% { opacity: 0; }
+  10%, 40% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-fade-hero {
+  animation: fade-hero 9s infinite ease-in-out;
+}
+
 @layer base {
   body {
     /* Un tono crema muy suave, más cálido que el stone-50 */

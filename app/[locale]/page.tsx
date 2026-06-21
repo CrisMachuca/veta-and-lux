@@ -1,4 +1,4 @@
- // 🌟 Forzamos a Next.js a tratar la Home como dinámica en producción.
+
 export const dynamic = "force-dynamic";
 
 import { Link } from "@/navigation";
@@ -27,42 +27,74 @@ export default async function Page() {
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
       <SiteNav />
 
-      {/* 💎 HERO */}
-      <section className="relative flex flex-col items-center justify-center min-h-[90vh] px-6 text-center overflow-hidden rounded-sm mx-4 md:mx-8 mt-4 bg-stone-950 shadow-2xl">
-        <div className="absolute inset-0 z-0 animate-ken-burns">
-          <Image src="/detalle.png" alt="Veta & Lux" fill className="object-cover opacity-80 scale-105" priority />
+      {/* 💎 HERO GALERÍA OPTIMIZADA */}
+<section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-stone-950 shadow-2xl">
+  
+  {["/rodaja-peque.png", "/escultura-olivo-sombra.jpg", "/patilla-baja.jpg"].map((src, i) => (
+    <div 
+      key={i} 
+      className={`
+        absolute inset-0 z-0 animate-fade-hero overflow-hidden
+        ${i === 0 ? 'block' : 'block md:left-[33.33%]'}
+        ${i === 1 ? 'md:left-[33.33%]' : ''}
+        ${i === 2 ? 'md:left-[66.66%]' : ''}
+        md:w-1/3 md:h-full
+        ${i < 2 ? 'md:border-r border-white/10' : ''} 
+      `}
+      style={{ animationDelay: `${i * 3}s` }}
+    >
+      <div className="relative w-full h-full flex items-center justify-center">
+      <Image 
+  src={src} 
+  alt={`Veta & Lux ${i}`} 
+  fill 
+  sizes="(max-width: 768px) 100vw, 33vw"
+  /* Forzamos la carga prioritaria solo para la primera imagen del array */
+  loading={i === 0 ? "eager" : "lazy"}
+  priority={i === 0} 
+  className="object-cover md:object-cover transition-transform duration-[10s] hover:scale-105"
+/>
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 to-transparent md:bg-stone-950/20"></div>
+    </div>
+  ))}
+
+  {/* Contenido (Texto Estático) */}
+  <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
+    <div className="pointer-events-auto text-center">
+      <FadeIn direction="down" delay={0.4} duration={1.2}>
+        <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-amber-50/90 font-bold border-b border-white/30 pb-4 mb-8 block select-none drop-shadow-md">
+          {t("Hero.tagline")}
+        </span>
+      </FadeIn>
+
+      <FadeIn direction="none" delay={0.8} duration={1.5}>
+        <h1 className="text-6xl md:text-9xl font-nixie tracking-tight text-white select-none pt-4 drop-shadow-xl">
+          Veta
+          <span className="bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 bg-clip-text text-transparent mx-4">
+            &
+          </span>
+          Lux
+        </h1>
+      </FadeIn>
+
+      <FadeIn direction="up" delay={1.3} duration={1.2}>
+        <div className="mt-10 space-y-10">
+          <p className="text-white font-light leading-relaxed text-base md:text-lg max-w-lg mx-auto tracking-[0.05em] font-urbanist italic opacity-95 drop-shadow-md">
+            {t("Hero.parrafo")}
+          </p>
+          <div className="pt-6">
+            <Link href="/coleccion" className="group relative inline-block border border-white/60 text-white px-16 py-4 rounded-full transition-all duration-500 text-[10px] uppercase tracking-[0.4em] font-bold overflow-hidden shadow-2xl hover:bg-white hover:text-stone-950 hover:border-white">
+              <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
+            </Link>
+          </div>
         </div>
-        <div className="absolute inset-0 bg-stone-950/20 bg-gradient-to-b from-stone-950/10 via-stone-950/20 to-stone-950/40 z-1"></div>
-        
-        <div className="relative z-10 max-w-3xl space-y-8 px-4 py-20">
-          <FadeIn direction="down" delay={0.4} duration={1.2}>
-            <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-stone-200 font-bold border-b border-white/20 pb-4 block select-none">
-              {t("Hero.tagline")}
-            </span>
-          </FadeIn>
-
-          <FadeIn direction="none" delay={0.8} duration={1.5}>
-            <h1 className="text-6xl md:text-9xl font-nixie tracking-tight text-white select-none pt-4">
-              Veta<span className="text-amber-100">&</span>Lux
-            </h1>
-          </FadeIn>
-
-          <FadeIn direction="up" delay={1.3} duration={1.2}>
-            <div className="space-y-10">
-              <p className="text-stone-200 font-light leading-relaxed text-base md:text-lg max-w-lg mx-auto tracking-[0.05em] font-urbanist italic opacity-90">
-                {t("Hero.parrafo")}
-              </p>
-              <div className="pt-6">
-                <Link href="/coleccion" className="group relative inline-block border border-white/40 text-white px-16 py-4 rounded-full transition-all duration-500 text-[10px] uppercase tracking-[0.4em] font-bold overflow-hidden shadow-xl hover:border-white/60">
-                  <span className="relative z-10 group-hover:text-stone-950 transition-colors">{t("Hero.botonAdquirir")}</span>
-                </Link>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-     {/* 💎 SECCIÓN EDITORIAL DE IMPACTO */}
+      </FadeIn>
+    </div>
+  </div>
+</section>
+     {/* 💎 SECCIÓN EDITORIAL */}
 <section className="my-24 md:my-40 px-6">
   <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
     
@@ -116,15 +148,15 @@ export default async function Page() {
     <div className="text-center px-6 mb-20 space-y-4">
       {/* 1. Tagline pequeño para contraste */}
       <span className="text-[10px] font-bold text-amber-800/80 uppercase tracking-[0.5em] font-urbanist block">
-        {t("Galeria.subtitulo") /* Asegúrate de tener este campo, si no, pon un texto manual */}
+        {t("Galeria.subtitulo")}
       </span>
       
-      {/* 2. Título principal en Nixie One, más grande y con más presencia */}
+      {/* 2. Título principal  */}
       <h2 className="text-4xl md:text-5xl font-nixie text-[#3a3530] uppercase tracking-wide">
         {t("Galeria.titulo")}
       </h2>
       
-      {/* 3. Línea decorativa para cerrar el conjunto */}
+      {/* 3. Línea decorativa*/}
       <div className="w-12 h-[1px] bg-[#3a3530]/20 mx-auto mt-6"></div>
     </div>
   </FadeIn>
@@ -133,7 +165,7 @@ export default async function Page() {
   <FadeIn direction="up" delay={0.5} scale={0.96}>
     <div className="px-6 md:max-w-7xl md:mx-auto">
       <ProductGallery productos={productosSanity} isHome={true} />
-      {/* BOTÓN RECUPERADO: Ver Colección Completa */}
+      {/* BOTÓN: Ver Colección Completa */}
       <div className="flex justify-center mt-16 md:mt-20">
           <Link 
             href="/coleccion" 
