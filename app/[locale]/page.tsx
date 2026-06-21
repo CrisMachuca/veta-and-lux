@@ -27,9 +27,12 @@ export default async function Page() {
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
       <SiteNav />
 
-      {/* 💎 HERO GALERÍA OPTIMIZADA */}
+      {/* 💎 HERO GALERÍA OPTIMIZADA - CORRECCIÓN DE CONTRASTE Y PARPADEO */}
 <section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-stone-950 shadow-2xl">
   
+  {/* Capa de oscurecimiento global (Resuelve el parpadeo de fondos) */}
+  <div className="absolute inset-0 z-[1] bg-stone-950/40 md:bg-stone-950/30"></div>
+
   {["/patilla-baja.jpg", "/rodaja-peque.png", "/escultura-olivo-sombra.jpg"].map((src, i) => (
     <div 
       key={src} 
@@ -43,40 +46,42 @@ export default async function Page() {
       `}
       style={{ animationDelay: `${i * 3}s` }}
     >
-      <div className="relative w-full h-full flex items-center justify-center">
-      <Image 
-        src={src} 
-        alt={`Veta & Lux ${i}`} 
-        fill 
-        sizes="(max-width: 768px) 100vw, 33vw"
-        priority={true} 
-        loading="eager"
-        className="object-cover md:object-cover transition-transform duration-[10s] hover:scale-105"
-      />
+      <div className="relative w-full h-full">
+        <Image 
+          src={src} 
+          alt={`Veta & Lux ${i}`} 
+          fill 
+          sizes="(max-width: 768px) 100vw, 33vw"
+          priority={true} 
+          loading="eager"
+          className="object-cover transition-transform duration-[10s] hover:scale-105"
+        />
       </div>
-
-      <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 to-transparent md:bg-stone-950/20"></div>
     </div>
   ))}
 
-  {/* Contenido (Texto Estático) */}
+  {/* Contenido (Texto Estático con Sombra para mejorar lectura en móvil) */}
   <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
-    <div className="pointer-events-auto text-center">
+    <div className="pointer-events-auto text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
       <FadeIn direction="down" delay={0.4} duration={1.2}>
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-amber-50/90 font-bold border-b border-white/30 pb-4 mb-8 block select-none drop-shadow-md">
+        <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-amber-50/90 font-bold border-b border-white/30 pb-4 mb-8 block select-none">
           {t("Hero.tagline")}
         </span>
       </FadeIn>
 
       <FadeIn direction="none" delay={0.8} duration={1.5}>
-        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none pt-4 drop-shadow-xl">
-          Veta<span className="bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 bg-clip-text text-transparent">&</span>Lux
+        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none pt-4">
+          Veta
+          <span className="bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 bg-clip-text text-transparent">
+            &
+          </span>
+          Lux
         </h1>
       </FadeIn>
 
       <FadeIn direction="up" delay={1.3} duration={1.2}>
         <div className="mt-10 space-y-10">
-          <p className="text-white font-light leading-relaxed text-base md:text-lg max-w-lg mx-auto tracking-[0.05em] font-urbanist italic opacity-95 drop-shadow-md">
+          <p className="text-white font-light leading-relaxed text-base md:text-lg max-w-lg mx-auto tracking-[0.05em] font-urbanist italic opacity-95">
             {t("Hero.parrafo")}
           </p>
           <div className="pt-6">
