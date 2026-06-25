@@ -2,22 +2,24 @@
 
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { urlFor } from "@/sanity/lib/client"; 
-import Link from "next/link";
-import { useTranslations, useLocale } from "next-intl"; // Importamos useLocale
-import { useEffect, useRef, useState } from "react";
+import { Link } from "@/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import { useEffect, useState } from "react";
 
 export function ProductGallery({ productos, isHome = false }: { productos: any[], isHome?: boolean }) {
   const { addItem, lines } = useCart();
   const t = useTranslations("Gallery");
-  const locale = useLocale(); // Obtenemos el idioma actual ('es' o 'en')
+  const locale = useLocale();
   
-  const [addedProductId, setAddedProductId] = useState<string | null>(null);
-  const feedbackTimeoutRef = useRef<number | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   function handleAdd(producto: any) {
-    const imagenUrl = producto.imagen ? urlFor(producto.imagen).url() : "";
+    const imagenUrl = (producto.imagen?.asset) ? urlFor(producto.imagen).url() : "";
     
-    // Al añadir al carrito, guardamos el nombre en el idioma actual
     const productoMapeado = { 
       ...producto, 
       id: producto._id, 
@@ -26,29 +28,28 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
     };
 
     addItem(productoMapeado);
-    setAddedProductId(producto._id); 
-
-    if (feedbackTimeoutRef.current) window.clearTimeout(feedbackTimeoutRef.current);
-    feedbackTimeoutRef.current = window.setTimeout(() => setAddedProductId(null), 1200);
   }
-
-  useEffect(() => {
-    return () => {
-      if (feedbackTimeoutRef.current) window.clearTimeout(feedbackTimeoutRef.current);
-    };
-  }, []);
 
   return (
     <div className={`${isHome ? "flex md:grid md:grid-cols-3 gap-4 md:gap-12 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-hide pb-4" : "grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-12"}`}>
       {productos.map((producto) => {
-        const isAdded = lines.some(l => l.productId === producto._id);
-        const isDisabled = producto.estado === "vendido" || producto.estado === "reservado" || isAdded;
+        // --- CORRECCIÓN CRÍTICA ---
+        // Normalizamos el slug para evitar que llegue como undefined.
+        // Si producto.slug es un objeto (de Sanity), usamos .current, si es string, lo usamos directo.
+        const slugNormalizado = typeof producto.slug === 'string' 
+          ? producto.slug 
+          : producto.slug?.current;
+
+        const isAdded = isMounted && lines.some(l => l.productId === producto._id);
+        const isDisabled = !isMounted || producto.estado === "vendido" || producto.estado === "reservado" || isAdded;
 
         return (
           <article key={producto._id} className={`group flex flex-col h-full ${isHome ? "flex-none w-[75vw] md:w-auto snap-start" : ""}`}>
-            <Link href={`/coleccion/${producto.slug?.current}`} className="block rounded-xl md:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800">
+            {/* Usamos el slugNormalizado aquí */}
+            <Link href={`/coleccion/${slugNormalizado}`} className="block rounded-xl md:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl md:rounded-2xl bg-stone-100 ring-1 ring-stone-200/50 shadow-sm transition-all duration-500 group-hover:shadow-md">
-                {producto.imagen ? (
+                
+                {producto.imagen?.asset ? (
                   <img 
                     src={urlFor(producto.imagen).url()} 
                     alt={producto.nombre?.[locale] || "Producto"} 
@@ -80,7 +81,8 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
               
               <div className="mt-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                 <div className="flex flex-col gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] font-urbanist font-bold">
-                  <Link href={`/coleccion/${producto.slug?.current}`} className="text-stone-500 hover:text-stone-950 transition-colors underline underline-offset-4 w-fit">
+                  {/* Usamos el slugNormalizado aquí también */}
+                  <Link href={`/coleccion/${slugNormalizado}`} className="text-stone-500 hover:text-stone-950 transition-colors underline underline-offset-4 w-fit">
                     {t("detalles")}
                   </Link>
                   
@@ -88,9 +90,16 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
                     type="button"
                     disabled={isDisabled}
                     onClick={() => handleAdd(producto)}
-                    className={`px-4 py-2 rounded-full border transition-all duration-300 w-fit ${isDisabled ? "border-stone-200 text-stone-400 bg-stone-50 cursor-not-allowed" : "border-stone-800 text-stone-900 hover:bg-stone-900 hover:text-white cursor-pointer"}`}
+                    className={`px-4 py-2 rounded-full border transition-all duration-300 w-fit ${
+                      isDisabled 
+                        ? "border-stone-200 text-stone-400 bg-stone-50 cursor-not-allowed" 
+                        : "border-stone-800 text-stone-900 hover:bg-stone-900 hover:text-white cursor-pointer"
+                    }`}
                   >
-                    {producto.estado === "vendido" ? t("agotado") : producto.estado === "reservado" ? t("reservado") : isAdded ? t("anadido") : t("anadir")}
+                    {!isMounted 
+                      ? t("anadir") 
+                      : producto.estado === "vendido" ? t("agotado") : producto.estado === "reservado" ? t("reservado") : isAdded ? t("anadido") : t("anadir")
+                    }
                   </button>
                 </div>
                 

@@ -12,11 +12,17 @@ import FadeIn from "@/app/[locale]/components/motion/FadeIn";
 
 async function getProductosDestacados() {
   const query = `*[_type == "producto" && destacado == true] | order(_createdAt desc) {
-    _id, nombre, "slug": slug.current, precio, descripcion, 
-    descripcionLarga, imagen, imagenes, materialBase, 
-    materialPantalla, cable, medidas, cuidados, estado
+    _id, 
+    nombre, 
+    "slug": slug.current,
+    precio, 
+    descripcion, 
+    imagen, 
+    imagenes, 
+    estado
   }`;
-  return await client.fetch(query, {}, { cache: "no-store", next: { revalidate: 0 } });
+  
+  return await client.fetch(query);
 }
 
 export default async function Page() {
@@ -27,22 +33,24 @@ export default async function Page() {
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
       <SiteNav />
 
-      <section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#262321] shadow-2xl">
+{/* 💎 HERO OPTIMIZADO PARA CONTRASTE */}
+<section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#262321] shadow-2xl">
   
-  {/* Gradiente sutil para dar profundidad en lugar de negro plano */}
-  <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#262321]/60 via-transparent to-[#262321]/80"></div>
+  {/* Gradiente sutil en la base */}
+  <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#262321]/40 via-transparent to-transparent"></div>
 
-  {/* Galería de imágenes (Ajustamos el contraste del borde) */}
-  {["/patilla-baja.jpg", "/rodaja-peque.png", "/escultura-olivo-sombra.jpg"].map((src, i) => (
+  {/* Galería: Lógica adaptativa */}
+  {["/patilla-baja.jpg", "/escultura-olivo-sombra.jpg"].map((src, i) => (
     <div 
       key={src} 
       className={`
         absolute inset-0 z-0 animate-fade-hero overflow-hidden
-        ${i === 0 ? 'block' : 'block md:left-[33.33%]'}
-        ${i === 1 ? 'md:left-[33.33%]' : ''}
-        ${i === 2 ? 'md:left-[66.66%]' : ''}
-        md:w-1/3 md:h-full
-        ${i < 2 ? 'md:border-r border-white/5' : ''} 
+        /* EN MÓVIL: Ocupa todo */
+        w-full h-full
+        /* EN ESCRITORIO: Ocupa 1/3, posición específica */
+        md:w-1/3 md:h-full 
+        ${i === 0 ? 'md:left-0' : 'md:left-[66.66%]'} 
+        ${i === 0 ? 'md:border-r border-white/5' : 'md:border-l border-white/5'}
       `}
       style={{ animationDelay: `${i * 3}s` }}
     >
@@ -53,28 +61,26 @@ export default async function Page() {
           fill 
           sizes="(max-width: 768px) 100vw, 33vw"
           priority={true} 
-          className="object-cover transition-transform duration-[10s] hover:scale-105 opacity-90"
+          className="object-cover transition-transform duration-[10s] hover:scale-105"
         />
       </div>
     </div>
   ))}
 
-  {/* Contenido */}
+  {/* Contenido centrado */}
   <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
     <div className="pointer-events-auto text-center">
       
       <FadeIn direction="down" delay={0.4} duration={1.2}>
-        {/* Tagline con espaciado más fino y letra más clara */}
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-amber-100/70 font-light border-b border-white/10 pb-4 mb-10 block select-none">
+        <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-white font-bold border-b border-white/40 pb-4 mb-10 block select-none [text-shadow:0_2px_4px_rgba(0,0,0,0.8)]">
           {t("Hero.tagline")}
         </span>
       </FadeIn>
 
       <FadeIn direction="none" delay={0.8} duration={1.5}>
-        {/* Título: quitamos el drop-shadow excesivo y dejamos que la tipografía luzca */}
-        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none">
+        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none [filter:drop-shadow(0_4px_6px_rgba(0,0,0,0.7))]">
           Veta
-          <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent  px-2">
+          <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent px-2">
             &
           </span>
           Lux
@@ -83,14 +89,14 @@ export default async function Page() {
 
       <FadeIn direction="up" delay={1.3} duration={1.2}>
         <div className="mt-12 space-y-10">
-          <p className="text-stone-200 font-light leading-relaxed text-base md:text-lg max-w-md mx-auto tracking-[0.05em] font-urbanist italic opacity-90">
+          <p className="text-white font-medium leading-relaxed text-base md:text-lg max-w-md mx-auto tracking-[0.05em] font-urbanist italic [text-shadow:0_2px_4px_rgba(0,0,0,0.8)]">
             {t("Hero.parrafo")}
           </p>
           
           <div className="pt-6">
             <Link 
               href="/coleccion" 
-              className="group relative inline-block border border-white/20 text-white/90 px-12 py-3 rounded-none transition-all duration-700 text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-white hover:text-[#262321] hover:border-white shadow-none hover:shadow-2xl"
+              className="group relative inline-block border border-white text-white px-12 py-3 rounded transition-all duration-700 text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-white hover:text-[#262321] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] shadow-lg"
             >
               <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
             </Link>
@@ -98,53 +104,6 @@ export default async function Page() {
         </div>
       </FadeIn>
     </div>
-  </div>
-</section>
-     {/* 💎 SECCIÓN EDITORIAL */}
-<section className="my-24 md:my-40 px-6">
-  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-    
-    {/* Imagen */}
-    <FadeIn direction="left" duration={1.5}>
-      <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-sm shadow-2xl">
-        <Image 
-          src="/lampara-principal.jpeg" 
-          alt="Detalle artesanal Veta & Lux" 
-          fill 
-          className="object-cover transition-transform duration-[2000ms] ease-out hover:scale-[1.05]"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          priority
-        />
-      </div>
-    </FadeIn>
-
-    {/* Texto */}
-    <FadeIn direction="right" duration={1.5} delay={0.3}>
-      <div className="space-y-8">
-        <span className="text-[11px] uppercase tracking-[0.5em] text-amber-900/60 font-bold font-urbanist">
-          {t("Editorial.tagline")}
-        </span>
-        
-        <h2 className="text-5xl md:text-6xl font-nixie text-[#3a3530] leading-[1.1]">
-          {t("Editorial.titulo")} <br/><span className="italic">{t("Editorial.tituloDestacado")}</span>
-        </h2>
-        
-        <div className="w-20 h-[1px] bg-stone-300"></div>
-        
-        <p className="text-stone-600 font-urbanist leading-relaxed text-lg md:text-xl max-w-lg">
-          {t("Editorial.descripcion")}
-        </p>
-        
-        <div className="pt-4">
-          <Link 
-            href="/coleccion" 
-            className="inline-block border-b border-[#3a3530] pb-1 uppercase tracking-[0.4em] text-[10px] font-bold font-urbanist hover:text-amber-900 hover:border-amber-900 transition-all"
-          >
-            {t("Galeria.botonVerColeccion")} →
-          </Link>
-        </div>
-      </div>
-    </FadeIn>
   </div>
 </section>
 

@@ -9,7 +9,7 @@ import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client"; 
 
 export async function generateStaticParams() {
-  const query = `*[_type == "producto"] { "slug": slug.current }`;
+  const query = `*[_type == "producto" && defined(slug.current)] { "slug": slug.current }`;
   const productos = await client.fetch(query);
   const locales = ["es", "en"];
 
@@ -22,7 +22,6 @@ export async function generateStaticParams() {
 }
 
 async function getProductoSanityBySlug(slug: string) {
-  // Traemos el objeto completo de Sanity
   const query = `*[_type == "producto" && slug.current == $slug][0] {
     _id,
     nombre,
@@ -30,8 +29,8 @@ async function getProductoSanityBySlug(slug: string) {
     precio,
     descripcion,
     descripcionLarga,
-    imagen,
-    imagenes,
+    "imagen": imagen { ..., asset-> },
+    "imagenes": imagenes[] { ..., asset-> },
     materialBase,
     materialPantalla,
     cable,
@@ -40,11 +39,7 @@ async function getProductoSanityBySlug(slug: string) {
     estado
   }`;
 
-  return await client.fetch(
-    query, 
-    { slug }, 
-    { cache: "no-store", next: { revalidate: 0 } }
-  );
+  return await client.fetch(query, { slug }, { cache: "no-store" });
 }
 
 interface PageProps {
@@ -52,8 +47,8 @@ interface PageProps {
 }
 
 export default async function ProductoPage(props: PageProps) {
-  const resolvedParams = await props.params;
-  const { slug } = resolvedParams;
+  // 1. Extraemos correctamente tanto slug como locale
+  const { slug, locale } = await props.params;
   
   const producto = await getProductoSanityBySlug(slug);
 
@@ -61,7 +56,8 @@ export default async function ProductoPage(props: PageProps) {
     notFound();
   }
 
-  const t = await getTranslations("FichaProducto");
+  // 2. Pasamos el locale a getTranslations si es necesario para el contexto
+  const t = await getTranslations({ locale, namespace: "FichaProducto" });
 
   return (
     <main className="min-h-screen bg-stone-50">
