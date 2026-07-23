@@ -6,7 +6,8 @@ import { getTranslations } from "next-intl/server";
 import { ProductDetailClient } from "@/app/[locale]/components/product-detail-client";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
-import { client } from "@/sanity/lib/client"; 
+import { client, urlFor } from "@/sanity/lib/client"; 
+import { Metadata } from "next";
 
 export async function generateStaticParams() {
   const query = `*[_type == "producto" && defined(slug.current)] { "slug": slug.current }`;
@@ -19,6 +20,46 @@ export async function generateStaticParams() {
       slug: producto.slug,
     }))
   );
+}
+
+// 🌟 NUEVO: Función para generar el SEO dinámico por cada producto e idioma
+export async function generateMetadata({ params }: { params: Promise<{ slug: string; locale: string }> }): Promise<Metadata> {
+  const { slug, locale } = await params;
+
+  const query = `*[_type == "producto" && slug.current == $slug][0] {
+    nombre,
+    descripcion,
+    imagen
+  }`;
+
+  const producto = await client.fetch(query, { slug }, { cache: "no-store" });
+
+  if (!producto) {
+    return {
+      title: "Producto no encontrado | Veta & Lux",
+    };
+  }
+
+  // Extraemos el nombre y descripción adaptados al idioma (locale)
+  const nombreProducto = producto.nombre?.[locale] || producto.nombre?.es || "Lámpara artesanal";
+  const descProducto = producto.descripcion?.[locale] || producto.descripcion?.es || "Descubre esta pieza única hecha a mano.";
+  const imagenUrl = producto.imagen?.asset ? urlFor(producto.imagen).url() : undefined;
+
+  return {
+    title: `${nombreProducto} | Veta & Lux`,
+    description: descProducto,
+    openGraph: {
+      title: `${nombreProducto} | Veta & Lux`,
+      description: descProducto,
+      images: imagenUrl ? [{ url: imagenUrl }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${nombreProducto} | Veta & Lux`,
+      description: descProducto,
+      images: imagenUrl ? [imagenUrl] : [],
+    },
+  };
 }
 
 async function getProductoSanityBySlug(slug: string) {
@@ -47,7 +88,6 @@ interface PageProps {
 }
 
 export default async function ProductoPage(props: PageProps) {
-  // 1. Extraemos correctamente tanto slug como locale
   const { slug, locale } = await props.params;
   
   const producto = await getProductoSanityBySlug(slug);
@@ -56,7 +96,6 @@ export default async function ProductoPage(props: PageProps) {
     notFound();
   }
 
-  // 2. Pasamos el locale a getTranslations si es necesario para el contexto
   const t = await getTranslations({ locale, namespace: "FichaProducto" });
 
   return (
@@ -74,7 +113,6 @@ export default async function ProductoPage(props: PageProps) {
         </p>
       </section>
       
-      {/* Pasamos el objeto producto completo al cliente */}
       <ProductDetailClient producto={producto} />
       
       <SiteFooter />
