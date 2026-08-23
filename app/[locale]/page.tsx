@@ -1,4 +1,3 @@
-
 export const dynamic = "force-dynamic";
 
 import { Link } from "@/navigation";
@@ -33,113 +32,109 @@ export default async function Page() {
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
       <SiteNav />
 
-{/* 💎 HERO LUJO / QUIET LUXURY OPTIMIZADO */}
-<section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#1a1816] shadow-2xl">
-  
-  {/* Velo oscuro general para garantizar contraste y legibilidad máxima en cualquier pantalla */}
-  <div className="absolute inset-0 z-[1] bg-black/45 backdrop-blur-[0.5px]"></div>
+      {/* 💎 HERO */}
+      <section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#1a1816] shadow-2xl">
+        
+        {/* Velo oscuro general */}
+        <div className="absolute inset-0 z-[1] bg-black/45 backdrop-blur-[0.5px]"></div>
 
-  {/* Gradiente adicional sutil en la base */}
-  <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#1a1816]/80 via-transparent to-[#1a1816]/30"></div>
+        {/* Gradiente adicional sutil en la base */}
+        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#1a1816]/80 via-transparent to-[#1a1816]/30"></div>
 
-  {/* Galería: Lógica adaptativa */}
-  {["/patilla-baja.jpg", "/escultura-olivo-sombra.jpg"].map((src, i) => (
-    <div 
-      key={src} 
-      className={`
-        absolute inset-0 z-0 animate-fade-hero overflow-hidden
-        /* EN MÓVIL: Ocupa todo */
-        w-full h-full
-        /* EN ESCRITORIO: Ocupa 1/3, posición específica */
-        md:w-1/3 md:h-full 
-        ${i === 0 ? 'md:left-0' : 'md:left-[66.66%]'} 
-        ${i === 0 ? 'md:border-r border-white/5' : 'md:border-l border-white/5'}
-      `}
-      style={{ animationDelay: `${i * 3}s` }}
-    >
-      <div className="relative w-full h-full">
-        <Image 
-          src={src} 
-          alt={`Veta & Lux ${i}`} 
-          fill 
-          sizes="(max-width: 768px) 100vw, 33vw"
-          priority={true} 
-          className="object-cover transition-transform duration-[10s] hover:scale-105 opacity-80"
-        />
-      </div>
-    </div>
-  ))}
-
-  {/* Contenido centrado y limpio */}
-  <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
-    <div className="pointer-events-auto text-center w-full max-w-xl mx-auto px-4">
-      
-      <FadeIn direction="down" delay={0.4} duration={1.2}>
-        <span className="text-[9px] md:text-[11px] uppercase tracking-[0.9em] text-white/90 font-light border-b border-white/30 pb-4 mb-8 block select-none [text-shadow:0_2px_4px_rgba(0,0,0,0.9)]">
-          {t("Hero.tagline")}
-        </span>
-      </FadeIn>
-
-      <FadeIn direction="none" delay={0.8} duration={1.5}>
-        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none [filter:drop-shadow(0_4px_8px_rgba(0,0,0,0.8))]">
-          Veta
-          <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent px-2">
-            &
-          </span>
-          Lux
-        </h1>
-      </FadeIn>
-
-      <FadeIn direction="up" delay={1.2} duration={1.2}>
-        <div className="mt-12">
-          <Link 
-            href="/coleccion" 
-            className="group relative inline-block border border-white/80 text-white px-10 py-3.5 rounded-none transition-all duration-700 text-[10px] uppercase tracking-[0.5em] font-medium hover:bg-white hover:text-[#1a1816] [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] shadow-xl"
+        {/* Galería: Lógica adaptativa */}
+        {["/patilla-baja.jpg", "/escultura-olivo-sombra.jpg"].map((src, i) => (
+          <div 
+            key={src} 
+            className={`
+              absolute inset-0 z-0 animate-fade-hero overflow-hidden
+              /* EN MÓVIL: Ocupa todo */
+              w-full h-full
+              /* EN ESCRITORIO: Ocupa 1/3, posición específica */
+              md:w-1/3 md:h-full 
+              ${i === 0 ? 'md:left-0' : 'md:left-[66.66%]'} 
+              ${i === 0 ? 'md:border-r border-white/5' : 'md:border-l border-white/5'}
+            `}
+            style={{ animationDelay: `${i * 3}s` }}
           >
-            <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
-          </Link>
-        </div>
-      </FadeIn>
+            <div className="relative w-full h-full">
+              <Image 
+                src={src} 
+                alt={`Veta & Lux ${i}`} 
+                fill 
+                sizes="(max-width: 768px) 100vw, 33vw"
+                priority={true} 
+                className="object-cover transition-transform duration-[10s] hover:scale-105 opacity-80"
+              />
+            </div>
+          </div>
+        ))}
 
-    </div>
-  </div>
-</section>
+        {/* Contenido centrado */}
+        <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
+          <div className="pointer-events-auto text-center w-full max-w-xl mx-auto px-4">
+            
+            <FadeIn direction="down" delay={0.4} duration={1.2}>
+              <span className="text-[9px] md:text-[11px] uppercase tracking-[0.9em] text-white/90 font-light border-b border-white/30 pb-4 mb-8 block select-none [text-shadow:0_2px_4px_rgba(0,0,0,0.9)]">
+                {t("Hero.tagline")}
+              </span>
+            </FadeIn>
+
+            <FadeIn direction="none" delay={0.8} duration={1.5}>
+              <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none [filter:drop-shadow(0_4px_8px_rgba(0,0,0,0.8))]">
+                Veta
+                <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent px-2">
+                  &
+                </span>
+                Lux
+              </h1>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={1.2} duration={1.2}>
+              <div className="mt-12">
+                <Link 
+                  href="/coleccion" 
+                  className="group relative inline-block border border-white/80 text-white px-10 py-3.5 rounded-none transition-all duration-700 text-[10px] uppercase tracking-[0.5em] font-medium hover:bg-white hover:text-[#1a1816] [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] shadow-xl"
+                >
+                  <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
+                </Link>
+              </div>
+            </FadeIn>
+
+          </div>
+        </div>
+      </section>
 
       {/* 🪵 GALERÍA */}
-      <section className="py-32">
-  <FadeIn direction="up" delay={0.2}>
-    <div className="text-center px-6 mb-20 space-y-4">
-      {/* 1. Tagline pequeño para contraste */}
-      <span className="text-[10px] font-bold text-amber-800/80 uppercase tracking-[0.5em] font-urbanist block">
-        {t("Galeria.subtitulo")}
-      </span>
-      
-      {/* 2. Título principal  */}
-      <h2 className="text-4xl md:text-5xl font-nixie text-[#3a3530] uppercase tracking-wide">
-        {t("Galeria.titulo")}
-      </h2>
-      
-      {/* 3. Línea decorativa*/}
-      <div className="w-12 h-[1px] bg-[#3a3530]/20 mx-auto mt-6"></div>
-    </div>
-  </FadeIn>
+      <section className="py-28">
+        <FadeIn direction="up" delay={0.2}>
+          <div className="text-center px-6 mb-16 space-y-4">
+            <span className="text-[10px] font-bold text-amber-800/80 uppercase tracking-[0.5em] font-urbanist block">
+              {t("Galeria.subtitulo")}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-nixie text-[#3a3530] uppercase tracking-wide">
+              {t("Galeria.titulo")}
+            </h2>
+            <div className="w-12 h-[1px] bg-[#3a3530]/20 mx-auto mt-6"></div>
+          </div>
+        </FadeIn>
 
-  {/* Galería... */}
-  <FadeIn direction="up" delay={0.5} scale={0.96}>
-    <div className="px-6 md:max-w-7xl md:mx-auto">
-      <ProductGallery productos={productosSanity} isHome={true} />
-      {/* BOTÓN: Ver Colección Completa */}
-      <div className="flex justify-center mt-16 md:mt-20">
-          <Link 
-            href="/coleccion" 
-            className="px-10 py-3 border border-[#3a3530]/20 text-[#3a3530] text-[10px] uppercase tracking-[0.3em] font-bold font-urbanist rounded-full hover:bg-[#3a3530] hover:text-white transition-all duration-300"
-          >
-            {t("Galeria.botonVerColeccion")}
-          </Link>
-        </div>
-    </div>
-  </FadeIn>
-</section>
+        {/* CONTENEDOR FLUIDO MODERNO (Sin max-w restrictivo, adaptado a pantallas grandes) */}
+        <FadeIn direction="up" delay={0.5} scale={0.96}>
+          <div className="px-6 md:px-12 lg:px-20 w-full">
+            <ProductGallery productos={productosSanity} isHome={true} />
+            
+            {/* BOTÓN: Ver Colección Completa */}
+            <div className="flex justify-center mt-16 md:mt-20">
+              <Link 
+                href="/coleccion" 
+                className="px-10 py-3 border border-[#3a3530]/20 text-[#3a3530] text-[10px] uppercase tracking-[0.3em] font-bold font-urbanist rounded-full hover:bg-[#3a3530] hover:text-white transition-all duration-300"
+              >
+                {t("Galeria.botonVerColeccion")}
+              </Link>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
 
       {/* 📜 GARANTÍA */}
       <section className="bg-[#f2efe9] border-y border-[#e5e0d8] py-20 px-6">
