@@ -33,11 +33,14 @@ export default async function Page() {
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
       <SiteNav />
 
-{/* 💎 HERO OPTIMIZADO PARA CONTRASTE */}
-<section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#262321] shadow-2xl">
+{/* 💎 HERO LUJO / QUIET LUXURY OPTIMIZADO */}
+<section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#1a1816] shadow-2xl">
   
-  {/* Gradiente sutil en la base */}
-  <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#262321]/40 via-transparent to-transparent"></div>
+  {/* Velo oscuro general para garantizar contraste y legibilidad máxima en cualquier pantalla */}
+  <div className="absolute inset-0 z-[1] bg-black/45 backdrop-blur-[0.5px]"></div>
+
+  {/* Gradiente adicional sutil en la base */}
+  <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#1a1816]/80 via-transparent to-[#1a1816]/30"></div>
 
   {/* Galería: Lógica adaptativa */}
   {["/patilla-baja.jpg", "/escultura-olivo-sombra.jpg"].map((src, i) => (
@@ -61,24 +64,24 @@ export default async function Page() {
           fill 
           sizes="(max-width: 768px) 100vw, 33vw"
           priority={true} 
-          className="object-cover transition-transform duration-[10s] hover:scale-105"
+          className="object-cover transition-transform duration-[10s] hover:scale-105 opacity-80"
         />
       </div>
     </div>
   ))}
 
-  {/* Contenido centrado */}
+  {/* Contenido centrado y limpio */}
   <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
-    <div className="pointer-events-auto text-center">
+    <div className="pointer-events-auto text-center w-full max-w-xl mx-auto px-4">
       
       <FadeIn direction="down" delay={0.4} duration={1.2}>
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-white font-bold border-b border-white/40 pb-4 mb-10 block select-none [text-shadow:0_2px_4px_rgba(0,0,0,0.8)]">
+        <span className="text-[9px] md:text-[11px] uppercase tracking-[0.9em] text-white/90 font-light border-b border-white/30 pb-4 mb-8 block select-none [text-shadow:0_2px_4px_rgba(0,0,0,0.9)]">
           {t("Hero.tagline")}
         </span>
       </FadeIn>
 
       <FadeIn direction="none" delay={0.8} duration={1.5}>
-        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none [filter:drop-shadow(0_4px_6px_rgba(0,0,0,0.7))]">
+        <h1 className="text-6xl md:text-9xl font-nixie tracking-tighter text-white select-none [filter:drop-shadow(0_4px_8px_rgba(0,0,0,0.8))]">
           Veta
           <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent px-2">
             &
@@ -87,22 +90,17 @@ export default async function Page() {
         </h1>
       </FadeIn>
 
-      <FadeIn direction="up" delay={1.3} duration={1.2}>
-        <div className="mt-12 space-y-10">
-          <p className="text-white font-medium leading-relaxed text-base md:text-lg max-w-md mx-auto tracking-[0.05em] font-urbanist italic [text-shadow:0_2px_4px_rgba(0,0,0,0.8)]">
-            {t("Hero.parrafo")}
-          </p>
-          
-          <div className="pt-6">
-            <Link 
-              href="/coleccion" 
-              className="group relative inline-block border border-white text-white px-12 py-3 rounded transition-all duration-700 text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-white hover:text-[#262321] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] shadow-lg"
-            >
-              <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
-            </Link>
-          </div>
+      <FadeIn direction="up" delay={1.2} duration={1.2}>
+        <div className="mt-12">
+          <Link 
+            href="/coleccion" 
+            className="group relative inline-block border border-white/80 text-white px-10 py-3.5 rounded-none transition-all duration-700 text-[10px] uppercase tracking-[0.5em] font-medium hover:bg-white hover:text-[#1a1816] [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] shadow-xl"
+          >
+            <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
+          </Link>
         </div>
       </FadeIn>
+
     </div>
   </div>
 </section>

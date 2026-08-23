@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 import { CartNav } from "@/app/[locale]/components/cart-nav";
 import { SelectorIdioma } from "./selector-idioma";
 
-
 export function SiteNav() {
   const [menuAbierto, setMenuAbierto] = useState(false);
   
@@ -15,19 +14,19 @@ export function SiteNav() {
   const t = useTranslations("Nav");
 
   return (
-    <nav className="sticky top-0 z-50 bg-stone-50/80 backdrop-blur-md border-b border-stone-200">
+    <nav className="sticky top-0 z-50 bg-stone-50/85 backdrop-blur-md border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         
         {/* LOGOTIPO */}
         <Link
-  href="/"
-  onClick={() => setMenuAbierto(false)}
-  className="text-xl font-nixie font-bold tracking-tighter text-stone-900 z-50 flex items-center"
->
-  Veta&Lux
-</Link>
+          href="/"
+          onClick={() => setMenuAbierto(false)}
+          className="text-xl font-nixie font-bold tracking-tighter text-stone-900 z-50 flex items-center"
+        >
+          Veta&Lux
+        </Link>
 
-        {/* NAVEGACIÓN ESCRITORIO (Dinamizada con t('...')) */}
+        {/* NAVEGACIÓN ESCRITORIO */}
         <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest text-stone-600">
           <Link href="/" className="hover:text-stone-900 transition-colors">
             {t("inicio")}
@@ -45,18 +44,16 @@ export function SiteNav() {
 
         {/* CONTENEDOR DERECHO */}
         <div className="flex items-center gap-4 z-50">
-        <CartNav />
+          <CartNav />
           <div className="hidden md:block">
             <SelectorIdioma />
           </div>
-
-          
 
           {/* BOTÓN HAMBURGUESA MÓVIL */}
           <button
             type="button"
             onClick={() => setMenuAbierto(!menuAbierto)}
-            className="flex flex-col justify-center items-center w-8 h-8 md:hidden space-y-1.5 focus:outline-none"
+            className="flex flex-col justify-center items-center w-8 h-8 md:hidden space-y-1.5 focus:outline-none z-50 relative"
             aria-label="Abrir menú"
           >
             <span className={`block h-0.5 w-6 bg-stone-800 transition-transform duration-300 ease-out rounded ${menuAbierto ? "rotate-45 translate-y-2" : ""}`} />
@@ -66,17 +63,20 @@ export function SiteNav() {
         </div>
       </div>
 
-      {/* MENÚ DESPLEGABLE MÓVIL */}
+      {/* MENÚ DESPLEGABLE MÓVIL - CAPA OSCURA */}
       <div 
+        aria-hidden={!menuAbierto}
         className={`fixed inset-0 bg-stone-950/20 backdrop-blur-sm transition-opacity duration-300 md:hidden ${menuAbierto ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
         onClick={() => setMenuAbierto(false)}
       />
 
+      {/* PANEL LATERAL MÓVIL */}
       <div 
-        className={`fixed top-0 right-0 h-screen w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-xl transition-transform duration-300 ease-in-out transform md:hidden ${menuAbierto ? "translate-x-0" : "translate-x-full"}`}
+        aria-hidden={!menuAbierto}
+        className={`fixed top-0 right-0 h-screen w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-2xl transition-transform duration-300 ease-in-out md:hidden z-40 ${menuAbierto ? "translate-x-0 pointer-events-auto" : "translate-x-full pointer-events-none"}`}
       >
         <div className="flex flex-col h-full justify-between">
-          {/* ENLACES MÓVIL (Dinamizados con t('...')) */}
+          {/* ENLACES MÓVIL */}
           <div className="flex flex-col gap-6 text-sm uppercase tracking-widest text-stone-600 font-medium">
             <Link href="/" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
               {t("inicio")}
