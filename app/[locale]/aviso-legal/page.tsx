@@ -31,11 +31,10 @@ export default function AvisoLegalPage() {
           </h2>
           <div className="rounded-sm border border-stone-200 bg-white p-6 font-mono text-xs text-stone-700 space-y-2">
             <p><span className="text-stone-400 mr-2">{t("denominacion")}:</span> Veta & Lux</p>
-            <p><span className="text-stone-400 mr-2">{t("titular")}:</span> [Tu Nombre Completo]</p>
-            <p><span className="text-stone-400 mr-2">{t("nif")}:</span> [Tu DNI o CIF]</p>
-            <p><span className="text-stone-400 mr-2">{t("domicilio")}:</span> [Tu Dirección Postal, Ciudad, España]</p>
+            <p><span className="text-stone-400 mr-2">{t("nif")}:</span> CIF</p>
+            <p><span className="text-stone-400 mr-2">{t("domicilio")}:</span> C/ Albertina Capeluto, Torremolinos 29620 - Málaga, España</p>
             <p><span className="text-stone-400 mr-2">{t("contacto")}:</span> info@vetandlux.com</p>
-            <p><span className="text-stone-400 mr-2">{t("telefono")}:</span> +34 660 80 06 31</p>
+            <p><span className="text-stone-400 mr-2">{t("telefono")}:</span> +34 614 76 50 07</p>
           </div>
         </div>
 
