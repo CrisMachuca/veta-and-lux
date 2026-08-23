@@ -73,7 +73,7 @@ export function SiteNav() {
       {/* PANEL LATERAL MÓVIL */}
       <div 
         aria-hidden={!menuAbierto}
-        className={`fixed top-0 right-0 h-screen w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-2xl transition-transform duration-300 ease-in-out md:hidden z-40 ${menuAbierto ? "translate-x-0 pointer-events-auto" : "translate-x-full pointer-events-none"}`}
+        className={`fixed top-0 right-0 h-screen w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-2xl transition-transform duration-300 ease-in-out md:hidden z-40 touch-none ${menuAbierto ? "translate-x-0 pointer-events-auto" : "translate-x-full pointer-events-none"}`}
       >
         <div className="flex flex-col h-full justify-between">
           {/* ENLACES MÓVIL */}
