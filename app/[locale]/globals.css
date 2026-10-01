@@ -26,6 +26,13 @@
   }
 }
 
+/* En móvil, impide que la página se desplace hacia los lados al hacer scroll con el dedo
+   si algún elemento se sale por la derecha. "clip" (no "hidden") para no romper el nav sticky. */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

@@ -14,6 +14,7 @@ export function SiteNav() {
   const t = useTranslations("Nav");
 
   return (
+    <>
     <nav className="sticky top-0 z-50 bg-stone-50/85 backdrop-blur-md border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         
@@ -63,18 +64,22 @@ export function SiteNav() {
           </button>
         </div>
       </div>
+    </nav>
+
+      {/* El velo y el panel van fuera del <nav>: su backdrop-blur haría que estos "fixed" se
+          posicionaran respecto al nav y no a la pantalla (el panel cerrado ensanchaba la página en móvil). */}
 
       {/* MENÚ DESPLEGABLE MÓVIL - CAPA OSCURA */}
       <div 
         aria-hidden={!menuAbierto}
-        className={`fixed inset-0 bg-stone-950/20 backdrop-blur-sm transition-opacity duration-300 md:hidden ${menuAbierto ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-40 bg-stone-950/20 backdrop-blur-sm transition-opacity duration-300 md:hidden ${menuAbierto ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
         onClick={() => setMenuAbierto(false)}
       />
 
       {/* PANEL LATERAL MÓVIL */}
       <div 
         aria-hidden={!menuAbierto}
-        className={`fixed top-0 right-0 h-screen w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-2xl transition-transform duration-300 ease-in-out md:hidden z-40 touch-none ${menuAbierto ? "translate-x-0 pointer-events-auto" : "translate-x-full pointer-events-none"}`}
+        className={`fixed top-0 right-0 h-dvh w-64 bg-stone-50 border-l border-stone-200 p-8 pt-24 shadow-2xl transition-[transform,visibility] duration-300 ease-in-out md:hidden z-40 touch-none ${menuAbierto ? "visible translate-x-0 pointer-events-auto" : "invisible translate-x-full pointer-events-none"}`}
       >
         <div className="flex flex-col h-full justify-between">
           {/* ENLACES MÓVIL */}
@@ -98,6 +103,6 @@ export function SiteNav() {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }
