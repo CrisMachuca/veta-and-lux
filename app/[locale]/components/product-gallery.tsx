@@ -18,7 +18,7 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
   }, []);
 
   function handleAdd(producto: any) {
-    const imagenUrl = (producto.imagen?.asset) ? urlFor(producto.imagen).url() : "";
+    const imagenUrl = (producto.imagen?.asset) ? urlFor(producto.imagen).width(200).height(200).fit("crop").auto("format").url() : "";
     
     const productoMapeado = { 
       ...producto, 
@@ -51,7 +51,7 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
                 
                 {producto.imagen?.asset ? (
                   <img 
-                    src={urlFor(producto.imagen).url()} 
+                    src={urlFor(producto.imagen).width(800).height(1000).fit("crop").auto("format").url()} 
                     alt={producto.nombre?.[locale] || "Producto"} 
                     className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
                     loading="lazy" 

@@ -81,7 +81,7 @@ export async function POST(request: Request) {
           detallesProductosHtml = productosSanity.map((prod: any) => `
             <div style="display: flex; align-items: center; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #e7e5e4; clear: both;">
               ${prod.imageUrl ? `
-                <img src="${prod.imageUrl}" 
+                <img src="${prod.imageUrl}?w=240&h=240&fit=crop&auto=format" 
                      alt="${prod.nombre?.es || ""}" 
                      style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px; background-color: #f5f5f4; flex-shrink: 0; margin-right: 30px;" />
               ` : ""}

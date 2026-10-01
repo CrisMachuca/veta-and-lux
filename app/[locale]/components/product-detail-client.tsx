@@ -88,7 +88,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
   const TELEFONO_TALLER = "34660800631"; 
 
   function handleAddToCart() {
-    const imagenUrl = producto.imagen?.asset ? urlFor(producto.imagen).url() : "";
+    const imagenUrl = producto.imagen?.asset ? urlFor(producto.imagen).width(200).height(200).fit("crop").auto("format").url() : "";
     addItem({
       ...producto,
       id: producto._id || producto.id,
@@ -110,15 +110,15 @@ export function ProductDetailClient({ producto }: { producto: any }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           
           <div className="lg:sticky lg:top-24">
-            <button onClick={() => selectedImage?.asset && setOpenImage(urlFor(selectedImage).url())} className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80">
-              {selectedImage?.asset ? <img src={urlFor(selectedImage).url()} alt={nombreTraducido} className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-400 text-sm">{t("sinImagen")}</div>}
+            <button onClick={() => selectedImage?.asset && setOpenImage(urlFor(selectedImage).width(2000).auto("format").url())} className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80">
+              {selectedImage?.asset ? <img src={urlFor(selectedImage).width(1200).height(1500).fit("crop").auto("format").url()} alt={nombreTraducido} className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-400 text-sm">{t("sinImagen")}</div>}
             </button>
             {producto?.imagenes?.length > 0 && (
               <div className="grid grid-cols-3 gap-4 mt-4">
                 {producto.imagenes.map((img: any, index: number) => (
                   img?.asset && (
                     <button key={img._key || index} onClick={() => setSelectedImage(img)} className={`rounded-xl overflow-hidden ring-1 transition-all ${selectedImage?.asset?._ref === img.asset?._ref ? "ring-stone-900" : "ring-stone-200 opacity-60"}`}>
-                      <img src={urlFor(img).url()} alt={`${nombreTraducido} — ${t("miniaturaAlt")}`} className="w-full aspect-square object-cover" />
+                      <img src={urlFor(img).width(400).height(400).fit("crop").auto("format").url()} loading="lazy" alt={`${nombreTraducido} — ${t("miniaturaAlt")}`} className="w-full aspect-square object-cover" />
                     </button>
                   )
                 ))}

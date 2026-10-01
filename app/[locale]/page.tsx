@@ -65,7 +65,7 @@ export default async function Page() {
                 src={src} 
                 alt={`Veta & Lux ${i}`} 
                 fill 
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 priority={true} 
                 className="object-cover transition-transform duration-[10s] hover:scale-105 opacity-80"
               />
@@ -159,7 +159,7 @@ export default async function Page() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <FadeIn direction="left" delay={0.2} scale={0.9}>
             <div className="relative aspect-[4/5] bg-stone-100 rounded-sm shadow-xl overflow-hidden">
-              <img src="/baseolivo.jpg" alt="Artesanía" className="w-full h-full object-cover" />
+              <Image src="/baseolivo.jpg" alt="Artesanía" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
             </div>
           </FadeIn>
           <div className="space-y-8">

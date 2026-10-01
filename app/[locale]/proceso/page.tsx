@@ -1,23 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 
+function ClickableImage({ src, alt, onOpen }: { src: string; alt: string; onOpen: (src: string) => void }) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, 60vw"
+      onClick={() => onOpen(src)}
+      className="object-cover filter brightness-[0.98] cursor-zoom-in transition-transform duration-500 hover:scale-[1.02]"
+    />
+  );
+}
+
 export default function ElProcesoPage() {
   const t = useTranslations("Proceso");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const ClickableImage = ({ src, alt }: { src: string; alt: string }) => (
-    <img
-      src={src}
-      alt={alt}
-      onClick={() => setSelectedImage(src)}
-      className="w-full h-full object-cover filter brightness-[0.98] cursor-zoom-in transition-transform duration-500 hover:scale-[1.02]"
-    />
-  );
 
   return (
     <main className="min-h-screen bg-[#fcfaf8] text-[#3a3530] antialiased">
@@ -42,6 +47,8 @@ export default function ElProcesoPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-7 bg-stone-100 aspect-[16/10] rounded-sm relative overflow-hidden shadow-sm flex items-center justify-center">
             <video autoPlay loop muted playsInline className="w-full h-full object-cover filter brightness-[0.95]">
+              {/* Misma toma: 1,6 MB en móvil, 20 MB solo en pantallas grandes */}
+              <source src="/hallazgo2.mp4" type="video/mp4" media="(max-width: 767px)" />
               <source src="/hallazgo.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 border-[12px] border-stone-50/10 m-4 rounded-sm pointer-events-none"></div>
@@ -57,7 +64,7 @@ export default function ElProcesoPage() {
         {/* PASO 2 */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-7 md:order-2 bg-stone-100 aspect-[16/10] rounded-sm relative overflow-hidden shadow-sm">
-            <ClickableImage src="/curado.png" alt="Curado" />
+            <ClickableImage src="/curado.png" alt="Curado" onOpen={setSelectedImage} />
           </div>
           <div className="md:col-span-5 md:order-1 space-y-6">
             <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Fase2.tagline")}</p>
@@ -70,7 +77,7 @@ export default function ElProcesoPage() {
         {/* PASO 3 */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-7 bg-stone-100 aspect-[16/10] rounded-sm relative overflow-hidden shadow-sm">
-            <ClickableImage src="/saneado.jpeg" alt="Saneado" />
+            <ClickableImage src="/saneado.jpeg" alt="Saneado" onOpen={setSelectedImage} />
           </div>
           <div className="md:col-span-5 space-y-6">
             <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Fase3.tagline")}</p>
@@ -83,7 +90,7 @@ export default function ElProcesoPage() {
         {/* PASO 4 */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-7 md:order-2 bg-stone-100 aspect-[16/10] rounded-sm relative overflow-hidden shadow-sm">
-            <ClickableImage src="/tronco2.jpeg" alt="Arquitectura" />
+            <ClickableImage src="/tronco2.jpeg" alt="Arquitectura" onOpen={setSelectedImage} />
           </div>
           <div className="md:col-span-5 md:order-1 space-y-6">
             <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Fase4.tagline")}</p>
@@ -96,7 +103,9 @@ export default function ElProcesoPage() {
 
       {selectedImage && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-stone-950/95 p-4 cursor-zoom-out" onClick={() => setSelectedImage(null)}>
-          <img src={selectedImage} alt="Vista ampliada" className="max-w-full max-h-full object-contain" />
+          <div className="relative w-full h-full">
+            <Image src={selectedImage} alt="Vista ampliada" fill sizes="100vw" className="object-contain" />
+          </div>
         </div>
       )}
 
