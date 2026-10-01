@@ -40,23 +40,24 @@ body {
   scrollbar-width: none;
 }
 
-@keyframes ken-burns {
-  0% { transform: scale(1.05); }
-  100% { transform: scale(1.01); }
-}
+/* Animaciones del hero registradas en el tema para poder usar variantes
+   (motion-safe:, md:animate-none...). */
+@theme {
+  /* Zoom muy lento de las fotos del hero */
+  --animate-ken-burns: ken-burns 20s ease-in-out infinite alternate;
+  /* Móvil: la segunda foto aparece y desaparece sobre la primera (nunca queda en negro) */
+  --animate-hero-swap: hero-swap 14s ease-in-out infinite;
 
-.animate-ken-burns {
-  animation: ken-burns 12s ease-out infinite alternate;
-}
+  @keyframes ken-burns {
+    0% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+  }
 
-@keyframes fade-hero {
-  0%, 100% { opacity: 0; }
-  10%, 40% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.animate-fade-hero {
-  animation: fade-hero 9s infinite ease-in-out;
+  @keyframes hero-swap {
+    0%, 40% { opacity: 0; }
+    50%, 90% { opacity: 1; }
+    100% { opacity: 0; }
+  }
 }
 
 @keyframes draw-brush {
