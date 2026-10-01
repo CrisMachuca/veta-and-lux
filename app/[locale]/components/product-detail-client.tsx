@@ -2,8 +2,9 @@
 
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { urlFor } from "@/sanity/lib/client";
+import { traducir, type ImagenSanity, type ProductoSanity, type Traducible } from "@/sanity/lib/tipos";
 import { useTranslations, useLocale } from "next-intl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 // --- Magnifier: Mantenido tal cual ---
 const ZOOM = 2.4;
@@ -70,14 +71,14 @@ function MagnifierImage({ src, alt }: { src: string; alt: string }) {
 }
 
 // --- Componente Principal ---
-export function ProductDetailClient({ producto }: { producto: any }) {
+export function ProductDetailClient({ producto }: { producto: ProductoSanity }) {
   const { addItem } = useCart();
   const t = useTranslations("DetalleCliente");
   const locale = useLocale();
   
-  const getTrad = (campo: any) => campo?.[locale] || campo?.es || "";
+  const getTrad = <T,>(campo?: Traducible<T>) => traducir(campo, locale) || "";
   
-  const [selectedImage, setSelectedImage] = useState(
+  const [selectedImage, setSelectedImage] = useState<ImagenSanity | null>(
     producto?.imagenes?.[0] || producto?.imagen || null
   );
   
@@ -90,9 +91,9 @@ export function ProductDetailClient({ producto }: { producto: any }) {
   function handleAddToCart() {
     const imagenUrl = producto.imagen?.asset ? urlFor(producto.imagen).width(200).height(200).fit("crop").auto("format").url() : "";
     addItem({
-      ...producto,
-      id: producto._id || producto.id,
+      id: producto._id,
       nombre: getTrad(producto.nombre),
+      precio: producto.precio ?? 0,
       imagen: imagenUrl,
     });
     setAddedFeedback(true);
@@ -113,11 +114,11 @@ export function ProductDetailClient({ producto }: { producto: any }) {
             <button onClick={() => selectedImage?.asset && setOpenImage(urlFor(selectedImage).width(2000).auto("format").url())} className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80">
               {selectedImage?.asset ? <img src={urlFor(selectedImage).width(1200).height(1500).fit("crop").auto("format").url()} alt={nombreTraducido} className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-400 text-sm">{t("sinImagen")}</div>}
             </button>
-            {producto?.imagenes?.length > 0 && (
+            {(producto.imagenes?.length ?? 0) > 0 && (
               <div className="grid grid-cols-3 gap-4 mt-4">
-                {producto.imagenes.map((img: any, index: number) => (
+                {producto.imagenes?.map((img, index) => (
                   img?.asset && (
-                    <button key={img._key || index} onClick={() => setSelectedImage(img)} className={`rounded-xl overflow-hidden ring-1 transition-all ${selectedImage?.asset?._ref === img.asset?._ref ? "ring-stone-900" : "ring-stone-200 opacity-60"}`}>
+                    <button key={img._key || index} onClick={() => setSelectedImage(img)} className={`rounded-xl overflow-hidden ring-1 transition-all ${(selectedImage?.asset?._id ?? selectedImage?.asset?._ref) === (img.asset?._id ?? img.asset?._ref) ? "ring-stone-900" : "ring-stone-200 opacity-60"}`}>
                       <img src={urlFor(img).width(400).height(400).fit("crop").auto("format").url()} loading="lazy" alt={`${nombreTraducido} — ${t("miniaturaAlt")}`} className="w-full aspect-square object-cover" />
                     </button>
                   )

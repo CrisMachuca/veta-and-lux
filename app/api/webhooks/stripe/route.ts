@@ -22,6 +22,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Datos de cada pieza que se muestran en los correos de confirmación
+type ProductoEmail = { _id: string; nombre?: { es?: string }; estado?: string; imageUrl?: string };
+
 export async function POST(request: Request) {
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
@@ -33,9 +36,10 @@ export async function POST(request: Request) {
       throw new Error("Falta la firma de Stripe o el secreto del webhook.");
     }
     event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET);
-  } catch (err: any) {
-    console.error(`❌ Error de validación en Webhook: ${err.message}`);
-    return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
+  } catch (err) {
+    const mensaje = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Error de validación en Webhook: ${mensaje}`);
+    return NextResponse.json({ error: `Webhook Error: ${mensaje}` }, { status: 400 });
   }
 
   if (event.type === "checkout.session.completed") {
@@ -64,7 +68,7 @@ export async function POST(request: Request) {
       let piezasEnConflicto: string[] = [];
       if (productIds.length > 0) {
         try {
-          const productosSanity = await writeClient.fetch(
+          const productosSanity = await writeClient.fetch<ProductoEmail[]>(
             `*[_id in $ids]{
               _id,
               nombre,
@@ -75,10 +79,10 @@ export async function POST(request: Request) {
           );
 
           piezasEnConflicto = productosSanity
-            .filter((prod: { estado?: string }) => prod.estado === "vendido" || prod.estado === "reservado")
-            .map((prod: { _id: string; nombre?: { es?: string }; estado?: string }) => `${prod.nombre?.es || prod._id} (${prod.estado})`);
+            .filter((prod) => prod.estado === "vendido" || prod.estado === "reservado")
+            .map((prod) => `${prod.nombre?.es || prod._id} (${prod.estado})`);
 
-          detallesProductosHtml = productosSanity.map((prod: any) => `
+          detallesProductosHtml = productosSanity.map((prod) => `
             <div style="display: flex; align-items: center; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #e7e5e4; clear: both;">
               ${prod.imageUrl ? `
                 <img src="${prod.imageUrl}?w=240&h=240&fit=crop&auto=format" 
@@ -250,7 +254,7 @@ export async function POST(request: Request) {
         `,
       });
 
-    } catch (error: any) {
+    } catch (error) {
       console.error("❌ ERROR CRÍTICO PROCESANDO EL WEBHOOK:", error);
       return NextResponse.json({ error: "Fallo interno procesando la compra en el servidor." }, { status: 500 });
     }

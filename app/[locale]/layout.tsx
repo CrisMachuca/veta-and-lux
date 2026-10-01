@@ -39,7 +39,7 @@ export default async function LocaleLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: any; // Usamos any temporalmente para evitar conflictos de tipado entre versiones de Next
+  params: Promise<{ locale: string }>;
 }) {
   // 1. Forzamos la espera de los parámetros de la URL
   const { locale } = await params;

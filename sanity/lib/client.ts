@@ -1,5 +1,6 @@
 import { createClient } from 'next-sanity';
-import { createImageUrlBuilder } from '@sanity/image-url'; // Corregido: Importación moderna recomendada
+import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url'; // Corregido: Importación moderna recomendada
+import type { ImagenSanity } from './tipos';
 
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -11,6 +12,6 @@ export const client = createClient({
 // Configuración moderna del generador de URLs para las imágenes de Sanity
 const builder = createImageUrlBuilder(client);
 
-export function urlFor(source: any) {
-  return builder.image(source);
+export function urlFor(source: SanityImageSource | ImagenSanity) {
+  return builder.image(source as SanityImageSource);
 }

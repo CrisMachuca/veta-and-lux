@@ -38,10 +38,10 @@ export const TranslateAction: DocumentActionComponent = (props: DocumentActionPr
         const res = await fetch(url);
         const data = await res.json();
         return data.responseData.translatedText;
-      } catch (e) { return text; }
+      } catch { return text; }
     };
 
-    const patchData: any = {
+    const patchData: Record<string, unknown> = {
       nombre: { es: doc.nombre?.es, en: await translate(doc.nombre?.es || "") },
       descripcion: { es: doc.descripcion?.es, en: await translate(doc.descripcion?.es || "") },
       descripcionLarga: { es: doc.descripcionLarga?.es, en: await translate(doc.descripcionLarga?.es || "") },

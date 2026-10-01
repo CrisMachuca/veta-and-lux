@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { formatEUR } from "@/app/[locale]/lib/precio";
 import { useTranslations, useLocale } from "next-intl";
 import { COSTES_ENVIO } from "@/app/[locale]/lib/envio";
+import { useHaMontado } from "@/app/[locale]/lib/use-ha-montado";
 
 const PROVINCIAS_PENINSULA = ["Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real", "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara", "Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña", "La Rioja", "León", "Lérida", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra", "Orense", "Palencia", "Pontevedra", "Salamanca", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"];
 const PROVINCIAS_ISLAS = ["Baleares", "Las Palmas (Canarias)", "Santa Cruz de Tenerife (Canarias)", "Ceuta", "Melilla"];
@@ -12,6 +13,7 @@ const PAISES_INTERNACIONAL = [{ code: "FR", name: "Francia" }, { code: "IT", nam
 
 export function CarritoClient() {
   const { lines, subtotal, removeLine, clearCart } = useCart();
+  const montado = useHaMontado();
   const t = useTranslations("CarritoClient");
   const locale = useLocale();
   const [cargando, setCargando] = useState(false);
@@ -25,7 +27,11 @@ export function CarritoClient() {
   const [codigoPostal, setCodigoPostal] = useState("");
   const [provinciaOId, setProvinciaOId] = useState("");
 
-  useEffect(() => { setProvinciaOId(""); }, [regionEnvio]);
+  // Al cambiar de región, la provincia/país elegido deja de ser válido
+  const cambiarRegion = (region: typeof regionEnvio) => {
+    setRegionEnvio(region);
+    setProvinciaOId("");
+  };
 
   const costeEnvioActual = COSTES_ENVIO[regionEnvio];
   const totalAbsoluto = subtotal + costeEnvioActual;
@@ -46,14 +52,17 @@ export function CarritoClient() {
       const datos = await respuesta.json();
       if (!respuesta.ok) throw new Error(datos.error || t("alert_error"));
       if (datos.url) window.location.href = datos.url;
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error:", error);
-      alert(error.message || t("alert_error"));
+      alert((error instanceof Error && error.message) || t("alert_error"));
     } finally {
       setCargando(false);
     }
   };
 
+  // El carrito vive en localStorage: hasta estar en el navegador no sabemos qué contiene
+  // (si pintáramos "vacío" en el servidor, React fallaría al hidratar con piezas dentro)
+  if (!montado) return <p className="text-center p-10 text-stone-400">…</p>;
   if (lines.length === 0) return <p className="text-center p-10 text-stone-500">{t("vacio")}</p>;
 
   return (
@@ -83,15 +92,15 @@ export function CarritoClient() {
       <div className="space-y-4">
         <h3 className="text-sm uppercase tracking-widest text-stone-500 font-medium">{t("envio_titulo")}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <button type="button" onClick={() => setRegionEnvio("peninsula")} className={`p-4 rounded-xl border text-center transition-all ${regionEnvio === "peninsula" ? "border-stone-900 bg-stone-900/5 ring-1 ring-stone-900" : "border-stone-200 bg-white/50"}`}>
+          <button type="button" onClick={() => cambiarRegion("peninsula")} className={`p-4 rounded-xl border text-center transition-all ${regionEnvio === "peninsula" ? "border-stone-900 bg-stone-900/5 ring-1 ring-stone-900" : "border-stone-200 bg-white/50"}`}>
             <span className="font-medium text-stone-900 text-sm block">{t("peninsula_nombre")}</span>
             <span className="text-xs text-stone-500 mt-1 block">{t("peninsula_info")}</span>
           </button>
-          <button type="button" onClick={() => setRegionEnvio("islas")} className={`p-4 rounded-xl border text-center transition-all ${regionEnvio === "islas" ? "border-stone-900 bg-stone-900/5 ring-1 ring-stone-900" : "border-stone-200 bg-white/50"}`}>
+          <button type="button" onClick={() => cambiarRegion("islas")} className={`p-4 rounded-xl border text-center transition-all ${regionEnvio === "islas" ? "border-stone-900 bg-stone-900/5 ring-1 ring-stone-900" : "border-stone-200 bg-white/50"}`}>
             <span className="font-medium text-stone-900 text-sm block">{t("islas_nombre")}</span>
             <span className="text-xs text-stone-600 mt-1 block">+{formatEUR(COSTES_ENVIO.islas)}</span>
           </button>
-          <button type="button" onClick={() => setRegionEnvio("internacional")} className={`p-4 rounded-xl border text-center transition-all ${regionEnvio === "internacional" ? "border-stone-900 bg-stone-900/5 ring-1 ring-stone-900" : "border-stone-200 bg-white/50"}`}>
+          <button type="button" onClick={() => cambiarRegion("internacional")} className={`p-4 rounded-xl border text-center transition-all ${regionEnvio === "internacional" ? "border-stone-900 bg-stone-900/5 ring-1 ring-stone-900" : "border-stone-200 bg-white/50"}`}>
             <span className="font-medium text-stone-900 text-sm block">{t("inter_nombre")}</span>
             <span className="text-xs text-stone-600 mt-1 block">+{formatEUR(COSTES_ENVIO.internacional)}</span>
           </button>

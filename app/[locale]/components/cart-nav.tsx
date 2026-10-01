@@ -2,6 +2,7 @@
 
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
+import { useHaMontado } from "@/app/[locale]/lib/use-ha-montado";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag } from "lucide-react";
@@ -10,16 +11,11 @@ export function CartNav() {
   const { totalQuantity } = useCart();
   const t = useTranslations("Nav");
   const [isBouncing, setIsBouncing] = useState(false);
-  const [mounted, setMounted] = useState(false); // Estado para evitar hidratación incorrecta
+  const mounted = useHaMontado(); // Evita pintar el contador del localStorage antes de hidratar
   const prevQuantityRef = useRef(totalQuantity);
   const bounceTimeoutRef = useRef<number | null>(null);
 
-  // 1. Efecto para marcar el componente como montado
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // 2. Lógica de animación
+  // Lógica de animación
   useEffect(() => {
     if (totalQuantity > prevQuantityRef.current) {
       setIsBouncing(true);

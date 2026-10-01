@@ -4,27 +4,24 @@ import { useCart } from "@/app/[locale]/components/cart-provider";
 import { urlFor } from "@/sanity/lib/client"; 
 import { Link } from "@/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { useEffect, useState } from "react";
+import { useHaMontado } from "@/app/[locale]/lib/use-ha-montado";
+import { traducir, type ProductoSanity } from "@/sanity/lib/tipos";
 
-export function ProductGallery({ productos, isHome = false }: { productos: any[], isHome?: boolean }) {
+export function ProductGallery({ productos, isHome = false }: { productos: ProductoSanity[], isHome?: boolean }) {
   const { addItem, lines } = useCart();
   const t = useTranslations("Gallery");
   const locale = useLocale();
   
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useHaMontado();
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  function handleAdd(producto: any) {
+  function handleAdd(producto: ProductoSanity) {
     const imagenUrl = (producto.imagen?.asset) ? urlFor(producto.imagen).width(200).height(200).fit("crop").auto("format").url() : "";
     
-    const productoMapeado = { 
-      ...producto, 
-      id: producto._id, 
-      nombre: producto.nombre?.[locale] || producto.nombre?.es || "Producto", 
-      imagen: imagenUrl 
+    const productoMapeado = {
+      id: producto._id,
+      nombre: traducir(producto.nombre, locale) || "Producto",
+      precio: producto.precio ?? 0,
+      imagen: imagenUrl,
     };
 
     addItem(productoMapeado);
@@ -52,7 +49,7 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
                 {producto.imagen?.asset ? (
                   <img 
                     src={urlFor(producto.imagen).width(800).height(1000).fit("crop").auto("format").url()} 
-                    alt={producto.nombre?.[locale] || "Producto"} 
+                    alt={traducir(producto.nombre, locale) || "Producto"} 
                     className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
                     loading="lazy" 
                   />
@@ -71,11 +68,11 @@ export function ProductGallery({ productos, isHome = false }: { productos: any[]
             <div className="mt-4 flex flex-col flex-grow justify-between px-0.5">
               <div className="min-w-0">
                 <h3 className="text-[11px] sm:text-xl font-bold text-stone-950 font-nixie leading-tight">
-                  {producto.nombre?.[locale] || producto.nombre?.es}
+                  {traducir(producto.nombre, locale)}
                 </h3>
                 
                 <p className="hidden sm:block text-stone-500 mt-2 text-sm line-clamp-2 font-urbanist min-h-[2.5em]">
-                  {producto.descripcion?.[locale] || producto.descripcion?.es}
+                  {traducir(producto.descripcion, locale)}
                 </p>
               </div>
               
