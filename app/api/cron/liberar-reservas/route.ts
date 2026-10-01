@@ -7,8 +7,8 @@ import { RESERVA_CADUCADA } from "@/sanity/lib/reservas";
 // y avisa al taller. La web ya las muestra como disponibles en cuanto caducan
 // (ESTADO_EFECTIVO); este cron solo deja los documentos de Sanity limpios.
 //
-// Se llama una vez al día desde Vercel Cron (vercel.json). Vercel envía
-// "Authorization: Bearer <CRON_SECRET>" automáticamente si CRON_SECRET existe.
+// Se llama una vez al día con una tarea programada de Hostinger (hPanel → Avanzado → Cron Jobs):
+//   curl -s -H "Authorization: Bearer <CRON_SECRET>" https://www.vetandlux.com/api/cron/liberar-reservas
 
 const writeClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
