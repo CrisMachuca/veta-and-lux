@@ -1,6 +1,5 @@
 "use client";
 
-import type { Producto } from "@/app/[locale]/lib/productos";
 import { precioToNumber } from "@/app/[locale]/lib/precio";
 import {
   createContext,
@@ -12,6 +11,14 @@ import {
 } from "react";
 
 const STORAGE_KEY = "vetalux-carrito";
+
+// Lo mínimo que necesita el carrito de una pieza de Sanity (ya traducida al idioma actual)
+export type ProductoCarrito = {
+  id: string;
+  nombre: string;
+  precio: string | number;
+  imagen: string;
+};
 
 export type CartLine = {
   productId: string; // _id del documento en Sanity
@@ -26,7 +33,7 @@ type CartContextValue = {
   lines: CartLine[];
   totalQuantity: number;
   subtotal: number;
-  addItem: (producto: Producto) => void;
+  addItem: (producto: ProductoCarrito) => void;
   removeLine: (productId: string) => void;
   setLineQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -65,7 +72,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [lines]);
 
-  const addItem = useCallback((producto: Producto) => {
+  const addItem = useCallback((producto: ProductoCarrito) => {
     const precioUnit = precioToNumber(producto.precio);
     setLines((prev) => {
       // Si el producto ya está, no hacemos nada (pieza única)
@@ -77,7 +84,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         {
           productId,
           nombre: producto.nombre,
-          precioLabel: producto.precio,
+          precioLabel: String(producto.precio),
           precioUnit,
           imagen: producto.imagen,
           quantity: 1,
