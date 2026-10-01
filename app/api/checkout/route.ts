@@ -105,7 +105,7 @@ async function cargarPiezasDisponibles(lines: CartLine[], locale: string) {
   }
 
   if (piezas.some((p) => typeof p.precio !== "number" || p.precio <= 0)) {
-    throw new ErrorCheckout("Precio de producto no válido", 500);
+    throw new ErrorCheckout(esIngles ? "One of the pieces has an invalid price. Please contact us." : "Una de las piezas tiene un precio no válido. Escríbenos, por favor.", 500);
   }
 
   return piezas;
@@ -129,13 +129,15 @@ export async function POST(request: Request) {
 
     const locale = localeRecibido === "en" ? "en" : "es";
     const esIngles = locale === "en";
+    // Mensajes que ve el cliente, en su idioma
+    const msg = (es: string, en: string) => (esIngles ? en : es);
 
     if (!Array.isArray(lines) || lines.length === 0) {
-      return NextResponse.json({ error: "El carrito está vacío" }, { status: 400 });
+      return NextResponse.json({ error: msg("El carrito está vacío", "Your cart is empty") }, { status: 400 });
     }
 
     if (!esRegionEnvio(regionRecibida)) {
-      return NextResponse.json({ error: "Región de envío no válida" }, { status: 400 });
+      return NextResponse.json({ error: msg("Región de envío no válida", "Invalid shipping region") }, { status: 400 });
     }
     const regionEnvio = regionRecibida;
 
@@ -149,13 +151,13 @@ export async function POST(request: Request) {
     const nombreCliente = datosCliente?.nombre?.trim() || "Cliente";
 
     if (!emailCliente) {
-      return NextResponse.json({ error: "El email del cliente es obligatorio" }, { status: 400 });
+      return NextResponse.json({ error: msg("El email es obligatorio", "Email is required") }, { status: 400 });
     }
 
     // Cortafuegos de seguridad global
     if (regionEnvio === "peninsula" && (dir?.paisBase === "Francia" || dir?.paisBase === "FR")) {
       return NextResponse.json(
-        { error: "Incongruencia de tarifas: El país de destino no corresponde con la tarifa elegida." },
+        { error: msg("El país de destino no corresponde con la tarifa de envío elegida.", "The destination country does not match the selected shipping rate.") },
         { status: 400 }
       );
     }
@@ -193,8 +195,10 @@ export async function POST(request: Request) {
           price_data: {
             currency: "eur",
             product_data: {
-              name: `Gastos de Envío Asegurado (${etiquetaRegion})`,
-              description: "Tarifa calculada según la dirección del cliente",
+              name: esIngles
+                ? `Insured shipping (${regionEnvio === "islas" ? "Balearic/Canary Islands, Ceuta or Melilla" : regionEnvio === "internacional" ? "International / Europe" : "Mainland Spain"})`
+                : `Envío asegurado (${etiquetaRegion})`,
+              description: msg("Tarifa según la dirección de entrega", "Rate based on the delivery address"),
             },
             unit_amount: Math.round(costeEnvio * 100),
           },
@@ -395,13 +399,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ url: `/${locale}/checkout/success?${params.toString()}` });
     }
 
-    return NextResponse.json({ error: "Método de pago no válido" }, { status: 400 });
+    return NextResponse.json({ error: msg("Método de pago no válido", "Invalid payment method") }, { status: 400 });
 
   } catch (error) {
     if (error instanceof ErrorCheckout) {
       return NextResponse.json({ error: error.message }, { status: error.status });
     }
     console.error("❌ ERROR EN EL PROCESO DEL CHECKOUT:", error);
-    return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
+    // Sin mensaje: el carrito muestra su error genérico ya traducido (CarritoClient.alert_error)
+    return NextResponse.json({}, { status: 500 });
   }
 }
