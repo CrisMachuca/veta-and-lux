@@ -3,6 +3,9 @@ import { useTranslations } from "next-intl"; // 1. Importa el hook
 import { CarritoClient } from "@/app/[locale]/components/carrito-client";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
+import { metadataPagina } from "@/app/[locale]/lib/seo";
+
+export const generateMetadata = metadataPagina("carrito", "/carrito", { noIndex: true });
 
 export default function CarritoPage() {
   const t = useTranslations("Carrito"); // 2. Inicializa el hook

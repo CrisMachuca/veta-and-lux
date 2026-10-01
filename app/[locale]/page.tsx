@@ -9,6 +9,9 @@ import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import FadeIn from "@/app/[locale]/components/motion/FadeIn";
+import { metadataPagina } from "@/app/[locale]/lib/seo";
+
+export const generateMetadata = metadataPagina("inicio", "", { tituloAbsoluto: true });
 
 async function getProductosDestacados() {
   const query = `*[_type == "producto" && destacado == true] | order(_createdAt desc) {

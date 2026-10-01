@@ -3,6 +3,9 @@ import { getTranslations } from "next-intl/server";
 import { ContactForm } from "@/app/[locale]/components/contact-form";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
+import { metadataPagina } from "@/app/[locale]/lib/seo";
+
+export const generateMetadata = metadataPagina("contacto", "/contacto");
 
 export default async function ContactoPage() {
   const t = await getTranslations("Contacto");

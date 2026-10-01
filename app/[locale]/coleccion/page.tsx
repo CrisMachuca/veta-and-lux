@@ -8,6 +8,9 @@ import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import FadeIn from "@/app/[locale]/components/motion/FadeIn";
+import { metadataPagina } from "@/app/[locale]/lib/seo";
+
+export const generateMetadata = metadataPagina("coleccion", "/coleccion");
 
 async function getColeccionCompleta() {
   // Traemos el objeto slug completo para que el enlace funcione

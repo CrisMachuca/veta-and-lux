@@ -337,5 +337,43 @@
     "notaTransferencia": "We have sent a copy of these instructions to <b>{email}</b>. Please use the order number <b>{pedido}</b> as the reference. Your pieces are reserved for 48 hours.",
     "textoTarjeta": "We have received your payment. We are now preparing your piece and its packaging in the workshop. You will shortly receive a confirmation email and, once it ships, the tracking number.",
     "volver": "Back to home"
+  },
+  "Metadata": {
+    "inicio": {
+      "titulo": "Veta & Lux | Handcrafted reclaimed wood lamps",
+      "descripcion": "Light sculptures handmade in Malaga, Spain, from reclaimed noble woods: olive, eucalyptus, chestnut. Unique, one-of-a-kind pieces."
+    },
+    "coleccion": {
+      "titulo": "Wooden lamp collection",
+      "descripcion": "Table and pendant lamps made from reclaimed wood, each one a unique piece. Free insured shipping across mainland Spain."
+    },
+    "proceso": {
+      "titulo": "Our craft process",
+      "descripcion": "From finding the wood to curing and finishing: this is how every Veta & Lux lamp is born in our workshop."
+    },
+    "contacto": {
+      "titulo": "Contact and custom orders",
+      "descripcion": "Write to us to order a custom lamp, ask about shipping or visit our workshop in Malaga."
+    },
+    "carrito": {
+      "titulo": "Cart",
+      "descripcion": "Review your pieces and choose a payment method."
+    },
+    "checkout": {
+      "titulo": "Order confirmation",
+      "descripcion": "Confirmation of your Veta & Lux order."
+    },
+    "envios": {
+      "titulo": "Shipping and returns",
+      "descripcion": "Delivery times, insured shipping rates and return conditions for Veta & Lux pieces."
+    },
+    "avisoLegal": {
+      "titulo": "Legal notice",
+      "descripcion": "Legal information about the owner of the Veta & Lux website."
+    },
+    "cookies": {
+      "titulo": "Cookie policy",
+      "descripcion": "Which cookies the Veta & Lux website uses and how to manage them."
+    }
   }
 }

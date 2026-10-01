@@ -9,6 +9,7 @@ import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client, urlFor } from "@/sanity/lib/client"; 
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import { Metadata } from "next";
+import { alternatesPara, ogLocale } from "@/app/[locale]/lib/seo";
 
 export async function generateStaticParams() {
   const query = `*[_type == "producto" && defined(slug.current)] { "slug": slug.current }`;
@@ -37,21 +38,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!producto) {
     return {
-      title: "Producto no encontrado | Veta & Lux",
+      title: locale === "en" ? "Piece not found" : "Producto no encontrado",
+      robots: { index: false },
     };
   }
 
   // Extraemos el nombre y descripción adaptados al idioma (locale)
   const nombreProducto = producto.nombre?.[locale] || producto.nombre?.es || "Lámpara artesanal";
   const descProducto = producto.descripcion?.[locale] || producto.descripcion?.es || "Descubre esta pieza única hecha a mano.";
-  const imagenUrl = producto.imagen?.asset ? urlFor(producto.imagen).url() : undefined;
+  const imagenUrl = producto.imagen?.asset ? urlFor(producto.imagen).width(1200).height(630).fit("crop").auto("format").url() : undefined;
 
+  // El título lleva " | Veta & Lux" por la plantilla del layout
   return {
-    title: `${nombreProducto} | Veta & Lux`,
+    title: nombreProducto,
     description: descProducto,
+    alternates: alternatesPara(locale, `/coleccion/${slug}`),
     openGraph: {
       title: `${nombreProducto} | Veta & Lux`,
       description: descProducto,
+      url: `/${locale}/coleccion/${slug}`,
+      locale: ogLocale(locale),
       images: imagenUrl ? [{ url: imagenUrl }] : [],
     },
     twitter: {

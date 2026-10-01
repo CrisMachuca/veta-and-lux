@@ -343,5 +343,43 @@
     "notaTransferencia": "Te hemos enviado una copia de estas instrucciones a <b>{email}</b>. Usa el número de pedido <b>{pedido}</b> como concepto. Reservamos tus piezas durante 48 horas.",
     "textoTarjeta": "Hemos recibido tu pago correctamente. Empezamos a preparar tu pieza y su embalaje en el taller. En breve recibirás un correo de confirmación y, cuando salga el envío, el número de seguimiento.",
     "volver": "Volver al inicio"
+  },
+  "Metadata": {
+    "inicio": {
+      "titulo": "Veta & Lux | Lámparas artesanales de madera recuperada",
+      "descripcion": "Esculturas de luz hechas a mano en Málaga con maderas nobles recuperadas: olivo, eucalipto, castaño. Piezas únicas e irrepetibles."
+    },
+    "coleccion": {
+      "titulo": "Colección de lámparas de madera",
+      "descripcion": "Lámparas de sobremesa y colgantes en madera recuperada, cada una pieza única. Envío asegurado gratuito a la Península."
+    },
+    "proceso": {
+      "titulo": "Proceso artesanal",
+      "descripcion": "Del hallazgo de la madera al curado y el acabado: así nace cada lámpara de Veta & Lux en nuestro taller."
+    },
+    "contacto": {
+      "titulo": "Contacto y encargos a medida",
+      "descripcion": "Escríbenos para encargar una lámpara a medida, resolver dudas sobre envíos o visitar el taller en Málaga."
+    },
+    "carrito": {
+      "titulo": "Carrito",
+      "descripcion": "Revisa tus piezas y elige el método de pago."
+    },
+    "checkout": {
+      "titulo": "Confirmación del pedido",
+      "descripcion": "Confirmación de tu pedido en Veta & Lux."
+    },
+    "envios": {
+      "titulo": "Envíos y devoluciones",
+      "descripcion": "Plazos, tarifas de envío asegurado y condiciones de devolución de las piezas de Veta & Lux."
+    },
+    "avisoLegal": {
+      "titulo": "Aviso legal",
+      "descripcion": "Información legal sobre el titular de la web de Veta & Lux."
+    },
+    "cookies": {
+      "titulo": "Política de cookies",
+      "descripcion": "Qué cookies utiliza la web de Veta & Lux y cómo gestionarlas."
+    }
   }
 }
