@@ -118,7 +118,7 @@ export function ProductDetailClient({ producto }: { producto: any }) {
                 {producto.imagenes.map((img: any, index: number) => (
                   img?.asset && (
                     <button key={img._key || index} onClick={() => setSelectedImage(img)} className={`rounded-xl overflow-hidden ring-1 transition-all ${selectedImage?.asset?._ref === img.asset?._ref ? "ring-stone-900" : "ring-stone-200 opacity-60"}`}>
-                      <img src={urlFor(img).url()} alt="mini" className="w-full aspect-square object-cover" />
+                      <img src={urlFor(img).url()} alt={`${nombreTraducido} — ${t("miniaturaAlt")}`} className="w-full aspect-square object-cover" />
                     </button>
                   )
                 ))}
@@ -140,10 +140,10 @@ export function ProductDetailClient({ producto }: { producto: any }) {
               <div className="space-y-4">
                 <p className="text-[9px] uppercase text-stone-400 font-bold">{t("materiales")}</p>
                 <ul className="space-y-1 font-mono text-xs text-stone-700">
-                  <li className="flex gap-4"><span className="text-stone-400 w-16">BASE:</span> {getTrad(producto?.materialBase)}</li>
+                  <li className="flex gap-4"><span className="text-stone-400 w-16 uppercase">{t("base")}:</span> {getTrad(producto?.materialBase)}</li>
                   {producto?.materialPantalla && (
                     <li className="flex gap-4">
-                      <span className="text-stone-400 w-16">PANTALLA:</span> 
+                      <span className="text-stone-400 w-16 uppercase">{t("pantalla")}:</span> 
                       {(() => {
                         const pantalla = getTrad(producto.materialPantalla);
                         return typeof pantalla === 'object' ? `${pantalla?.tipo || ""} ${pantalla?.color ? `(${pantalla.color})` : ''}` : pantalla;
@@ -155,18 +155,18 @@ export function ProductDetailClient({ producto }: { producto: any }) {
               
               {producto?.medidas && (
                 <div className="space-y-1">
-                  <p className="text-[9px] uppercase text-stone-400 font-bold">MEDIDAS (CM)</p>
+                  <p className="text-[9px] uppercase text-stone-400 font-bold">{t("dimensiones")} (cm)</p>
                   <ul className="space-y-1 font-mono text-xs text-stone-700">
-                    <li className="flex gap-4"><span className="text-stone-400 w-16">ANCHO:</span> {producto.medidas.ancho}</li>
-                    <li className="flex gap-4"><span className="text-stone-400 w-16">LARGO:</span> {producto.medidas.largo}</li>
-                    <li className="flex gap-4"><span className="text-stone-400 w-16">ALTO:</span> {producto.medidas.alto}</li>
+                    <li className="flex gap-4"><span className="text-stone-400 w-16 uppercase">{t("ancho")}:</span> {producto.medidas.ancho}</li>
+                    <li className="flex gap-4"><span className="text-stone-400 w-16 uppercase">{t("largo")}:</span> {producto.medidas.largo}</li>
+                    <li className="flex gap-4"><span className="text-stone-400 w-16 uppercase">{t("alto")}:</span> {producto.medidas.alto}</li>
                   </ul>
                 </div>
               )}
 
               {producto?.cuidados && (
                 <div className="space-y-1">
-                  <p className="text-[9px] uppercase text-stone-400 font-bold">CUIDADOS</p>
+                  <p className="text-[9px] uppercase text-stone-400 font-bold">{t("cuidados")}</p>
                   <p className="font-mono text-xs text-stone-700 whitespace-pre-line">{getTrad(producto?.cuidados)}</p>
                 </div>
               )}

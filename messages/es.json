@@ -1,6 +1,12 @@
 {
     
   "Nav": {
+    
+    "abrirMenu": "Abrir menú",
+    
+    "cerrarMenu": "Cerrar menú",
+    
+    "carrito": "Carrito de compra",
     "inicio": "Inicio",
     "coleccion": "Colección",
     "proceso": "Proceso",
@@ -96,6 +102,11 @@
     "botonVolver": "← Volver a colección"
   },
   "DetalleCliente": {
+    "base": "Base",
+    "pantalla": "Pantalla",
+    "ancho": "Ancho",
+    "largo": "Largo",
+    "alto": "Alto",
     "sinImagen": "Sin imagen disponible",
     "miniaturaAlt": "Miniatura",
     "compTecnica": "Composición Técnica",
@@ -315,6 +326,22 @@
   "nota_medida_texto": "Aquellas lámparas creadas bajo encargo personalizado, adaptando medidas específicas o maderas seleccionadas expresamente para un proyecto, no admiten devolución estándar al tratarse de obras exclusivas co-creadas para el cliente. Naturalmente, cualquier incidencia en el transporte queda cubierta de manera inmediata por el taller.",
   "duda": "¿Tiene alguna duda sobre la idoneidad de una pieza o su transporte?",
   "boton": "Consultar con el Taller →"
-}
-
+},
+  "CheckoutExito": {
+    "cargando": "Cargando confirmación...",
+    "tituloTransferencia": "Pedido reservado",
+    "tituloTarjeta": "Gracias por tu pedido",
+    "introTransferencia": "Para confirmar tu compra, realiza la transferencia bancaria con los siguientes datos:",
+    "numeroPedido": "Número de pedido",
+    "email": "Tu email de contacto",
+    "piezas": "Piezas seleccionadas",
+    "importe": "Importe a transferir",
+    "iban": "IBAN",
+    "ibanPorCorreo": "Te lo enviamos por correo",
+    "titular": "Titular",
+    "concepto": "Concepto obligatorio",
+    "notaTransferencia": "Te hemos enviado una copia de estas instrucciones a <b>{email}</b>. Usa el número de pedido <b>{pedido}</b> como concepto. Reservamos tus piezas durante 48 horas.",
+    "textoTarjeta": "Hemos recibido tu pago correctamente. Empezamos a preparar tu pieza y su embalaje en el taller. En breve recibirás un correo de confirmación y, cuando salga el envío, el número de seguimiento.",
+    "volver": "Volver al inicio"
+  }
 }

@@ -1,5 +1,8 @@
 {
   "Nav": {
+    "abrirMenu": "Open menu",
+    "cerrarMenu": "Close menu",
+    "carrito": "Shopping cart",
     "inicio": "Home",
     "coleccion": "Collection",
     "proceso": "Process",
@@ -95,6 +98,11 @@
     "botonVolver": "← Back to collection"
   },
   "DetalleCliente": {
+    "base": "Base",
+    "pantalla": "Shade",
+    "ancho": "Width",
+    "largo": "Length",
+    "alto": "Height",
     "sinImagen": "No image available",
     "miniaturaAlt": "Thumbnail",
     "compTecnica": "Technical Specifications",
@@ -312,6 +320,22 @@
   "nota_medida_texto": "Lamps created under custom order, adapting specific dimensions or woods selected expressly for a project, do not admit standard returns as they are exclusive works co-created for the client. Naturally, any transport incident is immediately covered by the workshop.",
   "duda": "Do you have any questions about the suitability of a piece or its transport?",
   "boton": "Consult with the Workshop →"
-}
-      
+},
+  "CheckoutExito": {
+    "cargando": "Loading confirmation...",
+    "tituloTransferencia": "Order reserved",
+    "tituloTarjeta": "Thank you for your order",
+    "introTransferencia": "To confirm your purchase, please make a bank transfer with the following details:",
+    "numeroPedido": "Order number",
+    "email": "Your contact email",
+    "piezas": "Selected pieces",
+    "importe": "Amount to transfer",
+    "iban": "IBAN",
+    "ibanPorCorreo": "We will send it to you by email",
+    "titular": "Account holder",
+    "concepto": "Required reference",
+    "notaTransferencia": "We have sent a copy of these instructions to <b>{email}</b>. Please use the order number <b>{pedido}</b> as the reference. Your pieces are reserved for 48 hours.",
+    "textoTarjeta": "We have received your payment. We are now preparing your piece and its packaging in the workshop. You will shortly receive a confirmation email and, once it ships, the tracking number.",
+    "volver": "Back to home"
+  }
 }

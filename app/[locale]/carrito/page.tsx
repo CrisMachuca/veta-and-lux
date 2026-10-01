@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { useTranslations } from "next-intl"; // 1. Importa el hook
 import { CarritoClient } from "@/app/[locale]/components/carrito-client";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";

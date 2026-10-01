@@ -54,7 +54,8 @@ export function SiteNav() {
             type="button"
             onClick={() => setMenuAbierto(!menuAbierto)}
             className="flex flex-col justify-center items-center w-8 h-8 md:hidden space-y-1.5 focus:outline-none z-50 relative"
-            aria-label="Abrir menú"
+            aria-label={menuAbierto ? t("cerrarMenu") : t("abrirMenu")}
+            aria-expanded={menuAbierto}
           >
             <span className={`block h-0.5 w-6 bg-stone-800 transition-transform duration-300 ease-out rounded ${menuAbierto ? "rotate-45 translate-y-2" : ""}`} />
             <span className={`block h-0.5 w-6 bg-stone-800 transition-opacity duration-300 ease-out rounded ${menuAbierto ? "opacity-0" : ""}`} />

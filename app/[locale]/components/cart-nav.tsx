@@ -1,12 +1,14 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/navigation";
+import { useTranslations } from "next-intl";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { useEffect, useRef, useState } from "react";
 import { ShoppingBag } from "lucide-react";
 
 export function CartNav() {
   const { totalQuantity } = useCart();
+  const t = useTranslations("Nav");
   const [isBouncing, setIsBouncing] = useState(false);
   const [mounted, setMounted] = useState(false); // Estado para evitar hidratación incorrecta
   const prevQuantityRef = useRef(totalQuantity);
@@ -44,7 +46,7 @@ export function CartNav() {
     <Link
       href="/carrito"
       className="relative flex items-center justify-center p-2 text-stone-900 hover:text-stone-600 transition-colors"
-      aria-label="Carrito de compra"
+      aria-label={t("carrito")}
     >
       <div className={isBouncing ? "animate-bounce" : ""}>
         {/* Icono de bolsa de la compra */}
