@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { formatEUR } from "@/app/[locale]/lib/precio";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { COSTES_ENVIO } from "@/app/[locale]/lib/envio";
 
-const COSTES_ENVIO = { peninsula: 0, islas: 25, internacional: 65 };
 const PROVINCIAS_PENINSULA = ["Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real", "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara", "Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña", "La Rioja", "León", "Lérida", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra", "Orense", "Palencia", "Pontevedra", "Salamanca", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"];
 const PROVINCIAS_ISLAS = ["Baleares", "Las Palmas (Canarias)", "Santa Cruz de Tenerife (Canarias)", "Ceuta", "Melilla"];
 const PAISES_INTERNACIONAL = [{ code: "FR", name: "Francia" }, { code: "IT", name: "Italia" }, { code: "DE", name: "Alemania" }, { code: "PT", name: "Portugal" }];
@@ -13,6 +13,7 @@ const PAISES_INTERNACIONAL = [{ code: "FR", name: "Francia" }, { code: "IT", nam
 export function CarritoClient() {
   const { lines, subtotal, removeLine, clearCart } = useCart();
   const t = useTranslations("CarritoClient");
+  const locale = useLocale();
   const [cargando, setCargando] = useState(false);
   const [metodoPago, setMetodoPago] = useState<"stripe" | "transferencia">("stripe");
   const [regionEnvio, setRegionEnvio] = useState<"peninsula" | "islas" | "internacional">("peninsula");
@@ -40,7 +41,7 @@ export function CarritoClient() {
       const respuesta = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines, metodoPago, regionEnvio, costeEnvio: costeEnvioActual, datosCliente: { email, nombre, direccion: direccionEstructurada } }),
+        body: JSON.stringify({ lines, metodoPago, regionEnvio, locale, datosCliente: { email, nombre, direccion: direccionEstructurada } }),
       });
       const datos = await respuesta.json();
       if (!respuesta.ok) throw new Error(datos.error || t("alert_error"));

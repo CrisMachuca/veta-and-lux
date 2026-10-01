@@ -53,7 +53,23 @@ export const producto = defineType({
     defineField({ 
       name: 'estado', type: 'string', 
       options: { list: ['disponible', 'reservado', 'vendido'], layout: 'radio' },
-      initialValue: 'disponible' 
+      initialValue: 'disponible'
+    }),
+    // Lo rellena la web al reservar por transferencia. Pasada esta fecha la pieza vuelve a estar disponible.
+    // Vacíalo para mantener una reserva manual sin caducidad.
+    defineField({
+      name: 'reservadoHasta',
+      title: 'Reservado hasta',
+      type: 'datetime',
+      description: 'Pasada esta fecha la reserva se libera sola. Déjalo vacío para una reserva sin caducidad.',
+      hidden: ({ document }) => document?.estado !== 'reservado',
+    }),
+    defineField({
+      name: 'pedidoReserva',
+      title: 'Pedido de la reserva',
+      type: 'string',
+      readOnly: true,
+      hidden: ({ document }) => document?.estado !== 'reservado',
     }),
   ],
   // Vista previa que ya tenías

@@ -5,6 +5,10 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 
+// Datos bancarios configurados en .env (los mismos que se envían por correo)
+const IBAN = process.env.NEXT_PUBLIC_IBAN_TRANSFERENCIA;
+const TITULAR = process.env.NEXT_PUBLIC_TITULAR_CUENTA || "Veta & Lux";
+
 function SuccessContent() {
   const { clearCart } = useCart();
   const searchParams = useSearchParams();
@@ -13,12 +17,14 @@ function SuccessContent() {
   const [orderId, setOrderId] = useState<string | null>(null);
   const [items, setItems] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null); // Nuevo estado
+  const [total, setTotal] = useState<string | null>(null);
 
   useEffect(() => {
     setMetodo(searchParams.get("method"));
     setOrderId(searchParams.get("orderId"));
     setItems(searchParams.get("items"));
     setEmail(searchParams.get("clientEmail")); // Capturamos el email
+    setTotal(searchParams.get("total"));
     
     clearCart();
   }, [clearCart, searchParams]);
@@ -55,9 +61,19 @@ function SuccessContent() {
                 <span className="text-stone-400 block text-[10px] uppercase tracking-wider">Piezas seleccionadas</span>
                 <span className="text-stone-800 font-medium">{items}</span>
               </div>
+              {total && (
+                <div className="py-2">
+                  <span className="text-stone-400 block text-[10px] uppercase tracking-wider">Importe a transferir</span>
+                  <span className="text-stone-900 font-semibold">{total.replace(".", ",")} €</span>
+                </div>
+              )}
               <div className="py-2">
                 <span className="text-stone-400 block text-[10px] uppercase tracking-wider">IBAN de ingreso</span>
-                <span className="text-stone-900 font-semibold tracking-wide">ES21 1234 5678 9012 3456 7890</span>
+                <span className="text-stone-900 font-semibold tracking-wide">{IBAN || "Te lo enviamos por correo"}</span>
+              </div>
+              <div className="py-2">
+                <span className="text-stone-400 block text-[10px] uppercase tracking-wider">Titular</span>
+                <span className="text-stone-800 font-medium">{TITULAR}</span>
               </div>
               <div className="pt-2">
                 <span className="text-stone-400 block text-[10px] uppercase tracking-wider">Concepto obligatorio</span>

@@ -14,7 +14,7 @@ import {
 const STORAGE_KEY = "vetalux-carrito";
 
 export type CartLine = {
-  productId: number;
+  productId: string; // _id del documento en Sanity
   nombre: string;
   precioLabel: string;
   precioUnit: number;
@@ -27,8 +27,8 @@ type CartContextValue = {
   totalQuantity: number;
   subtotal: number;
   addItem: (producto: Producto) => void;
-  removeLine: (productId: number) => void;
-  setLineQuantity: (productId: number, quantity: number) => void;
+  removeLine: (productId: string) => void;
+  setLineQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
 };
 
@@ -69,12 +69,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const precioUnit = precioToNumber(producto.precio);
     setLines((prev) => {
       // Si el producto ya está, no hacemos nada (pieza única)
-      if (prev.some((l) => l.productId === producto.id)) return prev;
+      const productId = String(producto.id);
+      if (prev.some((l) => l.productId === productId)) return prev;
 
       return [
         ...prev,
         {
-          productId: producto.id,
+          productId,
           nombre: producto.nombre,
           precioLabel: producto.precio,
           precioUnit,
@@ -85,11 +86,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const removeLine = useCallback((productId: number) => {
+  const removeLine = useCallback((productId: string) => {
     setLines((prev) => prev.filter((l) => l.productId !== productId));
   }, []);
 
-  const setLineQuantity = useCallback((productId: number, quantity: number) => {
+  const setLineQuantity = useCallback((productId: string, quantity: number) => {
     if (quantity <= 0) {
       removeLine(productId);
       return;

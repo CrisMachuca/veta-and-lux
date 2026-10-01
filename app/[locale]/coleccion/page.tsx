@@ -6,6 +6,7 @@ import { ProductGallery } from "@/app/[locale]/components/product-gallery";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client";
+import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import FadeIn from "@/app/[locale]/components/motion/FadeIn";
 
 async function getColeccionCompleta() {
@@ -24,7 +25,7 @@ async function getColeccionCompleta() {
     cable,
     medidas,
     cuidados,
-    estado
+    ${ESTADO_EFECTIVO}
   }`;
 
   return await client.fetch(query, {}, { next: { revalidate: 10 } });

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@sanity/client";
 import nodemailer from "nodemailer";
+import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -59,27 +60,34 @@ export async function POST(request: Request) {
 
       // 🖼️ OBTENCIÓN Y DISEÑO DE PRODUCTOS (IMAGEN GRANDE 120px + ESPACIO 30px)
       let detallesProductosHtml = "";
+      // Piezas que ya estaban vendidas/reservadas al confirmarse el pago (venta doble)
+      let piezasEnConflicto: string[] = [];
       if (productIds.length > 0) {
         try {
           const productosSanity = await writeClient.fetch(
             `*[_id in $ids]{
               _id,
               nombre,
+              ${ESTADO_EFECTIVO},
               "imageUrl": imagen.asset->url
             }`,
             { ids: productIds }
           );
 
+          piezasEnConflicto = productosSanity
+            .filter((prod: { estado?: string }) => prod.estado === "vendido" || prod.estado === "reservado")
+            .map((prod: { _id: string; nombre?: { es?: string }; estado?: string }) => `${prod.nombre?.es || prod._id} (${prod.estado})`);
+
           detallesProductosHtml = productosSanity.map((prod: any) => `
             <div style="display: flex; align-items: center; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #e7e5e4; clear: both;">
               ${prod.imageUrl ? `
                 <img src="${prod.imageUrl}" 
-                     alt="${prod.nombre}" 
+                     alt="${prod.nombre?.es || ""}" 
                      style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px; background-color: #f5f5f4; flex-shrink: 0; margin-right: 30px;" />
               ` : ""}
               <div style="flex-grow: 1;">
                 <p style="margin: 0 0 8px 0; font-weight: bold; color: #1c1917; font-size: 16px; font-family: sans-serif; line-height: 1.2;">
-                  ${prod.nombre}
+                  ${prod.nombre?.es || prod._id}
                 </p>
                 <p style="margin: 0; font-size: 11px; color: #a8a29e; font-family: monospace; letter-spacing: 0.5px;">
                   ID: ${prod._id}
@@ -98,6 +106,7 @@ export async function POST(request: Request) {
         writeClient
           .patch(id)
           .set({ estado: "vendido" })
+          .unset(["reservadoHasta", "pedidoReserva"])
           .commit()
           .then((res) => {
             console.log(`✅ Producto ${id} marcado como VENDIDO en Sanity.`);
@@ -119,12 +128,19 @@ export async function POST(request: Request) {
       await transporter.sendMail({
         from: `"Veta & Lux — Pasarela" <info@vetandlux.com>`,
         to: process.env.EMAIL_NOTIFICACIONES,
-        subject: `✅ ¡PIEZA VENDIDA! Pago confirmado vía Tarjeta`,
+        subject: piezasEnConflicto.length > 0
+          ? `⚠️ REVISAR: pago con tarjeta de una pieza que ya no estaba disponible`
+          : `✅ ¡PIEZA VENDIDA! Pago confirmado vía Tarjeta`,
         html: `
           <div style="font-family: sans-serif; color: #292524; max-width: 600px; margin: 0 auto; padding: 30px; border: 1px solid #e7e5e4; border-radius: 16px; background-color: #fafaf9;">
             <h2 style="color: #15803d; font-weight: bold; font-size: 22px; border-bottom: 1px solid #e7e5e4; padding-bottom: 15px; margin-top: 0;">
               💰 ¡Pago de Tarjeta Confirmado!
             </h2>
+            ${piezasEnConflicto.length > 0 ? `
+            <div style="background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 16px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; line-height: 1.6;">
+              <strong>⚠️ Posible venta doble.</strong> Estas piezas ya figuraban como vendidas o reservadas cuando llegó el pago:
+              ${piezasEnConflicto.join(", ")}. Comprueba a quién corresponde la pieza y, si procede, reembolsa este pago desde el panel de Stripe.
+            </div>` : ""}
             <p style="font-size: 15px; line-height: 1.6; color: #44403c;">
               Se ha completado un pago a través de Stripe Checkout. Las piezas ya están marcadas como <strong>vendidas</strong> en Sanity.
             </p>

@@ -7,6 +7,7 @@ import { ProductDetailClient } from "@/app/[locale]/components/product-detail-cl
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client, urlFor } from "@/sanity/lib/client"; 
+import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -77,7 +78,7 @@ async function getProductoSanityBySlug(slug: string) {
     cable,
     medidas,
     cuidados,
-    estado
+    ${ESTADO_EFECTIVO}
   }`;
 
   return await client.fetch(query, { slug }, { cache: "no-store" });
