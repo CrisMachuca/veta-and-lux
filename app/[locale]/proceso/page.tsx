@@ -45,9 +45,17 @@ export default function ElProcesoPage() {
         {/* PASO 1 */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
           <div className="md:col-span-7 bg-stone-100 aspect-[16/10] rounded-sm relative overflow-hidden shadow-sm flex items-center justify-center">
-            <video autoPlay loop muted playsInline className="w-full h-full object-cover filter brightness-[0.95]">
-              {/* Misma toma: 1,6 MB en móvil, 20 MB solo en pantallas grandes */}
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              preload="metadata"
+              className="w-full h-full object-cover filter brightness-[0.95]"
+            >
+              {/* Vídeo ligero para dispositivos móviles */}
               <source src="/hallazgo2.mp4" type="video/mp4" media="(max-width: 767px)" />
+              {/* Vídeo en máxima calidad de 10,9 MB para escritorio */}
               <source src="/hallazgo.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 border-[12px] border-stone-50/10 m-4 rounded-sm pointer-events-none"></div>
