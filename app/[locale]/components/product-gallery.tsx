@@ -6,6 +6,7 @@ import { Link } from "@/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useHaMontado } from "@/app/[locale]/lib/use-ha-montado";
 import { traducir, type ProductoSanity } from "@/sanity/lib/tipos";
+import Image from "next/image";
 
 export function ProductGallery({ productos, isHome = false }: { productos: ProductoSanity[], isHome?: boolean }) {
   const { addItem, lines } = useCart();
@@ -29,10 +30,7 @@ export function ProductGallery({ productos, isHome = false }: { productos: Produ
 
   return (
     <div className={`${isHome ? "flex md:grid md:grid-cols-3 gap-4 md:gap-12 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-hide pb-4" : "grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-12"}`}>
-      {productos.map((producto) => {
-        // --- CORRECCIÓN CRÍTICA ---
-        // Normalizamos el slug para evitar que llegue como undefined.
-        // Si producto.slug es un objeto (de Sanity), usamos .current, si es string, lo usamos directo.
+      {productos.map((producto, index) => {
         const slugNormalizado = typeof producto.slug === 'string' 
           ? producto.slug 
           : producto.slug?.current;
@@ -40,18 +38,25 @@ export function ProductGallery({ productos, isHome = false }: { productos: Produ
         const isAdded = isMounted && lines.some(l => l.productId === producto._id);
         const isDisabled = !isMounted || producto.estado === "vendido" || producto.estado === "reservado" || isAdded;
 
+        // URL optimizada desde Sanity con WebP/AVIF automático y un tamaño base sensato
+        const sanityImageUrl = producto.imagen?.asset 
+          ? urlFor(producto.imagen).width(600).height(750).fit("crop").auto("format").url() 
+          : "";
+
         return (
           <article key={producto._id} className={`group flex flex-col h-full ${isHome ? "flex-none w-[75vw] md:w-auto snap-start" : ""}`}>
-            {/* Usamos el slugNormalizado aquí */}
             <Link href={`/coleccion/${slugNormalizado}`} className="block rounded-xl md:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl md:rounded-2xl bg-stone-100 ring-1 ring-stone-200/50 shadow-sm transition-all duration-500 group-hover:shadow-md">
                 
                 {producto.imagen?.asset ? (
-                  <img 
-                    src={urlFor(producto.imagen).width(800).height(1000).fit("crop").auto("format").url()} 
+                  <Image 
+                    src={sanityImageUrl}
                     alt={traducir(producto.nombre, locale) || "Producto"} 
+                    fill
+                    sizes="(max-width: 768px) 75vw, (max-width: 1200px) 33vw, 400px"
                     className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
-                    loading="lazy" 
+                    loading={isHome && index < 2 ? "eager" : "lazy"}
+                    priority={isHome && index === 0}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-stone-400 text-[10px] md:text-xs">{t("sin_imagen")}</div>
@@ -78,7 +83,6 @@ export function ProductGallery({ productos, isHome = false }: { productos: Produ
               
               <div className="mt-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                 <div className="flex flex-col gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] font-urbanist font-bold">
-                  {/* Usamos el slugNormalizado aquí también */}
                   <Link href={`/coleccion/${slugNormalizado}`} className="text-stone-500 hover:text-stone-950 transition-colors underline underline-offset-4 w-fit">
                     {t("detalles")}
                   </Link>
