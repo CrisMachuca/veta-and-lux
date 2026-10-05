@@ -158,7 +158,14 @@ export default async function Page() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <FadeIn direction="left" delay={0.2} scale={0.9}>
             <div className="relative aspect-[4/5] bg-stone-100 rounded-sm shadow-xl overflow-hidden">
-              <Image src="/baseolivo.jpg" alt="Artesanía" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+            <Image 
+          src="/baseolivo.jpg" 
+          alt="Artesanía" 
+          fill 
+          sizes="(max-width: 768px) 90vw, 500px" 
+          className="object-cover" 
+          quality={80}
+        />
             </div>
           </FadeIn>
           <div className="space-y-8">

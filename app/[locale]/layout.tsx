@@ -2,18 +2,24 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Providers } from "@/app/[locale]/components/providers";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Nixie_One, Urbanist } from "next/font/google";
 import type { Metadata } from "next";
 import { IMAGEN_OG_POR_DEFECTO, SITE_URL, ogLocale } from "@/app/[locale]/lib/seo";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Configuramos las fuentes nativas de Next.js para eliminar los bloqueos de Google Fonts
+const nixieOne = Nixie_One({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-nixie",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const urbanist = Urbanist({
   subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-urbanist",
+  display: "swap",
 });
 
 // Valores por defecto para todas las páginas; cada página define su título y descripción.
@@ -49,11 +55,11 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  // 2. 🛠️ SOLUCIÓN: Le pasamos explícitamente el locale a getMessages para evitar el 'undefined.json'
+  // 2. 🛠️ Le pasamos explícitamente el locale a getMessages
   const messages = await getMessages({ locale });
 
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-full flex flex-col`}>
+    <div className={`${nixieOne.variable} ${urbanist.variable} antialiased min-h-full flex flex-col`}>
       <NextIntlClientProvider messages={messages} locale={locale}>
         <Providers>
           {children}
