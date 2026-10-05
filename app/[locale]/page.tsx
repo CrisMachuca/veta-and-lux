@@ -24,7 +24,6 @@ async function getProductosDestacados() {
     imagenes, 
     ${ESTADO_EFECTIVO}
   }`;
-  
   return await client.fetch(query);
 }
 
@@ -36,56 +35,58 @@ export default async function Page() {
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
       <SiteNav />
 
-      {/* 💎 HERO */}
-      <section className="relative h-[90vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#1a1816] shadow-2xl">
+      {/* 💎 HERO: Dos imágenes en móvil con fundido limpio + Tríptico en escritorio */}
+      <section className="relative h-[92vh] mx-4 md:mx-8 mt-4 rounded-sm overflow-hidden bg-[#0d0c0b] shadow-2xl">
         
-        {/* IMÁGENES: nunca hay un momento sin foto.
-            · Móvil: la primera foto queda fija y la segunda aparece/desaparece encima en fundido.
-            · Escritorio (lg+): tríptico con las dos fotos siempre visibles y el texto en el panel central.
-              El título escala con la pantalla para caber siempre en ese panel (1/3 del ancho). */}
-        {["/patilla-baja.jpg", "/escultura-olivo-sombra.jpg"].map((src, i) => (
-          <div
-            key={src}
-            className={`absolute inset-0 z-0 overflow-hidden lg:w-1/3 ${
-              i === 0
-                ? "lg:left-0 lg:border-r lg:border-white/5"
-                : "opacity-0 motion-safe:animate-hero-swap lg:animate-none lg:opacity-100 lg:left-2/3 lg:border-l lg:border-white/5"
-            }`}
-          >
-            <div className="relative w-full h-full motion-safe:animate-ken-burns" style={{ animationDelay: `${i * -6}s` }}>
-              <Image
-                src={src}
-                alt=""
-                fill
-                sizes="(max-width: 1023px) 100vw, 50vw"
-                priority={i === 0}
-                className="object-cover"
-              />
-            </div>
+        {/* IMAGEN 1: Móvil (fija de fondo) y Escritorio (izquierda) */}
+        <div className="absolute inset-0 z-0 overflow-hidden lg:w-1/3 lg:left-0 lg:border-r lg:border-white/10">
+          <div className="relative w-full h-full motion-safe:animate-ken-burns">
+            <Image
+              src="/patilla-baja.jpg"
+              alt="Lámpara escultórica Veta & Lux"
+              fill
+              sizes="(max-width: 1023px) 100vw, 33vw"
+              priority={true}
+              loading="eager"
+              fetchPriority="high"
+              className="object-cover"
+            />
           </div>
-        ))}
+        </div>
 
-        {/* Velo general: más denso en móvil, donde el texto va encima de la foto */}
-        <div className="absolute inset-0 z-[1] bg-black/35 lg:bg-black/20"></div>
+        {/* IMAGEN 2: Móvil (fundido encima) y Escritorio (derecha) */}
+        <div className={`absolute inset-0 z-0 overflow-hidden lg:w-1/3 opacity-0 motion-safe:animate-hero-swap lg:animate-none lg:opacity-100 lg:left-2/3 lg:border-l lg:border-white/10`}>
+          <div className="relative w-full h-full motion-safe:animate-ken-burns" style={{ animationDelay: `-6s` }}>
+            <Image
+              src="/escultura-olivo-sombra.jpg"
+              alt="Detalle de escultura de olivo Veta & Lux"
+              fill
+              sizes="(max-width: 1023px) 100vw, 33vw"
+              priority={false}
+              className="object-cover"
+            />
+          </div>
+        </div>
 
-        {/* Sombra central detrás del texto + degradado en la base: el blanco siempre se lee */}
-        <div className="absolute inset-0 z-[2] bg-[radial-gradient(ellipse_70%_50%_at_center,rgba(26,24,22,0.55),transparent)] lg:bg-[radial-gradient(ellipse_40%_60%_at_center,rgba(120,80,40,0.12),transparent)]"></div>
-        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#1a1816]/80 via-transparent to-[#1a1816]/30"></div>
+        {/* VELO LOCALIZADO: En móvil solo oscurece la parte inferior (base) para que resalte el texto blanco, 
+            dejando el resto de la imagen y las lámparas totalmente luminosas y nítidas. 
+            En escritorio mantiene un tono muy sutil y elegante. */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0d0c0b] via-transparent to-transparent lg:bg-black/25"></div>
 
         {/* Contenido centrado */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-6 pointer-events-none">
+        <div className="relative z-10 flex flex-col items-center justify-end lg:justify-center h-full max-w-4xl mx-auto pb-16 lg:pb-0 px-6 pointer-events-none">
           <div className="pointer-events-auto text-center w-full max-w-xl lg:max-w-[30vw] mx-auto px-4">
             
             <FadeIn direction="down" delay={0.4} duration={1.2}>
-              <span className="text-[9px] md:text-[11px] uppercase tracking-[0.45em] md:tracking-[0.6em] text-white/90 font-light border-b border-white/30 pb-4 mb-8 block select-none text-balance [text-shadow:0_2px_4px_rgba(0,0,0,0.9)]">
+              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-white/90 font-light border-b border-white/40 pb-3 mb-6 block select-none text-balance drop-shadow-md">
                 {t("Hero.tagline")}
               </span>
             </FadeIn>
 
             <FadeIn direction="none" delay={0.8} duration={1.5}>
-              <h1 className="text-6xl md:text-7xl lg:text-[clamp(3rem,5.6vw,7.5rem)] font-nixie tracking-tighter text-white select-none [filter:drop-shadow(0_4px_8px_rgba(0,0,0,0.8))]">
+              <h1 className="text-5xl md:text-6xl lg:text-[clamp(2.8rem,5vw,6.5rem)] font-nixie tracking-tighter text-white select-none drop-shadow-xl">
                 Veta
-                <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent px-2">
+                <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500 bg-clip-text text-transparent px-2">
                   &
                 </span>
                 Lux
@@ -93,10 +94,10 @@ export default async function Page() {
             </FadeIn>
 
             <FadeIn direction="up" delay={1.2} duration={1.2}>
-              <div className="mt-12">
+              <div className="mt-10">
                 <Link 
                   href="/coleccion" 
-                  className="group relative inline-block border border-white/80 text-white px-8 md:px-10 py-3.5 rounded-none transition-all duration-700 text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em] lg:tracking-[0.35em] xl:tracking-[0.5em] whitespace-nowrap font-medium hover:bg-white hover:text-[#1a1816] [text-shadow:0_1px_2px_rgba(0,0,0,0.6)] shadow-xl"
+                  className="group relative inline-block bg-black/30 backdrop-blur-md border border-white/80 text-white px-8 md:px-10 py-3.5 rounded-none transition-all duration-500 text-[10px] uppercase tracking-[0.4em] whitespace-nowrap font-medium hover:bg-white hover:text-[#1a1816] shadow-2xl"
                 >
                   <span className="relative z-10">{t("Hero.botonAdquirir")}</span>
                 </Link>
@@ -107,6 +108,7 @@ export default async function Page() {
         </div>
       </section>
 
+      {/* El resto de la página se mantiene igual... */}
       {/* 🪵 GALERÍA */}
       <section className="py-28">
         <FadeIn direction="up" delay={0.2}>
@@ -121,12 +123,10 @@ export default async function Page() {
           </div>
         </FadeIn>
 
-        {/* CONTENEDOR FLUIDO MODERNO (Sin max-w restrictivo, adaptado a pantallas grandes) */}
         <FadeIn direction="up" delay={0.5} scale={0.96}>
           <div className="px-6 md:px-12 lg:px-20 w-full">
             <ProductGallery productos={productosSanity} isHome={true} />
             
-            {/* BOTÓN: Ver Colección Completa */}
             <div className="flex justify-center mt-16 md:mt-20">
               <Link 
                 href="/coleccion" 
