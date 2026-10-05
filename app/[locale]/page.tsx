@@ -159,13 +159,12 @@ export default async function Page() {
           <FadeIn direction="left" delay={0.2} scale={0.9}>
             <div className="relative aspect-[4/5] bg-stone-100 rounded-sm shadow-xl overflow-hidden">
             <Image 
-          src="/baseolivo.jpg" 
-          alt="Artesanía" 
-          fill 
-          sizes="(max-width: 768px) 90vw, 500px" 
-          className="object-cover" 
-          quality={80}
-        />
+              src="/baseolivo.jpg" 
+              alt="Artesanía" 
+              fill 
+              sizes="(max-width: 768px) 100vw, 50vw" 
+              className="object-cover" 
+            />
             </div>
           </FadeIn>
           <div className="space-y-8">

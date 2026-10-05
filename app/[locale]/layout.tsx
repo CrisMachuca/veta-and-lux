@@ -5,6 +5,7 @@ import { Providers } from "@/app/[locale]/components/providers";
 import { Nixie_One, Urbanist } from "next/font/google";
 import type { Metadata } from "next";
 import { IMAGEN_OG_POR_DEFECTO, SITE_URL, ogLocale } from "@/app/[locale]/lib/seo";
+import "./globals.css";
 
 // Configuramos las fuentes nativas de Next.js para eliminar los bloqueos de Google Fonts
 const nixieOne = Nixie_One({
