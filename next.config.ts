@@ -4,7 +4,11 @@ import createNextIntlPlugin from "next-intl/plugin"; // 🌟 Importamos el plugi
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  /* Si en el futuro necesitas añadir opciones de Next (como configurar Sanity o imágenes), las pones aquí */
+  // Fotos de Sanity servidas por next/image (galería): solo las de nuestro proyecto.
+  // Sin "search" porque las URLs de Sanity llevan parámetros (?w=, rect=...).
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/h7lwi6jz/**" }],
+  },
 };
 
 // 🌟 Envolvemos la configuración para que Next.js procese las traducciones

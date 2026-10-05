@@ -11,7 +11,7 @@ import "./globals.css";
 const nixieOne = Nixie_One({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-nixie",
+  variable: "--font-nixie-one",
   display: "swap",
 });
 
@@ -19,7 +19,7 @@ const urbanist = Urbanist({
   subsets: ["latin"],
   weight: ["300", "400", "600"],
   style: ["normal", "italic"],
-  variable: "--font-urbanist",
+  variable: "--font-urbanist-sans",
   display: "swap",
 });
 
@@ -60,7 +60,7 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <div className={`${nixieOne.variable} ${urbanist.variable} antialiased min-h-full flex flex-col`}>
+    <div className={`${nixieOne.variable} ${urbanist.variable} font-sans antialiased min-h-full flex flex-col`}>
       <NextIntlClientProvider messages={messages} locale={locale}>
         <Providers>
           {children}
