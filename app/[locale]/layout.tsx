@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Providers } from "@/app/[locale]/components/providers";
+import { ConsentimientoCookies } from "@/app/[locale]/components/consentimiento-cookies";
 import { Nixie_One, Urbanist } from "next/font/google";
 import type { Metadata } from "next";
 import { IMAGEN_OG_POR_DEFECTO, SITE_URL, ogLocale } from "@/app/[locale]/lib/seo";
@@ -64,6 +65,7 @@ export default async function LocaleLayout({
       <NextIntlClientProvider messages={messages} locale={locale}>
         <Providers>
           {children}
+          <ConsentimientoCookies />
         </Providers>
       </NextIntlClientProvider>
     </div>

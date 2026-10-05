@@ -2,6 +2,7 @@
 
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
+import { abrirConfiguracionCookies } from "@/app/[locale]/lib/analytics";
 
 export function SiteFooter() {
   const t = useTranslations("Footer");
@@ -39,6 +40,7 @@ export function SiteFooter() {
             <li><Link href="/envios-devoluciones" className="hover:text-stone-50 transition-colors">{t("ayuda.envios")}</Link></li>
             <li><Link href="/aviso-legal" className="hover:text-stone-50 transition-colors">{t("ayuda.aviso")}</Link></li>
             <li><Link href="/politica-cookies" className="hover:text-stone-50 transition-colors">{t("ayuda.cookies")}</Link></li>
+            <li><button type="button" onClick={abrirConfiguracionCookies} className="hover:text-stone-50 transition-colors">{t("ayuda.configurarCookies")}</button></li>
           </ul>
         </div>
 

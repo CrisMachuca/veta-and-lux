@@ -45,12 +45,14 @@ export default function PoliticaCookiesPage() {
             <div className="p-5 rounded-sm border border-stone-200 bg-white space-y-2">
               <p className="font-mono text-xs font-bold text-stone-950 uppercase tracking-wider">{t("tipoB_titulo")}</p>
               <p className="text-xs text-stone-600">{t("tipoB_texto")}</p>
+              <p className="text-xs text-stone-600">{t("tipoB_detalle")}</p>
             </div>
           </div>
         </div>
 
         <div className="space-y-3">
           <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-stone-900 font-sans">{t("seccion3_titulo")}</h2>
+          <p>{t("seccion3_banner")}</p>
           <p>{t("seccion3_texto1")}</p>
           <p className="text-xs text-stone-500 italic">{t("seccion3_texto2")}</p>
         </div>

@@ -194,7 +194,8 @@
       "titulo": "Help",
       "envios": "Shipping & Returns",
       "aviso": "Legal Notice",
-      "cookies": "Cookie Policy"
+      "cookies": "Cookie Policy",
+      "configurarCookies": "Cookie settings"
     },
     "contacto": {
       "titulo": "Contact",
@@ -261,6 +262,8 @@
   "alert_error": "An error occurred."
 },
 "Cookies": {
+    "tipoB_detalle": "They are only activated if you accept them in the cookie notice. Google Analytics sets _ga and _ga_TTRHXEKW53, which anonymously distinguish visits and expire after 2 years. The data is processed by Google Ireland Limited.",
+    "seccion3_banner": "You can accept or reject analytics cookies at any time from the “Cookie settings” link in the footer. If you reject them, we stop measuring and delete the Google Analytics cookies from your browser.",
   "navegacion": "Private and Secure Browsing",
   "titulo": "Cookie Policy",
   "intro1": "At Veta & Lux, we respect the privacy of your digital environment. To offer you a fluid, sophisticated browsing experience adapted to your aesthetic preferences, this website uses information storage technologies called cookies.",
@@ -375,5 +378,12 @@
       "titulo": "Cookie policy",
       "descripcion": "Which cookies the Veta & Lux website uses and how to manage them."
     }
+  },
+  "CookiesBanner": {
+    "titulo": "Cookies",
+    "texto": "We use technical cookies to make the website work and, only if you accept, Google Analytics cookies to know how many people visit us and improve the site. You can change your choice at any time from the footer. More information in our",
+    "politica": "cookie policy",
+    "aceptar": "Accept",
+    "rechazar": "Reject"
   }
 }
