@@ -15,6 +15,8 @@ type Persona = { nombre: string; rol: string; texto: string };
 // (JPG o WebP) y aparecen solas. Si un archivo no existe, su hueco no se muestra.
 const CARPETA = "sobre-el-taller";
 const FOTO_PERSONA: Record<string, string> = { Cristina: "cristina", Rafa: "rafa" };
+// Punto de recorte de cada retrato (la foto de Cristina es vertical: se sube para no cortar la cara)
+const ENCUADRE_PERSONA: Record<string, string> = { Cristina: "50% 28%", Rafa: "50% 50%" };
 const FOTOS_TALLER = ["taller-1", "taller-2", "taller-3"];
 
 function rutaFoto(nombre: string) {
@@ -71,8 +73,8 @@ export default async function SobreElTallerPage({ params }: { params: Promise<{ 
                 {(() => {
                   const foto = rutaFoto(FOTO_PERSONA[persona.nombre] ?? "");
                   return foto ? (
-                    <div className="relative aspect-[4/3] bg-stone-100">
-                      <Image src={foto} alt={altPersonas[persona.nombre] ?? persona.nombre} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+                    <div className="relative aspect-square bg-stone-100">
+                      <Image src={foto} alt={altPersonas[persona.nombre] ?? persona.nombre} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" style={{ objectPosition: ENCUADRE_PERSONA[persona.nombre] ?? "50% 50%" }} />
                     </div>
                   ) : null;
                 })()}
