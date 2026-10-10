@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Providers } from "@/app/[locale]/components/providers";
 import { ConsentimientoCookies } from "@/app/[locale]/components/consentimiento-cookies";
@@ -42,6 +42,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
+// Páginas estáticas por idioma (con caché); sin esto next-intl leería las cabeceras y todo sería dinámico
+export function generateStaticParams() {
+  return [{ locale: "es" }, { locale: "en" }];
+}
+
 export default async function LocaleLayout({
   children,
   params,
@@ -57,17 +62,25 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  setRequestLocale(locale);
+
   // 2. 🛠️ Le pasamos explícitamente el locale a getMessages
   const messages = await getMessages({ locale });
 
+  // <html> va aquí y no en app/layout.tsx: aquí el idioma sale de la URL sin leer cabeceras,
+  // lo que permite servir las páginas desde caché
   return (
-    <div className={`${nixieOne.variable} ${urbanist.variable} font-sans antialiased min-h-full flex flex-col`}>
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <Providers>
-          {children}
-          <ConsentimientoCookies />
-        </Providers>
-      </NextIntlClientProvider>
-    </div>
+    <html lang={locale} suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <div className={`${nixieOne.variable} ${urbanist.variable} font-sans antialiased min-h-full flex flex-col`}>
+          <NextIntlClientProvider messages={messages} locale={locale}>
+            <Providers>
+              {children}
+              <ConsentimientoCookies />
+            </Providers>
+          </NextIntlClientProvider>
+        </div>
+      </body>
+    </html>
   );
 }

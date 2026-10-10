@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "@/navigation";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
@@ -28,6 +28,7 @@ function rutaFoto(nombre: string) {
 
 export default async function SobreElTallerPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Taller" });
   const historia = t.raw("historia") as string[];
   const personas = t.raw("personas") as Persona[];

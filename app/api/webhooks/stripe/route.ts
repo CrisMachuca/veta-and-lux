@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { createClient } from "@sanity/client";
 import nodemailer from "nodemailer";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
+import { invalidarCatalogo } from "@/sanity/lib/cache";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -123,6 +124,7 @@ export async function POST(request: Request) {
       );
       
       await Promise.all(promesasSanity);
+      invalidarCatalogo();
 
       const etiquetaRegion = 
         regionEnvio === "peninsula" ? "España Peninsular (Gratuito)" : 

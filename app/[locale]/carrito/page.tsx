@@ -1,3 +1,5 @@
+import { use } from "react";
+import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl"; // 1. Importa el hook
 import { CarritoClient } from "@/app/[locale]/components/carrito-client";
@@ -7,7 +9,8 @@ import { metadataPagina } from "@/app/[locale]/lib/seo";
 
 export const generateMetadata = metadataPagina("carrito", "/carrito", { noIndex: true });
 
-export default function CarritoPage() {
+export default function CarritoPage({ params }: { params: Promise<{ locale: string }> }) {
+  setRequestLocale(use(params).locale);
   const t = useTranslations("Carrito"); // 2. Inicializa el hook
 
   return (

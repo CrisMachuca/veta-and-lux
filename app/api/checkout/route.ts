@@ -5,6 +5,7 @@ import nodemailer from "nodemailer";
 import type { CartLine } from "@/app/[locale]/components/cart-provider";
 import { COSTES_ENVIO, esRegionEnvio } from "@/app/[locale]/lib/envio";
 import { ESTADO_EFECTIVO, fechaFinReserva } from "@/sanity/lib/reservas";
+import { invalidarCatalogo } from "@/sanity/lib/cache";
 
 // 1. Inicialización de Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -273,6 +274,8 @@ export async function POST(request: Request) {
           409
         );
       }
+      // La web deja de ofrecer estas piezas en la siguiente visita
+      invalidarCatalogo();
 
       const resumenPiezas = piezas.map((p) => nombrePieza(p)).join(", ");
       const nombreHtml = escapeHtml(nombreCliente);

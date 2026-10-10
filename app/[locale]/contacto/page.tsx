@@ -1,5 +1,5 @@
 import { Link } from "@/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContactForm } from "@/app/[locale]/components/contact-form";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
@@ -7,7 +7,9 @@ import { metadataPagina } from "@/app/[locale]/lib/seo";
 
 export const generateMetadata = metadataPagina("contacto", "/contacto");
 
-export default async function ContactoPage() {
+export default async function ContactoPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("Contacto");
 
   return (

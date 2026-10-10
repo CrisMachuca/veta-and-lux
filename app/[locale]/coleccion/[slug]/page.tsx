@@ -1,14 +1,15 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 import { Link } from "@/navigation";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ProductDetailClient } from "@/app/[locale]/components/product-detail-client";
 import { ProductGallery } from "@/app/[locale]/components/product-gallery";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client, urlFor } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
+import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import type { ProductoSanity } from "@/sanity/lib/tipos";
 import { Metadata } from "next";
 import { alternatesPara, ogLocale, SITE_URL } from "@/app/[locale]/lib/seo";
@@ -56,7 +57,7 @@ const CAMPOS_PIEZA = `
 `;
 
 async function getProductoSanityBySlug(slug: string): Promise<ProductoSanity | null> {
-  return await client.fetch(`*[_type == "producto" && slug.current == $slug][0] { ${CAMPOS_PIEZA} }`, { slug }, { cache: "no-store" });
+  return await client.fetch(`*[_type == "producto" && slug.current == $slug][0] { ${CAMPOS_PIEZA} }`, { slug }, CACHE_CATALOGO);
 }
 
 // Otras piezas para no dejar la ficha sin salida: primero las disponibles
@@ -66,7 +67,7 @@ async function getPiezasRelacionadas(slug: string): Promise<ProductoSanity[]> {
       _id, nombre, "slug": slug.current, precio, descripcion, imagen, tipo, ${ESTADO_EFECTIVO}
     }`,
     { slug },
-    { cache: "no-store" }
+    CACHE_CATALOGO
   );
   return ordenarPorDisponibilidad(piezas).slice(0, 3);
 }
@@ -113,6 +114,7 @@ interface PageProps {
 
 export default async function ProductoPage(props: PageProps) {
   const { slug, locale } = await props.params;
+  setRequestLocale(locale);
 
   const [producto, relacionadas] = await Promise.all([getProductoSanityBySlug(slug), getPiezasRelacionadas(slug)]);
 

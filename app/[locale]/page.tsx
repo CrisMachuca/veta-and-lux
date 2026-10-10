@@ -1,13 +1,15 @@
-export const dynamic = "force-dynamic";
+// Caché de 60 s; se invalida al momento al vender, reservar o editar una pieza (sanity/lib/cache.ts)
+export const revalidate = 60;
 
 import { Link } from "@/navigation";
-import { getTranslations } from "next-intl/server"; 
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image"; 
 import { ProductGallery } from "@/app/[locale]/components/product-gallery";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
+import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import FadeIn from "@/app/[locale]/components/motion/FadeIn";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
 import { jsonLdHtml, ordenarPorDisponibilidad, organizacionJsonLd } from "@/app/[locale]/lib/producto-seo";
@@ -27,11 +29,13 @@ async function getProductosDestacados() {
     tipo,
     ${ESTADO_EFECTIVO}
   }`;
-  const piezas: ProductoSanity[] = await client.fetch(query);
+  const piezas: ProductoSanity[] = await client.fetch(query, {}, CACHE_CATALOGO);
   return ordenarPorDisponibilidad(piezas);
 }
 
-export default async function Page() {
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const productosSanity = await getProductosDestacados();
   const t = await getTranslations("Inicio");
 

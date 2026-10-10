@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
 import nodemailer from "nodemailer";
 import { RESERVA_CADUCADA } from "@/sanity/lib/reservas";
+import { invalidarCatalogo } from "@/sanity/lib/cache";
 
 // Devuelve a "disponible" las piezas cuya reserva por transferencia ha caducado
 // y avisa al taller. La web ya las muestra como disponibles en cuanto caducan
@@ -66,6 +67,7 @@ export async function GET(request: Request) {
   }
 
   if (liberadas.length > 0) {
+    invalidarCatalogo();
     const filas = liberadas
       .map((p) => `<li style="margin-bottom: 6px;"><strong>${p.nombre?.es || p._id}</strong> — pedido ${p.pedidoReserva || "sin número"}</li>`)
       .join("");

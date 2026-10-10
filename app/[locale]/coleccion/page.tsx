@@ -1,12 +1,13 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 import { Link } from "@/navigation"; 
-import { getTranslations } from "next-intl/server"; 
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ColeccionFiltrable } from "@/app/[locale]/components/coleccion-filtrable";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
+import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
 import { jsonLdHtml, ordenarPorDisponibilidad } from "@/app/[locale]/lib/producto-seo";
 import type { ProductoSanity } from "@/sanity/lib/tipos";
@@ -33,7 +34,7 @@ async function getColeccionCompleta() {
     ${ESTADO_EFECTIVO}
   }`;
 
-  const piezas: ProductoSanity[] = await client.fetch(query, {}, { next: { revalidate: 10 } });
+  const piezas: ProductoSanity[] = await client.fetch(query, {}, CACHE_CATALOGO);
   // Primero lo que se puede comprar; después reservadas y vendidas (archivo)
   return ordenarPorDisponibilidad(piezas);
 }
@@ -48,7 +49,9 @@ const enlacesFaq = {
   medida: (c: React.ReactNode) => <Link href="/lamparas-a-medida" className={claseEnlace}>{c}</Link>,
 };
 
-export default async function ColeccionPage() {
+export default async function ColeccionPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const productosSanity = await getColeccionCompleta();
   const t = await getTranslations("Coleccion");
 

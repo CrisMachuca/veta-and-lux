@@ -1,6 +1,6 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "@/navigation";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
@@ -8,6 +8,7 @@ import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { EnlacesContactoEncargo } from "@/app/[locale]/components/enlaces-contacto-encargo";
 import { client, urlFor } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
+import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import type { ProductoSanity } from "@/sanity/lib/tipos";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
 import { nombreProducto } from "@/app/[locale]/lib/producto-seo";
@@ -23,13 +24,14 @@ async function getPiezasVendidas(): Promise<ProductoSanity[]> {
       _id, nombre, "slug": slug.current, imagen, tipo, ${ESTADO_EFECTIVO}
     }`,
     {},
-    { cache: "no-store" }
+    CACHE_CATALOGO
   );
   return piezas.filter((p) => p.estado === "vendido").slice(0, 6);
 }
 
 export default async function LamparasAMedidaPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Encargos" });
   const pasos = t.raw("pasos") as Paso[];
   const vendidas = await getPiezasVendidas();

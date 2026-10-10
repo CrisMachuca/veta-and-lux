@@ -1,8 +1,12 @@
 import { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
+import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import { locales } from "@/navigation";
 import { SITE_URL } from "@/app/[locale]/lib/seo";
 import { TEXTOS_LEGALES_BORRADOR } from "@/app/[locale]/lib/legal";
+
+// Se regenera con el catálogo (antes solo al compilar: las piezas nuevas no entraban hasta el siguiente despliegue)
+export const revalidate = 60;
 
 // Cada URL lleva sus alternativas por idioma (hreflang) para que Google
 // relacione la versión /es y la /en de la misma página.
@@ -47,7 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 3. Rutas dinámicas de los productos desde Sanity
   const query = `*[_type == "producto" && defined(slug.current)] { "slug": slug.current, _updatedAt }`;
-  const productos: { slug: string; _updatedAt: string }[] = await client.fetch(query);
+  const productos: { slug: string; _updatedAt: string }[] = await client.fetch(query, {}, CACHE_CATALOGO);
 
   const productUrls = productos.flatMap((producto) =>
     entradas(`/coleccion/${producto.slug}`, {
