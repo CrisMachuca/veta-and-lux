@@ -7,8 +7,9 @@ import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
-import FadeIn from "@/app/[locale]/components/motion/FadeIn";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
+import { ordenarPorDisponibilidad } from "@/app/[locale]/lib/producto-seo";
+import type { ProductoSanity } from "@/sanity/lib/tipos";
 
 export const generateMetadata = metadataPagina("coleccion", "/coleccion");
 
@@ -28,10 +29,13 @@ async function getColeccionCompleta() {
     cable,
     medidas,
     cuidados,
+    tipo,
     ${ESTADO_EFECTIVO}
   }`;
 
-  return await client.fetch(query, {}, { next: { revalidate: 10 } });
+  const piezas: ProductoSanity[] = await client.fetch(query, {}, { next: { revalidate: 10 } });
+  // Primero lo que se puede comprar; después reservadas y vendidas (archivo)
+  return ordenarPorDisponibilidad(piezas);
 }
 
 export default async function ColeccionPage() {
@@ -45,25 +49,18 @@ export default async function ColeccionPage() {
       {/* CABECERA DE LA COLECCIÓN (Centrada, elegante y con escala adaptada) */}
       <section className="px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
         <div className="max-w-3xl mx-auto">
-          <FadeIn direction="down" delay={0.2}>
-            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist mb-4">
+            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/90 font-urbanist mb-4">
               {t("tagline")}
             </p>
-          </FadeIn>
           
-          <FadeIn direction="up" delay={0.4}>
             <h1 className="text-5xl md:text-7xl font-nixie text-[#3a3530] leading-tight mb-6">
               {t("titulo")}
             </h1>
-          </FadeIn>
           
-          <FadeIn direction="up" delay={0.6}>
             <p className="text-lg md:text-xl text-[#6b645d] leading-relaxed font-urbanist font-light mb-8 max-w-2xl mx-auto">
               {t("descripcion")}
             </p>
-          </FadeIn>
           
-          <FadeIn direction="up" delay={0.8}>
             <p className="text-sm font-urbanist">
               <Link
                 href="/"
@@ -72,16 +69,13 @@ export default async function ColeccionPage() {
                 ← {t("botonVolver")}
               </Link>
             </p>
-          </FadeIn>
         </div>
       </section>
 
       {/* GALERÍA DE PRODUCTOS (Ancho fluido adaptado a pantallas grandes) */}
       <section className="px-6 md:px-12 lg:px-20 pb-32">
-        <FadeIn direction="up" delay={0.5} scale={0.97}>
-          <h2 className="sr-only">{t("srObras")}</h2>
-          <ProductGallery productos={productosSanity} />
-        </FadeIn>
+        <h2 className="sr-only">{t("srObras")}</h2>
+        <ProductGallery productos={productosSanity} listName="coleccion" />
       </section>
 
       <SiteFooter />

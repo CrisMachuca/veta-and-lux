@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin"; // 🌟 Importamos el plugi
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   // Fotos de Sanity servidas por next/image (galería): solo las de nuestro proyecto.
   // Sin "search" porque las URLs de Sanity llevan parámetros (?w=, rect=...).
   images: {

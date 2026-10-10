@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { locales } from "@/navigation";
 
-// Dominio público de la web. En producción NEXT_PUBLIC_SITE_URL ya debe ser el dominio real
-// (Stripe lo usa para volver tras el pago); en local apunta a localhost.
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://vetandlux.com").replace(/\/$/, "");
+import { SITE_URL } from "@/app/[locale]/lib/sitio";
+export { SITE_URL };
 
 export const IMAGEN_OG_POR_DEFECTO = "/lampara-principal.jpeg";
 

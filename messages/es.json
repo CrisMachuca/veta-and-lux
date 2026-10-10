@@ -1,11 +1,7 @@
 {
-    
   "Nav": {
-    
     "abrirMenu": "Abrir menú",
-    
     "cerrarMenu": "Cerrar menú",
-    
     "carrito": "Carrito de compra",
     "inicio": "Inicio",
     "coleccion": "Colección",
@@ -17,7 +13,8 @@
       "tagline": "Esculturas de Luz · Ediciones Únicas",
       "parrafo": "Piezas de alta iluminación esculpidas a partir de maderas antiguas recuperadas.",
       "subParrafo": "Arte atemporal y alma orgánica preservados en piezas numeradas de diseño exclusivo.",
-      "botonAdquirir": "Adquirir Pieza Única"
+      "botonAdquirir": "Adquirir Pieza Única",
+      "h1": "Lámparas de madera hechas a mano · Piezas únicas"
     },
     "Editorial": {
       "tagline": "El proceso creativo",
@@ -43,7 +40,7 @@
       "titulo": "Elogio a la madera:",
       "subtitulo": "El valor de lo pausado",
       "p1": "Nuestras obras comienzan lejos del ruido comercial. Buscamos maderas que ya han vivido: piezas esculpidas por el mar en la costa, ramas caídas en el bosque o restos procedentes de podas controladas y totalmente éticas.",
-      "p2": "Cada tronco o raíz inicia un letargo de meses en nuestro banco de trabajo para asegurar su estabilidad natural. Solo entonces, mediante un saneado manual y componentes en latón macizo y lino puro, liberamos la luz latente en su veta.",
+      "p2": "Cada tronco o raíz inicia un letargo de meses en nuestro banco de trabajo para asegurar su estabilidad natural. Solo entonces, mediante un saneado manual y componentes de latón macizo y pantallas de tejido natural, liberamos la luz latente en su veta.",
       "fase1": "01. El Hallazgo",
       "fase2": "02. El Letargo",
       "fase3": "03. La Luz",
@@ -92,14 +89,19 @@
     }
   },
   "Coleccion": {
-    "tagline": "Catálogo",
-    "titulo": "Colección",
-    "descripcion": "Sobremesas, vigas y piezas de tronco con luz cálida. Cada referencia es artesanal; pulsa una imagen para entrar a su ficha completa con galería, cuidados y zoom detallado.",
+    "tagline": "Colección",
+    "titulo": "Lámparas de madera artesanales",
+    "descripcion": "Lámparas de mesa y colgantes talladas a mano a partir de maderas recuperadas. Cada pieza es única: cuando se vende, no vuelve. Si te gusta un estilo ya vendido, podemos hacer una parecida a medida.",
     "botonVolver": "← Volver al inicio",
     "srObras": "Piezas disponibles"
   },
   "FichaProducto": {
-    "botonVolver": "← Volver a colección"
+    "botonVolver": "← Volver a colección",
+    "migaInicio": "Inicio",
+    "migaColeccion": "Colección",
+    "migasAria": "Ruta de navegación",
+    "relacionadas": "Otras piezas del taller",
+    "verColeccion": "Ver toda la colección"
   },
   "DetalleCliente": {
     "base": "Base",
@@ -135,7 +137,19 @@
     "whatsapp": {
       "reservado": "¡Hola! He visto la lámpara \"{nombre}\" en la web y veo que está reservada. ¿Podríamos hablar para encargar una pieza similar en el taller?",
       "vendido": "¡Hola! Me ha encantado la lámpara \"{nombre}\" pero veo que ya está agotada. ¿Es posible hacer un proyecto a medida inspirado en ella?"
-    }
+    },
+    "cable": "Cable",
+    "electrico": "Datos eléctricos",
+    "casquillo": "Casquillo",
+    "potencia": "Potencia máx.",
+    "bombilla": "Bombilla",
+    "bombillaSi": "Incluida",
+    "bombillaNo": "No incluida",
+    "interruptor": "Interruptor",
+    "longitudCable": "Long. cable",
+    "envioResumen": "Envío asegurado gratis en España peninsular · Devolución en 14 días.",
+    "envioMas": "Envíos y devoluciones",
+    "aMedida": "Encargar una pieza a medida →"
   },
   "Contacto": {
     "tagline": "Hablemos",
@@ -191,14 +205,17 @@
       "coleccion": "Colección",
       "proceso": "Proceso",
       "contacto": "Contacto",
-      "carrito": "Carrito"
+      "carrito": "Carrito",
+      "medida": "A medida"
     },
     "ayuda": {
       "titulo": "Ayuda",
       "envios": "Envíos y Devoluciones",
       "aviso": "Aviso Legal",
       "cookies": "Política de Cookies",
-      "configurarCookies": "Configurar cookies"
+      "configurarCookies": "Configurar cookies",
+      "privacidad": "Política de privacidad",
+      "condiciones": "Condiciones de venta"
     },
     "contacto": {
       "titulo": "Contacto",
@@ -209,25 +226,22 @@
     "hecho": "Hecho con ❤️ y madera recuperada."
   },
   "Gallery": {
-        "detalles": "Detalles",
-        "agotado": "Agotado",
-        "reservado": "Reservado",
-        "anadido": "✓ Añadido",
-        "anadir": "Añadir",
-        "sin_imagen": "Sin imagen",
-        "estado_reservado": "Reservada",
-        "estado_vendido": "Vendida"
-      
-    },
-    
-      "Carrito": {
-        "subtitulo": "Tu selección",
-        "titulo": "Carrito",
-        "descripcion": "Revisa tus piezas, introduce tus datos de destino y selecciona el método de pago. El valor de cada obra incluye un embalaje artesanal de alta protección a medida. Ofrecemos envío asegurado de cortesía a toda la Península y tarifas optimizadas con cobertura total para Islas y Europa. Si tienes cualquier duda, contacta con nosotros directamente.",
-        "seguirComprando": "Seguir comprando"
-      
-    },
-    "CarritoClient": {
+    "detalles": "Detalles",
+    "agotado": "Agotado",
+    "reservado": "Reservado",
+    "anadido": "✓ Añadido",
+    "anadir": "Añadir",
+    "sin_imagen": "Sin imagen",
+    "estado_reservado": "Reservada",
+    "estado_vendido": "Vendida"
+  },
+  "Carrito": {
+    "subtitulo": "Tu selección",
+    "titulo": "Carrito",
+    "descripcion": "Revisa tus piezas, introduce tus datos de destino y selecciona el método de pago. El valor de cada obra incluye un embalaje artesanal de alta protección a medida. Ofrecemos envío asegurado de cortesía a toda la Península y tarifas optimizadas con cobertura total para Islas y Europa. Si tienes cualquier duda, contacta con nosotros directamente.",
+    "seguirComprando": "Seguir comprando"
+  },
+  "CarritoClient": {
     "pieza_unica": "Pieza única",
     "vacio": "Tu carrito está vacío.",
     "quitar": "Quitar",
@@ -237,7 +251,7 @@
     "islas_nombre": "Islas, Ceuta o Melilla",
     "inter_nombre": "Europa Seleccionada",
     "pago_titulo": "Selecciona el método de pago",
-    "stripe_nombre": "Tarjeta de crédito o PayPal",
+    "stripe_nombre": "Tarjeta de crédito o débito",
     "stripe_info": "Pasarela segura gestionada por Stripe.",
     "trans_nombre": "Transferencia Bancaria",
     "trans_info": "Te facilitaremos el IBAN tras reservar la obra.",
@@ -265,71 +279,76 @@
     "btn_stripe": "Proceder al pago",
     "btn_trans": "Confirmar pedido",
     "alert_campos": "Por favor, rellene todos los campos de contacto y envío obligatorios antes de proceder.",
-    "alert_error": "Hubo un problema al procesar tu solicitud."
+    "alert_error": "Hubo un problema al procesar tu solicitud.",
+    "acepto": "He leído y acepto las <condiciones>condiciones de venta</condiciones> y la <privacidad>política de privacidad</privacidad>.",
+    "alert_acepto": "Para continuar, acepta las condiciones de venta y la política de privacidad."
   },
   "Cookies": {
     "tipoB_detalle": "Solo se activan si las acepta en el aviso de cookies. Google Analytics instala _ga y _ga_TTRHXEKW53, que distinguen visitas de forma anónima y caducan a los 2 años. Los datos los trata Google Ireland Limited.",
     "seccion3_banner": "Puede aceptar o rechazar las cookies de análisis en cualquier momento desde el enlace «Configurar cookies» del pie de página. Si las rechaza, dejamos de medir y borramos las cookies de Google Analytics de su navegador.",
-  "navegacion": "Navegación Privada y Segura",
-  "titulo": "Política de Cookies",
-  "intro1": "En Veta & Lux respetamos la intimidad de su entorno digital. Con el fin de ofrecerle una experiencia de navegación fluida, sofisticada y adaptada a sus preferencias estéticas, este sitio web utiliza tecnologías de almacenamiento de información denominadas cookies.",
-  "intro2": "A continuación, le detallamos qué son estas tecnologías, con qué propósitos exclusivos las empleamos en nuestro taller digital y cómo puede gestionarlas o restringirlas en cualquier momento a través de las herramientas de su navegador.",
-  "seccion1_titulo": "1. ¿Qué es una Cookie?",
-  "seccion1_texto": "Una cookie es un pequeño archivo de texto que se descarga de forma desatendida en su dispositivo (ordenador, smartphone o tablet) al acceder a la gran mayoría de portales web. Permiten a un sitio, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario para reconocerle y ofrecerle un servicio óptimo y personalizado.",
-  "seccion2_titulo": "2. Tipologías Utilizadas en Veta & Lux",
-  "seccion2_intro": "Este portal web únicamente activa herramientas tecnológicas esenciales y de análisis respetuoso para mantener el correcto funcionamiento del espacio de exposición y venta:",
-  "tipoA_titulo": "— Cookies Técnicas y de Sesión (Estrictamente Necesarias)",
-  "tipoA_texto": "Son indispensables para permitirle navegar por la colección de luminarias, interactuar con el panel de Sanity en tiempo real, visualizar el stock real y mantener la integridad del proceso de contacto o reserva mediante WhatsApp. No recopilan información confidencial ni se utilizan con fines comerciales.",
-  "tipoB_titulo": "— Cookies de Análisis Estadístico (Opcionales)",
-  "tipoB_texto": "Tratadas de forma anónima por nosotros o por terceros (como Google Analytics), nos permiten cuantificar el número de personas que aprecian nuestras piezas y realizar mediciones estadísticas del uso que hacen los visitantes del portal con el único fin de mejorar la fluidez técnica y el diseño del catálogo.",
-  "seccion3_titulo": "3. Control y Desactivación de Preferencias",
-  "seccion3_texto1": "Usted puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador que utilice en su dispositivo. Sin embargo, tenga en cuenta que si bloquea la totalidad de las cookies técnicas, algunas funcionalidades de la galería (como la sincronización inmediata del stock en los productos) podrían no comportarse con la fluidez habitual.",
-  "seccion3_texto2": "Puede consultar los manuales específicos de privacidad de los principales navegadores del mercado en los menús de configuración de Google Chrome, Apple Safari, Mozilla Firefox o Microsoft Edge.",
-  "seccion4_titulo": "4. Actualizaciones de la Política de Privacidad",
-  "seccion4_texto": "Es posible que actualicemos la Política de Cookies de nuestro sitio web para adaptarla a nuevas normativas o a las necesidades técnicas derivadas de la incorporación de nuevos artesanos o pasarelas de pago premium. Le recomendamos revisar esta sección periódicamente si desea estar plenamente informado sobre cómo protegemos su navegación."
-},
-"AvisoLegal": {
-  "transparencia": "Transparencia y Rigor",
-  "titulo": "Aviso Legal",
-  "intro": "En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se exponen a continuación los datos identificativos del titular de este sitio web dedicado a la alta artesanía lumínica.",
-  "s1_titulo": "1. Titularidad del Sitio Web",
-  "denominacion": "DENOMINACIÓN",
-  "titular": "TITULAR",
-  "nif": "N.I.F. / C.I.F.",
-  "domicilio": "DOMICILIO SOCIAL",
-  "contacto": "CONTACTO",
-  "telefono": "TELÉFONO",
-  "s2_titulo": "2. Propiedad Intelectual y del Arte",
-  "s2_p1": "El diseño del portal y sus códigos fuente, así como los logotipos, marcas, textos, fotografías y diseños de las lámparas artesanales expuestas, pertenecen a Veta & Lux o a sus respectivos autores y están protegidos por los correspondientes derechos de propiedad intelectual e industrial.",
-  "s2_p2": "Queda estrictamente prohibida la reproducción total o parcial, explotación, distribución o comercialización de cualquier contenido de esta web, así como de los diseños escultóricos propios del taller, sin la autorización previa y por escrito de la dirección de Veta & Lux.",
-  "s3_titulo": "3. Limitación de Responsabilidad",
-  "s3_p1": "Veta & Lux no se hace responsable de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de programas maliciosos, a pesar de haber adoptado todas las medidas tecnológicas premium necesarias para evitarlo.",
-  "s3_p2": "Dada la naturaleza única y orgánica de las piezas vendidas (madera noble tratada artesanalmente), las imágenes e informaciones técnicas se aproximan con el máximo rigor posible a la realidad de la obra, si bien cada lámpara presenta nudos, vetas y matices exclusivos inherentes a su condición escultórica.",
-  "s4_titulo": "4. Política de Enlaces",
-  "s4_p1": "En el caso de que en este sitio web se dispusiesen enlaces o hipervínculos hacia otros sitios de Internet, Veta & Lux no ejercerá ningún tipo de control sobre dichos sitios y contenidos. En ningún caso asumirá responsabilidad alguna por los contenidos de algún enlace perteneciente a un sitio web ajeno.",
-  "s5_titulo": "5. Legislación Aplicable y Jurisdicción",
-  "s5_p1": "Para la resolución de todas las controversias o cuestiones relacionadas con el presente sitio web o de las actividades en él desarrolladas, será de aplicación la legislación española, a la que se someten expresamente las partes, siendo competentes para la resolución de todos los conflictos derivados o relacionados con su uso los Juzgados y Tribunales más cercanos al domicilio social del taller."
-},
-"EnviosDevoluciones": {
-  "compromiso": "Compromiso Veta & Lux",
-  "titulo": "Envíos y Retornos de Cortesía",
-  "b1_titulo": "01. El Arte del Embalaje",
-  "b1_texto": "Cada lámpara de nuestra colección es una escultura de madera y luz irrepetible. Por ello, el proceso de empaquetado se realiza a mano en nuestro propio taller, utilizando cajas de alta resistencia a medida y protecciones internas sostenibles que garantizan que la pieza viaje suspendida y totalmente aislada de impactos.",
-  "b2_titulo": "02. Transporte de Alta Custodia",
-  "b2_texto": "Trabajamos exclusivamente con agencias de transporte premium con servicio de seguimiento en tiempo real y entrega bajo firma. Queremos que la experiencia sea impecable desde que la pieza sale del taller hasta que ilumina su hogar.",
-  "tab_es": "España Peninsular",
-  "tab_es_info": "Envío de cortesía (Gratuito) — Entrega en 24/48 horas laborables.",
-  "tab_ue": "Unión Europea",
-  "tab_ue_info": "Tarifa calculada al checkout — Entrega en 3-5 días laborables.",
-  "tab_nota": "* Para envíos internacionales fuera de la UE o islas, por favor contáctenos directamente a través de nuestro taller.",
-  "b3_titulo": "03. Periodo de Reflexión y Retornos",
-  "b3_p1": "Entendemos que el arte y el diseño requieren ser experimentados en su espacio definitivo. Si una vez ubicada en su estancia siente que la pieza no dialoga a la perfección con el entorno, dispone de un plazo de 14 días naturales desde la recepción para solicitar su devolución.",
-  "b3_p2": "La pieza deberá ser enviada de vuelta en su embalaje original de alta seguridad para asegurar que no sufra daños en el transporte. Una vez recibida e inspeccionada en el taller, le reembolsaremos el importe íntegro por el mismo método de pago.",
-  "nota_medida": "Nota sobre Proyectos a Medida",
-  "nota_medida_texto": "Aquellas lámparas creadas bajo encargo personalizado, adaptando medidas específicas o maderas seleccionadas expresamente para un proyecto, no admiten devolución estándar al tratarse de obras exclusivas co-creadas para el cliente. Naturalmente, cualquier incidencia en el transporte queda cubierta de manera inmediata por el taller.",
-  "duda": "¿Tiene alguna duda sobre la idoneidad de una pieza o su transporte?",
-  "boton": "Consultar con el Taller →"
-},
+    "navegacion": "Navegación Privada y Segura",
+    "titulo": "Política de Cookies",
+    "intro1": "En Veta & Lux respetamos la intimidad de su entorno digital. Con el fin de ofrecerle una experiencia de navegación fluida, sofisticada y adaptada a sus preferencias estéticas, este sitio web utiliza tecnologías de almacenamiento de información denominadas cookies.",
+    "intro2": "A continuación, le detallamos qué son estas tecnologías, con qué propósitos exclusivos las empleamos en nuestro taller digital y cómo puede gestionarlas o restringirlas en cualquier momento a través de las herramientas de su navegador.",
+    "seccion1_titulo": "1. ¿Qué es una Cookie?",
+    "seccion1_texto": "Una cookie es un pequeño archivo de texto que se descarga de forma desatendida en su dispositivo (ordenador, smartphone o tablet) al acceder a la gran mayoría de portales web. Permiten a un sitio, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario para reconocerle y ofrecerle un servicio óptimo y personalizado.",
+    "seccion2_titulo": "2. Tipologías Utilizadas en Veta & Lux",
+    "seccion2_intro": "Este portal web únicamente activa herramientas tecnológicas esenciales y de análisis respetuoso para mantener el correcto funcionamiento del espacio de exposición y venta:",
+    "tipoA_titulo": "— Cookies Técnicas y de Sesión (Estrictamente Necesarias)",
+    "tipoA_texto": "Son indispensables para permitirle navegar por la colección de luminarias, interactuar con el panel de Sanity en tiempo real, visualizar el stock real y mantener la integridad del proceso de contacto o reserva mediante WhatsApp. No recopilan información confidencial ni se utilizan con fines comerciales.",
+    "tipoB_titulo": "— Cookies de Análisis Estadístico (Opcionales)",
+    "tipoB_texto": "Tratadas de forma anónima por nosotros o por terceros (como Google Analytics), nos permiten cuantificar el número de personas que aprecian nuestras piezas y realizar mediciones estadísticas del uso que hacen los visitantes del portal con el único fin de mejorar la fluidez técnica y el diseño del catálogo.",
+    "seccion3_titulo": "3. Control y Desactivación de Preferencias",
+    "seccion3_texto1": "Usted puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador que utilice en su dispositivo. Sin embargo, tenga en cuenta que si bloquea la totalidad de las cookies técnicas, algunas funcionalidades de la galería (como la sincronización inmediata del stock en los productos) podrían no comportarse con la fluidez habitual.",
+    "seccion3_texto2": "Puede consultar los manuales específicos de privacidad de los principales navegadores del mercado en los menús de configuración de Google Chrome, Apple Safari, Mozilla Firefox o Microsoft Edge.",
+    "seccion4_titulo": "4. Actualizaciones de la Política de Privacidad",
+    "seccion4_texto": "Es posible que actualicemos la Política de Cookies de nuestro sitio web para adaptarla a nuevas normativas o a las necesidades técnicas derivadas de la incorporación de nuevos artesanos o pasarelas de pago premium. Le recomendamos revisar esta sección periódicamente si desea estar plenamente informado sobre cómo protegemos su navegación."
+  },
+  "AvisoLegal": {
+    "transparencia": "Transparencia y Rigor",
+    "titulo": "Aviso Legal",
+    "intro": "En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se exponen a continuación los datos identificativos del titular de este sitio web dedicado a la alta artesanía lumínica.",
+    "s1_titulo": "1. Titularidad del Sitio Web",
+    "denominacion": "DENOMINACIÓN",
+    "titular": "TITULAR",
+    "nif": "N.I.F. / C.I.F.",
+    "domicilio": "DOMICILIO SOCIAL",
+    "contacto": "CONTACTO",
+    "telefono": "TELÉFONO",
+    "s2_titulo": "2. Propiedad Intelectual y del Arte",
+    "s2_p1": "El diseño del portal y sus códigos fuente, así como los logotipos, marcas, textos, fotografías y diseños de las lámparas artesanales expuestas, pertenecen a Veta & Lux o a sus respectivos autores y están protegidos por los correspondientes derechos de propiedad intelectual e industrial.",
+    "s2_p2": "Queda estrictamente prohibida la reproducción total o parcial, explotación, distribución o comercialización de cualquier contenido de esta web, así como de los diseños escultóricos propios del taller, sin la autorización previa y por escrito de la dirección de Veta & Lux.",
+    "s3_titulo": "3. Limitación de Responsabilidad",
+    "s3_p1": "Veta & Lux no se hace responsable de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de programas maliciosos, a pesar de haber adoptado todas las medidas tecnológicas premium necesarias para evitarlo.",
+    "s3_p2": "Dada la naturaleza única y orgánica de las piezas vendidas (madera noble tratada artesanalmente), las imágenes e informaciones técnicas se aproximan con el máximo rigor posible a la realidad de la obra, si bien cada lámpara presenta nudos, vetas y matices exclusivos inherentes a su condición escultórica.",
+    "s4_titulo": "4. Política de Enlaces",
+    "s4_p1": "En el caso de que en este sitio web se dispusiesen enlaces o hipervínculos hacia otros sitios de Internet, Veta & Lux no ejercerá ningún tipo de control sobre dichos sitios y contenidos. En ningún caso asumirá responsabilidad alguna por los contenidos de algún enlace perteneciente a un sitio web ajeno.",
+    "s5_titulo": "5. Legislación Aplicable y Jurisdicción",
+    "s5_p1": "Para la resolución de todas las controversias o cuestiones relacionadas con el presente sitio web o de las actividades en él desarrolladas, será de aplicación la legislación española, a la que se someten expresamente las partes, siendo competentes para la resolución de todos los conflictos derivados o relacionados con su uso los Juzgados y Tribunales más cercanos al domicilio social del taller."
+  },
+  "EnviosDevoluciones": {
+    "compromiso": "Compromiso Veta & Lux",
+    "titulo": "Envíos y devoluciones",
+    "b1_titulo": "01. El Arte del Embalaje",
+    "b1_texto": "Cada lámpara de nuestra colección es una escultura de madera y luz irrepetible. Por ello, el proceso de empaquetado se realiza a mano en nuestro propio taller, utilizando cajas de alta resistencia a medida y protecciones internas sostenibles que garantizan que la pieza viaje suspendida y totalmente aislada de impactos.",
+    "b2_titulo": "02. Transporte de Alta Custodia",
+    "b2_texto": "Trabajamos exclusivamente con agencias de transporte premium con servicio de seguimiento en tiempo real y entrega bajo firma. Queremos que la experiencia sea impecable desde que la pieza sale del taller hasta que ilumina su hogar.",
+    "tab_es": "España Peninsular",
+    "tab_es_info": "Envío de cortesía (Gratuito) — Entrega en 24/48 horas laborables.",
+    "tab_ue": "Francia, Italia, Alemania y Portugal",
+    "tab_ue_info": "65 € — Entrega en 3-5 días laborables.",
+    "tab_nota": "* Para otros destinos, escríbanos antes de comprar y le preparamos un presupuesto de envío. Los envíos a Canarias, Ceuta y Melilla pueden conllevar trámites e impuestos aduaneros locales.",
+    "b3_titulo": "03. Periodo de Reflexión y Retornos",
+    "b3_p1": "Entendemos que el arte y el diseño requieren ser experimentados en su espacio definitivo. Si una vez ubicada en su estancia siente que la pieza no dialoga a la perfección con el entorno, dispone de un plazo de 14 días naturales desde la recepción para solicitar su devolución.",
+    "b3_p2": "La pieza debe devolverse en su embalaje original y en el mismo estado en que la recibió. Los gastos de envío de la devolución corren a cargo del cliente. Una vez recibida e inspeccionada en el taller, le reembolsaremos el precio de la pieza y los gastos de envío iniciales por el mismo método de pago.",
+    "nota_medida": "Nota sobre Proyectos a Medida",
+    "nota_medida_texto": "Aquellas lámparas creadas bajo encargo personalizado, adaptando medidas específicas o maderas seleccionadas expresamente para un proyecto, no admiten devolución estándar al tratarse de obras exclusivas co-creadas para el cliente. Naturalmente, cualquier incidencia en el transporte queda cubierta de manera inmediata por el taller.",
+    "duda": "¿Tiene alguna duda sobre la idoneidad de una pieza o su transporte?",
+    "boton": "Consultar con el Taller →",
+    "tab_islas": "Baleares, Canarias, Ceuta y Melilla",
+    "tab_islas_info": "25 € — Le confirmamos el plazo de entrega al preparar el envío.",
+    "b3_p3": "Para solicitar una devolución, escríbanos a info@vetandlux.com indicando su número de pedido."
+  },
   "CheckoutExito": {
     "cargando": "Cargando confirmación...",
     "tituloTransferencia": "Pedido reservado",
@@ -349,12 +368,12 @@
   },
   "Metadata": {
     "inicio": {
-      "titulo": "Veta & Lux | Lámparas artesanales de madera recuperada",
-      "descripcion": "Esculturas de luz hechas a mano en Málaga con maderas nobles recuperadas: olivo, eucalipto, castaño. Piezas únicas e irrepetibles."
+      "titulo": "Lámparas de madera artesanales hechas en Málaga | Veta & Lux",
+      "descripcion": "Lámparas de mesa únicas, hechas a mano en Málaga con madera recuperada de olivo, eucalipto y roble. Envío asegurado gratis en la Península."
     },
     "coleccion": {
-      "titulo": "Colección de lámparas de madera",
-      "descripcion": "Lámparas de sobremesa y colgantes en madera recuperada, cada una pieza única. Envío asegurado gratuito a la Península."
+      "titulo": "Lámparas de mesa de madera artesanales",
+      "descripcion": "Lámparas de sobremesa y colgantes hechas a mano en Málaga con madera de olivo, eucalipto y roble recuperados. Cada pieza es única. Envío gratis en la Península."
     },
     "proceso": {
       "titulo": "Proceso artesanal",
@@ -383,6 +402,18 @@
     "cookies": {
       "titulo": "Política de cookies",
       "descripcion": "Qué cookies utiliza la web de Veta & Lux y cómo gestionarlas."
+    },
+    "encargos": {
+      "titulo": "Lámparas de madera a medida",
+      "descripcion": "Encarga una lámpara de madera hecha a mano para tu espacio: elegimos contigo la madera, la pantalla y las medidas en nuestro taller de Málaga."
+    },
+    "privacidad": {
+      "titulo": "Política de privacidad",
+      "descripcion": "Cómo trata Veta & Lux los datos personales de sus clientes y visitantes."
+    },
+    "condiciones": {
+      "titulo": "Condiciones de venta",
+      "descripcion": "Precios, envíos, pagos, devoluciones y garantía de las compras en Veta & Lux."
     }
   },
   "CookiesBanner": {
@@ -391,5 +422,180 @@
     "politica": "política de cookies",
     "aceptar": "Aceptar",
     "rechazar": "Rechazar"
+  },
+  "Encargos": {
+    "tagline": "Encargos a medida",
+    "titulo": "Lámparas de madera a medida",
+    "intro": "Si una pieza de la colección ya ha encontrado hogar, o buscas una lámpara para un espacio concreto, la hacemos para ti a partir de la madera adecuada. Trabajamos con particulares, interioristas y arquitectos.",
+    "pasosTitulo": "Cómo funciona",
+    "pasos": [
+      {
+        "titulo": "Cuéntanos tu idea",
+        "texto": "Dónde irá la lámpara, qué medidas necesitas y qué piezas de la colección te gustan. Si puedes, envíanos una foto del espacio."
+      },
+      {
+        "titulo": "Elegimos la madera",
+        "texto": "Te proponemos las maderas disponibles en el taller (olivo, eucalipto, roble…) y el tipo de pantalla o bombilla, con un presupuesto y un plazo estimado."
+      },
+      {
+        "titulo": "La hacemos a mano",
+        "texto": "Cada encargo sigue el mismo proceso artesanal que el resto de la colección: secado, saneado y montaje en nuestro taller de Málaga."
+      },
+      {
+        "titulo": "Te la enviamos",
+        "texto": "Con embalaje hecho a medida y envío asegurado, igual que cualquier otra pieza."
+      }
+    ],
+    "interioristasTitulo": "Proyectos de interiorismo",
+    "interioristasTexto": "Si trabajas en un proyecto para una vivienda, un hotel o un restaurante, cuéntanos cuántas piezas necesitas y para cuándo, y valoramos cómo hacerlo.",
+    "devolucionNota": "Las piezas hechas a medida no admiten la devolución estándar porque se fabrican expresamente para ti. Las incidencias de transporte siguen cubiertas.",
+    "ejemplosTitulo": "Piezas que ya han encontrado hogar",
+    "ejemplosTexto": "Pueden servirte de punto de partida para tu encargo.",
+    "ctaTitulo": "¿Hablamos de tu lámpara?",
+    "ctaTexto": "Escríbenos por WhatsApp o por email y te respondemos con una primera propuesta.",
+    "ctaWhatsapp": "Escribir por WhatsApp",
+    "ctaEmail": "Enviar un email",
+    "ctaProceso": "Ver cómo trabajamos la madera",
+    "whatsappMensaje": "¡Hola! Me gustaría encargar una lámpara de madera a medida."
+  },
+  "Legal": {
+    "borrador": "Borrador pendiente de revisión legal. Este texto será definitivo cuando lo revise una asesoría.",
+    "ultimaRevision": "Última revisión: octubre de 2026",
+    "avisoLegal": "Aviso legal"
+  },
+  "Privacidad": {
+    "tagline": "Tus datos",
+    "titulo": "Política de privacidad",
+    "intro": "En esta página explicamos qué datos personales recogemos cuando visitas la web, compras o nos escribes, para qué los usamos y qué derechos tienes.",
+    "secciones": [
+      {
+        "titulo": "1. Responsable del tratamiento",
+        "parrafos": [
+          "El responsable de los datos personales que se recogen en esta web es el titular de Veta & Lux, identificado en el Aviso legal. Para cualquier cuestión sobre privacidad puedes escribirnos a info@vetandlux.com."
+        ]
+      },
+      {
+        "titulo": "2. Qué datos tratamos",
+        "parrafos": [
+          "Datos de compra: el nombre, el email y la dirección de envío que introduces en el carrito.",
+          "Datos de pago: los pagos con tarjeta los procesa Stripe. Nosotros no vemos ni guardamos los datos de tu tarjeta.",
+          "Datos de contacto: los que nos envías por email o por WhatsApp.",
+          "Datos de navegación: solo si aceptas las cookies de análisis, Google Analytics recoge información sobre tu visita. Más detalles en la Política de cookies."
+        ]
+      },
+      {
+        "titulo": "3. Para qué los usamos y con qué base legal",
+        "parrafos": [
+          "Gestionar tu pedido, el pago, el envío y las devoluciones: es necesario para cumplir el contrato de compra.",
+          "Responder a tus consultas y preparar presupuestos de encargos a medida: a petición tuya, antes de un posible contrato.",
+          "Cumplir obligaciones fiscales y contables: obligación legal.",
+          "Medir el uso de la web con Google Analytics: tu consentimiento, que puedes retirar en cualquier momento desde «Configurar cookies», en el pie de página."
+        ]
+      },
+      {
+        "titulo": "4. Cuánto tiempo los conservamos",
+        "parrafos": [
+          "Los datos de los pedidos se conservan mientras sean necesarios para gestionarlos y, después, durante los plazos que exige la normativa fiscal y mercantil. Las consultas que no terminan en una compra se eliminan cuando dejan de ser necesarias."
+        ]
+      },
+      {
+        "titulo": "5. Con quién los compartimos",
+        "parrafos": [
+          "Solo con los proveedores que necesitamos para prestar el servicio: Stripe (pagos), la empresa de transporte que entrega tu pedido, Hostinger (alojamiento de la web), Google (correo electrónico y, si lo aceptas, Google Analytics) y Meta (WhatsApp), si nos escribes por esa vía.",
+          "Algunos de estos proveedores pueden tratar datos fuera del Espacio Económico Europeo, con las garantías que exige el Reglamento General de Protección de Datos. No vendemos tus datos ni los cedemos con fines publicitarios."
+        ]
+      },
+      {
+        "titulo": "6. Tus derechos",
+        "parrafos": [
+          "Puedes pedir el acceso, la rectificación o la supresión de tus datos, oponerte a su tratamiento o pedir su limitación o portabilidad escribiendo a info@vetandlux.com.",
+          "Si consideras que no hemos atendido bien tu solicitud, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es)."
+        ]
+      },
+      {
+        "titulo": "7. Cambios en esta política",
+        "parrafos": [
+          "Si cambiamos la forma en que tratamos tus datos, actualizaremos esta página e indicaremos la fecha de la última revisión."
+        ]
+      }
+    ]
+  },
+  "Condiciones": {
+    "tagline": "Compra con tranquilidad",
+    "titulo": "Condiciones de venta",
+    "intro": "Estas condiciones se aplican a las compras que hagas en vetandlux.com. Te recomendamos leerlas antes de comprar.",
+    "secciones": [
+      {
+        "titulo": "1. Quién vende",
+        "parrafos": [
+          "Las ventas de esta web las realiza el titular de Veta & Lux, identificado en el Aviso legal. Puedes contactarnos en info@vetandlux.com."
+        ]
+      },
+      {
+        "titulo": "2. Las piezas",
+        "parrafos": [
+          "Vendemos lámparas de madera hechas a mano. Cada pieza es única: las fotografías y las medidas describen la pieza concreta que compras, pero la madera es un material natural y pueden apreciarse pequeñas diferencias de veta y de tono."
+        ]
+      },
+      {
+        "titulo": "3. Precios y gastos de envío",
+        "parrafos": [
+          "Los precios se muestran en euros e incluyen el IVA aplicable. Los gastos de envío se añaden en el carrito antes de pagar: España peninsular, gratis; Baleares, Canarias, Ceuta y Melilla, 25 €; Francia, Italia, Alemania y Portugal, 65 €. Para otros destinos, escríbenos antes de comprar.",
+          "Los envíos a Canarias, Ceuta y Melilla pueden conllevar trámites e impuestos aduaneros locales."
+        ]
+      },
+      {
+        "titulo": "4. Cómo se compra",
+        "parrafos": [
+          "Añade la pieza al carrito, indica tus datos de envío, acepta estas condiciones y elige el método de pago. La compra queda confirmada cuando recibimos el pago; te enviaremos un correo con el resumen del pedido."
+        ]
+      },
+      {
+        "titulo": "5. Formas de pago",
+        "parrafos": [
+          "Tarjeta de crédito o débito, a través de la pasarela segura de Stripe.",
+          "Transferencia bancaria: la pieza queda reservada durante 48 horas. Si en ese plazo no recibimos el pago, la reserva se cancela y la pieza vuelve a estar disponible."
+        ]
+      },
+      {
+        "titulo": "6. Disponibilidad",
+        "parrafos": [
+          "Como cada pieza es única, solo puede venderse una vez. Si por un error técnico se vendiera dos veces, te avisaremos y te devolveremos el importe íntegro de tu pedido."
+        ]
+      },
+      {
+        "titulo": "7. Envío y entrega",
+        "parrafos": [
+          "Preparamos cada pieza con un embalaje hecho a medida y la enviamos con seguimiento y entrega bajo firma. Plazos orientativos: España peninsular, 24/48 horas laborables; Francia, Italia, Alemania y Portugal, de 3 a 5 días laborables; Baleares, Canarias, Ceuta y Melilla, te lo confirmamos al preparar el envío.",
+          "Si el paquete llega dañado, avísanos cuanto antes con fotografías: las incidencias de transporte las cubre el taller."
+        ]
+      },
+      {
+        "titulo": "8. Derecho de desistimiento (devoluciones)",
+        "parrafos": [
+          "Dispones de 14 días naturales desde que recibes la pieza para desistir de la compra sin necesidad de dar explicaciones. Para hacerlo, escríbenos a info@vetandlux.com indicando tu número de pedido.",
+          "Debes devolver la pieza en su embalaje original y en el mismo estado en que la recibiste. Los gastos de envío de la devolución corren a tu cargo.",
+          "Te reembolsaremos el precio de la pieza y los gastos de envío iniciales en un plazo máximo de 14 días desde que nos comuniques tu decisión, por el mismo medio de pago. Podemos esperar a recibir la pieza antes de hacer el reembolso."
+        ]
+      },
+      {
+        "titulo": "9. Encargos a medida",
+        "parrafos": [
+          "Las piezas hechas a medida según tus indicaciones no admiten desistimiento, porque se fabrican expresamente para ti. Las incidencias de transporte siguen cubiertas."
+        ]
+      },
+      {
+        "titulo": "10. Garantía",
+        "parrafos": [
+          "Todas las piezas tienen la garantía legal de conformidad que establece la normativa de consumo. Las vetas, los nudos y las diferencias de tono propias de la madera no se consideran defectos."
+        ]
+      },
+      {
+        "titulo": "11. Ley aplicable",
+        "parrafos": [
+          "Estas condiciones se rigen por la legislación española. Si eres consumidor, puedes acudir a los tribunales de tu domicilio."
+        ]
+      }
+    ]
   }
 }

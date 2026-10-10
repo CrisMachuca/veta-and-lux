@@ -13,7 +13,7 @@ export default function EnviosDevolucionesPage() {
       <SiteNav />
 
       <header className="max-w-4xl mx-auto px-6 pt-20 pb-12 text-center">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-stone-400 font-bold mb-3">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold mb-3">
           {t("compromiso")}
         </p>
         <h1 className="text-4xl md:text-5xl font-serif italic text-stone-900 font-light">
@@ -26,7 +26,7 @@ export default function EnviosDevolucionesPage() {
         
         <div className="space-y-4">
           <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-stone-900 flex items-center gap-3">
-            <span className="text-amber-800/60 font-serif text-lg">01.</span> {t("b1_titulo")}
+            <span className="text-amber-800/90 font-serif text-lg">01.</span> {t("b1_titulo")}
           </h2>
           <p className="text-stone-600 font-light leading-relaxed text-base">{t("b1_texto")}</p>
         </div>
@@ -34,23 +34,27 @@ export default function EnviosDevolucionesPage() {
         <div className="space-y-6">
           <div className="space-y-4">
             <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-stone-900 flex items-center gap-3">
-              <span className="text-amber-800/60 font-serif text-lg">02.</span> {t("b2_titulo")}
+              <span className="text-amber-800/90 font-serif text-lg">02.</span> {t("b2_titulo")}
             </h2>
             <p className="text-stone-600 font-light leading-relaxed">{t("b2_texto")}</p>
           </div>
 
           <div className="rounded-sm border border-stone-200 bg-white p-6 md:p-8 space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs text-stone-600">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs text-stone-700">
               <div className="space-y-1">
                 <p className="font-bold text-stone-900 uppercase tracking-wider">{t("tab_es")}</p>
                 <p>{t("tab_es_info")}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="font-bold text-stone-900 uppercase tracking-wider">{t("tab_islas")}</p>
+                <p>{t("tab_islas_info")}</p>
               </div>
               <div className="space-y-1">
                 <p className="font-bold text-stone-900 uppercase tracking-wider">{t("tab_ue")}</p>
                 <p>{t("tab_ue_info")}</p>
               </div>
             </div>
-            <p className="text-[11px] text-stone-400 font-light italic pt-2 border-t border-stone-100">
+            <p className="text-[11px] text-stone-600 font-light italic pt-2 border-t border-stone-100">
               {t("tab_nota")}
             </p>
           </div>
@@ -58,10 +62,11 @@ export default function EnviosDevolucionesPage() {
 
         <div className="space-y-4">
           <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-stone-900 flex items-center gap-3">
-            <span className="text-amber-800/60 font-serif text-lg">03.</span> {t("b3_titulo")}
+            <span className="text-amber-800/90 font-serif text-lg">03.</span> {t("b3_titulo")}
           </h2>
           <p className="text-stone-600 font-light leading-relaxed">{t("b3_p1")}</p>
           <p className="text-stone-600 font-light leading-relaxed">{t("b3_p2")}</p>
+          <p className="text-stone-600 font-light leading-relaxed">{t("b3_p3")}</p>
         </div>
 
         <div className="rounded-2xl border border-stone-200/80 bg-stone-100/60 p-8 space-y-3">

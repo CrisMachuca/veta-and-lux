@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
 import { locales } from "@/navigation";
 import { SITE_URL } from "@/app/[locale]/lib/seo";
+import { TEXTOS_LEGALES_BORRADOR } from "@/app/[locale]/lib/legal";
 
 // Cada URL lleva sus alternativas por idioma (hreflang) para que Google
 // relacione la versión /es y la /en de la misma página.
@@ -19,10 +20,14 @@ function entradas(
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 1. Rutas estáticas principales
-  const rutasEstaticas = ["", "/coleccion", "/proceso", "/contacto"];
+  const rutasEstaticas = ["", "/coleccion", "/lamparas-a-medida", "/proceso", "/contacto"];
 
   // 2. Rutas de ayuda / legales (del footer)
-  const rutasLegales = ["/envios-devoluciones", "/aviso-legal", "/politica-cookies"];
+  const rutasLegales = [
+    "/envios-devoluciones", "/aviso-legal", "/politica-cookies",
+    // Con noindex mientras sean borrador: fuera del sitemap hasta entonces
+    ...(TEXTOS_LEGALES_BORRADOR ? [] : ["/condiciones-venta", "/politica-privacidad"]),
+  ];
 
   const staticUrls = rutasEstaticas.flatMap((ruta) =>
     entradas(ruta, {

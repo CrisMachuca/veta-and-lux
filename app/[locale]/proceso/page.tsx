@@ -30,7 +30,7 @@ export default function ElProcesoPage() {
       {/* CABECERA */}
       <header className="px-6 pt-24 pb-20 text-center">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Header.tagline")}</p>
+          <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/90 font-urbanist">{t("Header.tagline")}</p>
           
           <h1 className="text-5xl md:text-7xl font-nixie text-[#3a3530] mt-4 leading-tight">{t("Header.titulo")}</h1>
           
@@ -61,7 +61,7 @@ export default function ElProcesoPage() {
             <div className="absolute inset-0 border-[12px] border-stone-50/10 m-4 rounded-sm pointer-events-none"></div>
           </div>
           <div className="md:col-span-5 space-y-6">
-            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Fase1.tagline")}</p>
+            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/90 font-urbanist">{t("Fase1.tagline")}</p>
             <h2 className="text-3xl md:text-5xl font-nixie text-[#3a3530] leading-tight">{t("Fase1.titulo")}</h2>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase1.p1")}</p>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase1.p2")}</p>
@@ -74,7 +74,7 @@ export default function ElProcesoPage() {
             <ClickableImage src="/curado.png" alt="Curado" onOpen={setSelectedImage} />
           </div>
           <div className="md:col-span-5 md:order-1 space-y-6">
-            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Fase2.tagline")}</p>
+            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/90 font-urbanist">{t("Fase2.tagline")}</p>
             <h2 className="text-3xl md:text-5xl font-nixie font-bold text-[#3a3530] leading-tight">{t("Fase2.titulo")}</h2>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase2.p1")}</p>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase2.p2")}</p>
@@ -87,7 +87,7 @@ export default function ElProcesoPage() {
             <ClickableImage src="/saneado.jpeg" alt="Saneado" onOpen={setSelectedImage} />
           </div>
           <div className="md:col-span-5 space-y-6">
-            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Fase3.tagline")}</p>
+            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/90 font-urbanist">{t("Fase3.tagline")}</p>
             <h2 className="text-3xl md:text-5xl font-nixie font-bold text-[#3a3530] leading-tight">{t("Fase3.titulo")}</h2>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase3.p1")}</p>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase3.p2")}</p>
@@ -100,7 +100,7 @@ export default function ElProcesoPage() {
             <ClickableImage src="/tronco2.jpeg" alt="Arquitectura" onOpen={setSelectedImage} />
           </div>
           <div className="md:col-span-5 md:order-1 space-y-6">
-            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist">{t("Fase4.tagline")}</p>
+            <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/90 font-urbanist">{t("Fase4.tagline")}</p>
             <h2 className="text-3xl md:text-5xl font-nixie font-bold text-[#3a3530] leading-tight">{t("Fase4.titulo")}</h2>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase4.p1")}</p>
             <p className="text-[#6b645d] font-light text-lg md:text-xl leading-relaxed font-urbanist">{t("Fase4.p2")}</p>

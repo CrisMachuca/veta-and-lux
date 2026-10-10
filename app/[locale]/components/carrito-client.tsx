@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { formatEUR } from "@/app/[locale]/lib/precio";
 import { useTranslations, useLocale } from "next-intl";
 import { COSTES_ENVIO } from "@/app/[locale]/lib/envio";
 import { useHaMontado } from "@/app/[locale]/lib/use-ha-montado";
+import { Link } from "@/navigation";
+import { enviarEvento, guardarPedidoPendiente, itemAnalytics } from "@/app/[locale]/lib/analytics";
 
 const PROVINCIAS_PENINSULA = ["Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real", "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara", "Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña", "La Rioja", "León", "Lérida", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra", "Orense", "Palencia", "Pontevedra", "Salamanca", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"];
 const PROVINCIAS_ISLAS = ["Baleares", "Las Palmas (Canarias)", "Santa Cruz de Tenerife (Canarias)", "Ceuta", "Melilla"];
@@ -26,6 +28,7 @@ export function CarritoClient() {
   const [localidad, setLocalidad] = useState("");
   const [codigoPostal, setCodigoPostal] = useState("");
   const [provinciaOId, setProvinciaOId] = useState("");
+  const [aceptaCondiciones, setAceptaCondiciones] = useState(false);
 
   // Al cambiar de región, la provincia/país elegido deja de ser válido
   const cambiarRegion = (region: typeof regionEnvio) => {
@@ -35,6 +38,14 @@ export function CarritoClient() {
 
   const costeEnvioActual = COSTES_ENVIO[regionEnvio];
   const totalAbsoluto = subtotal + costeEnvioActual;
+  const itemsGa = lines.map((l) => itemAnalytics(String(l.productId), l.nombre, l.precioUnit));
+
+  // GA4: el carrito se ve con piezas dentro (una vez por visita a la página)
+  useEffect(() => {
+    if (!montado || lines.length === 0) return;
+    enviarEvento("view_cart", { currency: "EUR", value: subtotal, items: lines.map((l) => itemAnalytics(String(l.productId), l.nombre, l.precioUnit)) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [montado]);
 
   const gestionarPago = async () => {
     try {
@@ -42,12 +53,21 @@ export function CarritoClient() {
         alert(t("alert_campos"));
         return;
       }
+      if (!aceptaCondiciones) {
+        alert(t("alert_acepto"));
+        return;
+      }
       setCargando(true);
+      // GA4: inicio del pago, zona de envío y método elegido
+      enviarEvento("begin_checkout", { currency: "EUR", value: totalAbsoluto, items: itemsGa });
+      enviarEvento("add_shipping_info", { currency: "EUR", value: totalAbsoluto, shipping_tier: regionEnvio, items: itemsGa });
+      enviarEvento("add_payment_info", { currency: "EUR", value: totalAbsoluto, payment_type: metodoPago === "stripe" ? "tarjeta" : "transferencia", items: itemsGa });
+      if (metodoPago === "stripe") guardarPedidoPendiente({ value: totalAbsoluto, shipping: costeEnvioActual, items: itemsGa });
       const direccionEstructurada = { calle, localidad, codigoPostal, regionUbicacion: provinciaOId, paisBase: regionEnvio === "internacional" ? provinciaOId : "España" };
       const respuesta = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ lines, metodoPago, regionEnvio, locale, datosCliente: { email, nombre, direccion: direccionEstructurada } }),
+        body: JSON.stringify({ lines, metodoPago, regionEnvio, locale, aceptaCondiciones, datosCliente: { email, nombre, direccion: direccionEstructurada } }),
       });
       const datos = await respuesta.json();
       if (!respuesta.ok) throw new Error(datos.error || t("alert_error"));
@@ -176,6 +196,21 @@ export function CarritoClient() {
           <span>{t("total_texto")}</span>
           <span className="text-2xl font-light text-stone-900">{formatEUR(totalAbsoluto)}</span>
         </div>
+        <label htmlFor="acepta-condiciones" className="flex items-start gap-3 pt-4 text-sm text-stone-700 cursor-pointer">
+          <input
+            id="acepta-condiciones"
+            type="checkbox"
+            checked={aceptaCondiciones}
+            onChange={(e) => setAceptaCondiciones(e.target.checked)}
+            className="mt-0.5 h-4 w-4 accent-stone-900"
+          />
+          <span>
+            {t.rich("acepto", {
+              condiciones: (c) => <Link href="/condiciones-venta" target="_blank" className="underline underline-offset-2">{c}</Link>,
+              privacidad: (c) => <Link href="/politica-privacidad" target="_blank" className="underline underline-offset-2">{c}</Link>,
+            })}
+          </span>
+        </label>
         <div className="flex justify-between items-center pt-4">
           <button type="button" onClick={clearCart} disabled={cargando} className="text-sm text-stone-600 underline">{t("vaciar_texto")}</button>
           <button type="button" onClick={gestionarPago} disabled={cargando} className="rounded-full bg-stone-900 text-stone-50 px-8 py-3 text-sm uppercase tracking-widest hover:bg-stone-800">

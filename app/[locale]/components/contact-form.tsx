@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { FormEvent, useState } from "react";
+import { enviarEvento } from "@/app/[locale]/lib/analytics";
 
 export function ContactForm() {
   const t = useTranslations("ContactForm");
@@ -14,6 +15,7 @@ export function ContactForm() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    enviarEvento("generate_lead", { via: viaContacto, origen: "contacto" });
 
     const nombreLimpio = nombre.trim() || "Sin nombre";
     const emailLimpio = email.trim() || "No facilitado";

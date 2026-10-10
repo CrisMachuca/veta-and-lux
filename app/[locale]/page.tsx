@@ -10,6 +10,8 @@ import { client } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import FadeIn from "@/app/[locale]/components/motion/FadeIn";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
+import { jsonLdHtml, ordenarPorDisponibilidad, organizacionJsonLd } from "@/app/[locale]/lib/producto-seo";
+import type { ProductoSanity } from "@/sanity/lib/tipos";
 
 export const generateMetadata = metadataPagina("inicio", "", { tituloAbsoluto: true });
 
@@ -22,9 +24,11 @@ async function getProductosDestacados() {
     descripcion, 
     imagen, 
     imagenes, 
+    tipo,
     ${ESTADO_EFECTIVO}
   }`;
-  return await client.fetch(query);
+  const piezas: ProductoSanity[] = await client.fetch(query);
+  return ordenarPorDisponibilidad(piezas);
 }
 
 export default async function Page() {
@@ -33,6 +37,7 @@ export default async function Page() {
 
   return (
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdHtml(organizacionJsonLd())} />
       <SiteNav />
 
       {/* 💎 HERO: Dos imágenes en móvil con fundido limpio + Tríptico en escritorio */}
@@ -78,19 +83,19 @@ export default async function Page() {
           <div className="pointer-events-auto text-center w-full max-w-xl lg:max-w-[30vw] mx-auto px-4">
             
             <FadeIn direction="down" delay={0.4} duration={1.2}>
-              <span className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-white/90 font-light border-b border-white/40 pb-3 mb-6 block select-none text-balance drop-shadow-md">
-                {t("Hero.tagline")}
-              </span>
+              <h1 className="text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-white/90 font-light border-b border-white/40 pb-3 mb-6 block select-none text-balance drop-shadow-md">
+                {t("Hero.h1")}
+              </h1>
             </FadeIn>
 
             <FadeIn direction="none" delay={0.8} duration={1.5}>
-              <h1 className="text-5xl md:text-6xl lg:text-[clamp(2.8rem,5vw,6.5rem)] font-nixie tracking-tighter text-white select-none drop-shadow-xl">
+              <p className="text-5xl md:text-6xl lg:text-[clamp(2.8rem,5vw,6.5rem)] font-nixie tracking-tighter text-white select-none drop-shadow-xl">
                 Veta
                 <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500 bg-clip-text text-transparent px-2">
                   &
                 </span>
                 Lux
-              </h1>
+              </p>
             </FadeIn>
 
             <FadeIn direction="up" delay={1.2} duration={1.2}>
@@ -113,7 +118,7 @@ export default async function Page() {
       <section className="py-28">
         <FadeIn direction="up" delay={0.2}>
           <div className="text-center px-6 mb-16 space-y-4">
-            <span className="text-[10px] font-bold text-amber-800/80 uppercase tracking-[0.5em] font-urbanist block">
+            <span className="text-[10px] font-bold text-amber-900/90 uppercase tracking-[0.5em] font-urbanist block">
               {t("Galeria.subtitulo")}
             </span>
             <h2 className="text-4xl md:text-5xl font-nixie text-[#3a3530] uppercase tracking-wide">
@@ -123,9 +128,8 @@ export default async function Page() {
           </div>
         </FadeIn>
 
-        <FadeIn direction="up" delay={0.5} scale={0.96}>
           <div className="px-6 md:px-12 lg:px-20 w-full">
-            <ProductGallery productos={productosSanity} isHome={true} />
+            <ProductGallery productos={productosSanity} isHome={true} listName="destacadas" />
             
             <div className="flex justify-center mt-16 md:mt-20">
               <Link 
@@ -136,7 +140,6 @@ export default async function Page() {
               </Link>
             </div>
           </div>
-        </FadeIn>
       </section>
 
       {/* 📜 GARANTÍA */}
@@ -169,7 +172,7 @@ export default async function Page() {
           </FadeIn>
           <div className="space-y-8">
             <FadeIn direction="up" delay={0.5}>
-              <p className="text-[10px] text-amber-800/80 uppercase tracking-[0.5em] font-bold font-urbanist">{t("Manifiesto.tagline")}</p>
+              <p className="text-[10px] text-amber-900/90 uppercase tracking-[0.5em] font-bold font-urbanist">{t("Manifiesto.tagline")}</p>
             </FadeIn>
             <FadeIn direction="up" delay={0.7}>
               <h2 className="text-4xl md:text-5xl font-nixie text-[#3a3530] leading-tight">

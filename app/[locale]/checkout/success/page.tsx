@@ -7,6 +7,7 @@ import { Link } from "@/navigation";
 import { useCart } from "@/app/[locale]/components/cart-provider";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
+import { enviarEvento, leerPedidoPendiente, marcarCompraMedida } from "@/app/[locale]/lib/analytics";
 
 // Datos bancarios configurados en .env (los mismos que se envían por correo)
 const IBAN = process.env.NEXT_PUBLIC_IBAN_TRANSFERENCIA;
@@ -26,6 +27,20 @@ function SuccessContent() {
   useEffect(() => {
     clearCart();
   }, [clearCart]);
+
+  // GA4: una sola vez por pedido (se ignora al recargar o volver a esta página)
+  const sessionId = searchParams.get("session_id") || "";
+  useEffect(() => {
+    if (metodo === "stripe" && sessionId) {
+      const pedido = leerPedidoPendiente();
+      if (pedido && marcarCompraMedida(sessionId)) {
+        enviarEvento("purchase", { transaction_id: sessionId, currency: "EUR", value: pedido.value, shipping: pedido.shipping, items: pedido.items });
+      }
+    } else if (metodo === "transferencia" && orderId && marcarCompraMedida(orderId)) {
+      // Una transferencia es una reserva, no un pago confirmado: evento propio
+      enviarEvento("reserva_transferencia", { transaction_id: orderId, currency: "EUR", value: Number(total) || 0 });
+    }
+  }, [metodo, sessionId, orderId, total]);
 
   return (
     <section className="max-w-3xl mx-auto px-4 py-20 md:py-32 text-center space-y-8">

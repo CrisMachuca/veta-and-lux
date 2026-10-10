@@ -13,7 +13,8 @@
       "tagline": "Sculptural Lighting · Unique Editions",
       "parrafo": "High-end lighting pieces sculpted from ancient reclaimed wood.",
       "subParrafo": "Timeless art and organic soul preserved in numbered pieces of exclusive design.",
-      "botonAdquirir": "Acquire Unique Piece"
+      "botonAdquirir": "Acquire Unique Piece",
+      "h1": "Handmade wooden lamps · One-of-a-kind pieces"
     },
     "Editorial": {
       "tagline": "The creative process",
@@ -39,7 +40,7 @@
       "titulo": "In praise of wood:",
       "subtitulo": "The value of the unhurried",
       "p1": "Our works begin far from commercial noise. We look for woods that have already lived: pieces sculpted by the sea on the coast, fallen branches in the forest, or remains from controlled and fully ethical pruning.",
-      "p2": "Each log or root begins a lethargy of months on our workbench to ensure its natural stability. Only then, through manual sanitation and components in solid brass and pure linen, do we release the latent light within its grain.",
+      "p2": "Each log or root begins a lethargy of months on our workbench to ensure its natural stability. Only then, through manual sanitation and components in solid brass and natural fabric shades, do we release the latent light within its grain.",
       "fase1": "01. The Discovery",
       "fase2": "02. The Lethargy",
       "fase3": "03. The Light",
@@ -88,14 +89,19 @@
     }
   },
   "Coleccion": {
-    "tagline": "Catalog",
-    "titulo": "Collection",
-    "descripcion": "Table lamps, beams, and log pieces with warm light. Each reference is handcrafted; click an image to enter its full profile with gallery, care instructions, and detailed zoom.",
+    "tagline": "Collection",
+    "titulo": "Handcrafted wooden lamps",
+    "descripcion": "Table and pendant lamps carved by hand from reclaimed wood. Every piece is unique: once it is sold, it is gone. If you like a style that has already sold, we can make a similar one to order.",
     "botonVolver": "← Back to home",
     "srObras": "Available pieces"
   },
   "FichaProducto": {
-    "botonVolver": "← Back to collection"
+    "botonVolver": "← Back to collection",
+    "migaInicio": "Home",
+    "migaColeccion": "Collection",
+    "migasAria": "Breadcrumb",
+    "relacionadas": "More pieces from the workshop",
+    "verColeccion": "View the whole collection"
   },
   "DetalleCliente": {
     "base": "Base",
@@ -120,7 +126,6 @@
       "adquirir": "Acquire Unique Piece",
       "anadido": "Piece Added ✓"
     },
-    
     "listaEspera": {
       "titulo": "Interested in this lamp?",
       "texto": "Reservations for unique pieces typically remain active for a maximum of 48 hours awaiting payment. If you wish to join the priority waiting list in case it becomes available again, or if you prefer us to find a similar wood in the workshop for you, write to us directly."
@@ -132,7 +137,19 @@
     "whatsapp": {
       "reservado": "Hello! I saw the lamp \"{nombre}\" on the website and I see it is reserved. Could we talk about ordering a similar piece from the workshop?",
       "vendido": "Hello! I loved the lamp \"{nombre}\" but I see it is already sold out. Is it possible to make a custom project inspired by it?"
-    }
+    },
+    "cable": "Cable",
+    "electrico": "Electrical details",
+    "casquillo": "Lamp holder",
+    "potencia": "Max. wattage",
+    "bombilla": "Bulb",
+    "bombillaSi": "Included",
+    "bombillaNo": "Not included",
+    "interruptor": "Switch",
+    "longitudCable": "Cable length",
+    "envioResumen": "Free insured shipping across mainland Spain · 14-day returns.",
+    "envioMas": "Shipping and returns",
+    "aMedida": "Commission a custom piece →"
   },
   "Contacto": {
     "tagline": "Let's talk",
@@ -188,14 +205,17 @@
       "coleccion": "Collection",
       "proceso": "Process",
       "contacto": "Contact",
-      "carrito": "Cart"
+      "carrito": "Cart",
+      "medida": "Custom lamps"
     },
     "ayuda": {
       "titulo": "Help",
       "envios": "Shipping & Returns",
       "aviso": "Legal Notice",
       "cookies": "Cookie Policy",
-      "configurarCookies": "Cookie settings"
+      "configurarCookies": "Cookie settings",
+      "privacidad": "Privacy policy",
+      "condiciones": "Terms of sale"
     },
     "contacto": {
       "titulo": "Contact",
@@ -205,125 +225,130 @@
     "copy": "© 2026 Veta & Lux. All rights reserved.",
     "hecho": "Made with ❤️ and reclaimed wood."
   },
-   "Gallery": {
-        "detalles": "Details",
-        "agotado": "Sold out",
-        "reservado": "Reserved",
-        "anadido": "✓ Added",
-        "anadir": "Add to bag",
-        "sin_imagen": "No image",
-        "estado_reservado": "Reserved",
-        "estado_vendido": "Sold"
-      },
-    "Carrito": {
-        "subtitulo": "Your selection",
-        "titulo": "Cart",
-        "descripcion": "Review your pieces, enter your delivery details, and select your payment method. The value of each work includes custom high-protection artisanal packaging. We offer complimentary insured shipping to the Peninsula and optimized rates with full coverage for the Islands and Europe. If you have any questions, please contact us directly.",
-        "seguirComprando": "Continue shopping"
+  "Gallery": {
+    "detalles": "Details",
+    "agotado": "Sold out",
+    "reservado": "Reserved",
+    "anadido": "✓ Added",
+    "anadir": "Add to bag",
+    "sin_imagen": "No image",
+    "estado_reservado": "Reserved",
+    "estado_vendido": "Sold"
+  },
+  "Carrito": {
+    "subtitulo": "Your selection",
+    "titulo": "Cart",
+    "descripcion": "Review your pieces, enter your delivery details, and select your payment method. The value of each work includes custom high-protection artisanal packaging. We offer complimentary insured shipping to the Peninsula and optimized rates with full coverage for the Islands and Europe. If you have any questions, please contact us directly.",
+    "seguirComprando": "Continue shopping"
   },
   "CarritoClient": {
-  "vacio": "Your cart is empty.",
-  "pieza_unica": "Unique piece",
-  "quitar": "Remove",
-  "envio_titulo": "Insured Shipping Destination",
-  "peninsula_nombre": "Spanish Peninsula",
-  "peninsula_info": "Complimentary (Free)",
-  "islas_nombre": "Islands, Ceuta or Melilla",
-  "inter_nombre": "Selected Europe",
-  "pago_titulo": "Select payment method",
-  "stripe_nombre": "Credit card or PayPal",
-  "stripe_info": "Secure gateway managed by Stripe.",
-  "trans_nombre": "Bank Transfer",
-  "trans_info": "We will provide the IBAN after reserving the work.",
-  "datos_titulo": "Contact & Artisanal Shipping Data",
-  "modalidad": "Mode",
-  "label_nombre": "Full Name",
-  "placeholder_nombre": "e.g. Cristina García",
-  "label_email": "Email Address",
-  "placeholder_email": "cristina@example.com",
-  "label_direccion": "Address (Street, number, floor...)",
-  "placeholder_direccion": "Av. de la Constitución 14, 2B",
-  "label_ciudad": "City / Locality",
-  "placeholder_ciudad": "e.g. Seville",
-  "label_cp": "Postal Code",
-  "placeholder_cp": "e.g. 41001",
-  "label_provincia": "Province",
-  "label_pais": "Destination Country",
-  "sel_opcion": "Select...",
-  "subtotal_texto": "Subtotal",
-  "envio_texto": "Insured Shipping",
-  "gratis_texto": "Free",
-  "total_texto": "Order Total",
-  "vaciar_texto": "Clear",
-  "cargando_texto": "Processing...",
-  "btn_stripe": "Proceed to payment",
-  "btn_trans": "Confirm order",
-  "alert_campos": "Please fill in all required fields.",
-  "alert_error": "An error occurred."
-},
-"Cookies": {
+    "vacio": "Your cart is empty.",
+    "pieza_unica": "Unique piece",
+    "quitar": "Remove",
+    "envio_titulo": "Insured Shipping Destination",
+    "peninsula_nombre": "Spanish Peninsula",
+    "peninsula_info": "Complimentary (Free)",
+    "islas_nombre": "Islands, Ceuta or Melilla",
+    "inter_nombre": "Selected Europe",
+    "pago_titulo": "Select payment method",
+    "stripe_nombre": "Credit or debit card",
+    "stripe_info": "Secure gateway managed by Stripe.",
+    "trans_nombre": "Bank Transfer",
+    "trans_info": "We will provide the IBAN after reserving the work.",
+    "datos_titulo": "Contact & Artisanal Shipping Data",
+    "modalidad": "Mode",
+    "label_nombre": "Full Name",
+    "placeholder_nombre": "e.g. Cristina García",
+    "label_email": "Email Address",
+    "placeholder_email": "cristina@example.com",
+    "label_direccion": "Address (Street, number, floor...)",
+    "placeholder_direccion": "Av. de la Constitución 14, 2B",
+    "label_ciudad": "City / Locality",
+    "placeholder_ciudad": "e.g. Seville",
+    "label_cp": "Postal Code",
+    "placeholder_cp": "e.g. 41001",
+    "label_provincia": "Province",
+    "label_pais": "Destination Country",
+    "sel_opcion": "Select...",
+    "subtotal_texto": "Subtotal",
+    "envio_texto": "Insured Shipping",
+    "gratis_texto": "Free",
+    "total_texto": "Order Total",
+    "vaciar_texto": "Clear",
+    "cargando_texto": "Processing...",
+    "btn_stripe": "Proceed to payment",
+    "btn_trans": "Confirm order",
+    "alert_campos": "Please fill in all required fields.",
+    "alert_error": "An error occurred.",
+    "acepto": "I have read and accept the <condiciones>terms of sale</condiciones> and the <privacidad>privacy policy</privacidad>.",
+    "alert_acepto": "To continue, please accept the terms of sale and the privacy policy."
+  },
+  "Cookies": {
     "tipoB_detalle": "They are only activated if you accept them in the cookie notice. Google Analytics sets _ga and _ga_TTRHXEKW53, which anonymously distinguish visits and expire after 2 years. The data is processed by Google Ireland Limited.",
     "seccion3_banner": "You can accept or reject analytics cookies at any time from the “Cookie settings” link in the footer. If you reject them, we stop measuring and delete the Google Analytics cookies from your browser.",
-  "navegacion": "Private and Secure Browsing",
-  "titulo": "Cookie Policy",
-  "intro1": "At Veta & Lux, we respect the privacy of your digital environment. To offer you a fluid, sophisticated browsing experience adapted to your aesthetic preferences, this website uses information storage technologies called cookies.",
-  "intro2": "Below, we detail what these technologies are, the exclusive purposes for which we use them in our digital workshop, and how you can manage or restrict them at any time through your browser settings.",
-  "seccion1_titulo": "1. What is a Cookie?",
-  "seccion1_texto": "A cookie is a small text file that is downloaded automatically to your device (computer, smartphone, or tablet) when you access the vast majority of websites. They allow a site, among other things, to store and retrieve information about a user's browsing habits to recognize them and offer an optimal and personalized service.",
-  "seccion2_titulo": "2. Types of Cookies Used at Veta & Lux",
-  "seccion2_intro": "This website only activates essential technological tools and respectful analysis to maintain the proper functioning of the exhibition and sales space:",
-  "tipoA_titulo": "— Technical and Session Cookies (Strictly Necessary)",
-  "tipoA_texto": "These are essential to allow you to browse our lighting collection, interact with the Sanity panel in real-time, view real stock, and maintain the integrity of the contact or booking process via WhatsApp. They do not collect confidential information and are not used for commercial purposes.",
-  "tipoB_titulo": "— Statistical Analysis Cookies (Optional)",
-  "tipoB_texto": "Processed anonymously by us or third parties (such as Google Analytics), these allow us to quantify the number of people who appreciate our pieces and perform statistical measurements of how visitors use the portal with the sole purpose of improving technical fluidity and catalog design.",
-  "seccion3_titulo": "3. Preference Control and Deactivation",
-  "seccion3_texto1": "You can allow, block, or delete cookies installed on your equipment by configuring the browser options used on your device. However, please note that if you block all technical cookies, some gallery functionalities (such as real-time stock synchronization) may not behave with the usual fluidity.",
-  "seccion3_texto2": "You can consult the specific privacy manuals for major browsers in the settings menus of Google Chrome, Apple Safari, Mozilla Firefox, or Microsoft Edge.",
-  "seccion4_titulo": "4. Updates to the Privacy Policy",
-  "seccion4_texto": "We may update our website's Cookie Policy to adapt it to new regulations or technical needs derived from the incorporation of new artisans or premium payment gateways. We recommend reviewing this section periodically if you wish to stay fully informed about how we protect your browsing."
-},
-"AvisoLegal": {
-  "transparencia": "Transparency and Rigor",
-  "titulo": "Legal Notice",
-  "intro": "In compliance with Article 10 of Law 34/2002, of July 11, on Information Society Services and Electronic Commerce (LSSI-CE), the identifying data of the owner of this website dedicated to high-end lighting craftsmanship are set out below.",
-  "s1_titulo": "1. Website Ownership",
-  "denominacion": "TRADE NAME",
-  "titular": "OWNER",
-  "nif": "TAX ID",
-  "domicilio": "REGISTERED ADDRESS",
-  "contacto": "CONTACT",
-  "telefono": "PHONE",
-  "s2_titulo": "2. Intellectual and Artistic Property",
-  "s2_p1": "The design of the portal and its source codes, as well as the logos, trademarks, texts, photographs, and designs of the artisan lamps displayed, belong to Veta & Lux or their respective authors and are protected by the corresponding intellectual and industrial property rights.",
-  "s2_p2": "The reproduction, exploitation, distribution, or commercialization of any content on this website, as well as the workshop's own sculptural designs, is strictly prohibited without prior written authorization from Veta & Lux management.",
-  "s3_titulo": "3. Limitation of Liability",
-  "s3_p1": "Veta & Lux is not responsible for damages of any kind that may be caused by errors or omissions in the content, lack of availability of the portal, or the transmission of malicious programs, despite having adopted all necessary premium technological measures to prevent it.",
-  "s3_p2": "Given the unique and organic nature of the pieces sold (artisanally treated precious wood), the images and technical information approximate the reality of the work as accurately as possible, although each lamp presents exclusive knots, grains, and nuances inherent to its sculptural condition.",
-  "s4_titulo": "4. Linking Policy",
-  "s4_p1": "In the event that this website contains links or hyperlinks to other Internet sites, Veta & Lux will not exercise any control over such sites and content. Under no circumstances will it assume any responsibility for the content of any link belonging to an external website.",
-  "s5_titulo": "5. Applicable Legislation and Jurisdiction",
-  "s5_p1": "For the resolution of all disputes or questions related to this website or the activities carried out therein, Spanish legislation shall apply, to which the parties expressly submit. The Courts and Tribunals closest to the workshop's registered office shall be competent to resolve all conflicts derived from or related to its use."
-},
-"EnviosDevoluciones": {
-  "compromiso": "Veta & Lux Commitment",
-  "titulo": "Shipping and Complimentary Returns",
-  "b1_titulo": "01. The Art of Packaging",
-  "b1_texto": "Each lamp in our collection is an unrepeatable wood and light sculpture. Therefore, the packaging process is done by hand in our own workshop, using custom-made high-resistance boxes and sustainable internal protections that ensure the piece travels suspended and totally isolated from impacts.",
-  "b2_titulo": "02. High-Custody Transport",
-  "b2_texto": "We work exclusively with premium transport agencies with real-time tracking service and signature delivery. We want the experience to be impeccable from the moment the piece leaves the workshop until it illuminates your home.",
-  "tab_es": "Spanish Peninsula",
-  "tab_es_info": "Complimentary shipping (Free) — Delivery in 24/48 business hours.",
-  "tab_ue": "European Union",
-  "tab_ue_info": "Fee calculated at checkout — Delivery in 3-5 business days.",
-  "tab_nota": "* For international shipments outside the EU or islands, please contact us directly through our workshop.",
-  "b3_titulo": "03. Reflection Period and Returns",
-  "b3_p1": "We understand that art and design need to be experienced in their final space. If, once placed in your room, you feel the piece does not dialogue perfectly with the surroundings, you have a period of 14 calendar days from receipt to request a return.",
-  "b3_p2": "The piece must be sent back in its original high-security packaging to ensure it does not suffer damage during transport. Once received and inspected at the workshop, we will refund the full amount using the same payment method.",
-  "nota_medida": "Note on Custom Projects",
-  "nota_medida_texto": "Lamps created under custom order, adapting specific dimensions or woods selected expressly for a project, do not admit standard returns as they are exclusive works co-created for the client. Naturally, any transport incident is immediately covered by the workshop.",
-  "duda": "Do you have any questions about the suitability of a piece or its transport?",
-  "boton": "Consult with the Workshop →"
-},
+    "navegacion": "Private and Secure Browsing",
+    "titulo": "Cookie Policy",
+    "intro1": "At Veta & Lux, we respect the privacy of your digital environment. To offer you a fluid, sophisticated browsing experience adapted to your aesthetic preferences, this website uses information storage technologies called cookies.",
+    "intro2": "Below, we detail what these technologies are, the exclusive purposes for which we use them in our digital workshop, and how you can manage or restrict them at any time through your browser settings.",
+    "seccion1_titulo": "1. What is a Cookie?",
+    "seccion1_texto": "A cookie is a small text file that is downloaded automatically to your device (computer, smartphone, or tablet) when you access the vast majority of websites. They allow a site, among other things, to store and retrieve information about a user's browsing habits to recognize them and offer an optimal and personalized service.",
+    "seccion2_titulo": "2. Types of Cookies Used at Veta & Lux",
+    "seccion2_intro": "This website only activates essential technological tools and respectful analysis to maintain the proper functioning of the exhibition and sales space:",
+    "tipoA_titulo": "— Technical and Session Cookies (Strictly Necessary)",
+    "tipoA_texto": "These are essential to allow you to browse our lighting collection, interact with the Sanity panel in real-time, view real stock, and maintain the integrity of the contact or booking process via WhatsApp. They do not collect confidential information and are not used for commercial purposes.",
+    "tipoB_titulo": "— Statistical Analysis Cookies (Optional)",
+    "tipoB_texto": "Processed anonymously by us or third parties (such as Google Analytics), these allow us to quantify the number of people who appreciate our pieces and perform statistical measurements of how visitors use the portal with the sole purpose of improving technical fluidity and catalog design.",
+    "seccion3_titulo": "3. Preference Control and Deactivation",
+    "seccion3_texto1": "You can allow, block, or delete cookies installed on your equipment by configuring the browser options used on your device. However, please note that if you block all technical cookies, some gallery functionalities (such as real-time stock synchronization) may not behave with the usual fluidity.",
+    "seccion3_texto2": "You can consult the specific privacy manuals for major browsers in the settings menus of Google Chrome, Apple Safari, Mozilla Firefox, or Microsoft Edge.",
+    "seccion4_titulo": "4. Updates to the Privacy Policy",
+    "seccion4_texto": "We may update our website's Cookie Policy to adapt it to new regulations or technical needs derived from the incorporation of new artisans or premium payment gateways. We recommend reviewing this section periodically if you wish to stay fully informed about how we protect your browsing."
+  },
+  "AvisoLegal": {
+    "transparencia": "Transparency and Rigor",
+    "titulo": "Legal Notice",
+    "intro": "In compliance with Article 10 of Law 34/2002, of July 11, on Information Society Services and Electronic Commerce (LSSI-CE), the identifying data of the owner of this website dedicated to high-end lighting craftsmanship are set out below.",
+    "s1_titulo": "1. Website Ownership",
+    "denominacion": "TRADE NAME",
+    "titular": "OWNER",
+    "nif": "TAX ID",
+    "domicilio": "REGISTERED ADDRESS",
+    "contacto": "CONTACT",
+    "telefono": "PHONE",
+    "s2_titulo": "2. Intellectual and Artistic Property",
+    "s2_p1": "The design of the portal and its source codes, as well as the logos, trademarks, texts, photographs, and designs of the artisan lamps displayed, belong to Veta & Lux or their respective authors and are protected by the corresponding intellectual and industrial property rights.",
+    "s2_p2": "The reproduction, exploitation, distribution, or commercialization of any content on this website, as well as the workshop's own sculptural designs, is strictly prohibited without prior written authorization from Veta & Lux management.",
+    "s3_titulo": "3. Limitation of Liability",
+    "s3_p1": "Veta & Lux is not responsible for damages of any kind that may be caused by errors or omissions in the content, lack of availability of the portal, or the transmission of malicious programs, despite having adopted all necessary premium technological measures to prevent it.",
+    "s3_p2": "Given the unique and organic nature of the pieces sold (artisanally treated precious wood), the images and technical information approximate the reality of the work as accurately as possible, although each lamp presents exclusive knots, grains, and nuances inherent to its sculptural condition.",
+    "s4_titulo": "4. Linking Policy",
+    "s4_p1": "In the event that this website contains links or hyperlinks to other Internet sites, Veta & Lux will not exercise any control over such sites and content. Under no circumstances will it assume any responsibility for the content of any link belonging to an external website.",
+    "s5_titulo": "5. Applicable Legislation and Jurisdiction",
+    "s5_p1": "For the resolution of all disputes or questions related to this website or the activities carried out therein, Spanish legislation shall apply, to which the parties expressly submit. The Courts and Tribunals closest to the workshop's registered office shall be competent to resolve all conflicts derived from or related to its use."
+  },
+  "EnviosDevoluciones": {
+    "compromiso": "Veta & Lux Commitment",
+    "titulo": "Shipping and returns",
+    "b1_titulo": "01. The Art of Packaging",
+    "b1_texto": "Each lamp in our collection is an unrepeatable wood and light sculpture. Therefore, the packaging process is done by hand in our own workshop, using custom-made high-resistance boxes and sustainable internal protections that ensure the piece travels suspended and totally isolated from impacts.",
+    "b2_titulo": "02. High-Custody Transport",
+    "b2_texto": "We work exclusively with premium transport agencies with real-time tracking service and signature delivery. We want the experience to be impeccable from the moment the piece leaves the workshop until it illuminates your home.",
+    "tab_es": "Spanish Peninsula",
+    "tab_es_info": "Complimentary shipping (Free) — Delivery in 24/48 business hours.",
+    "tab_ue": "France, Italy, Germany and Portugal",
+    "tab_ue_info": "€65 — Delivery in 3-5 business days.",
+    "tab_nota": "* For other destinations, write to us before ordering and we will prepare a shipping quote. Shipments to the Canary Islands, Ceuta and Melilla may involve local customs procedures and taxes.",
+    "b3_titulo": "03. Reflection Period and Returns",
+    "b3_p1": "We understand that art and design need to be experienced in their final space. If, once placed in your room, you feel the piece does not dialogue perfectly with the surroundings, you have a period of 14 calendar days from receipt to request a return.",
+    "b3_p2": "The piece must be returned in its original packaging and in the same condition in which you received it. Return shipping costs are paid by the customer. Once received and inspected at the workshop, we will refund the price of the piece and the original shipping costs using the same payment method.",
+    "nota_medida": "Note on Custom Projects",
+    "nota_medida_texto": "Lamps created under custom order, adapting specific dimensions or woods selected expressly for a project, do not admit standard returns as they are exclusive works co-created for the client. Naturally, any transport incident is immediately covered by the workshop.",
+    "duda": "Do you have any questions about the suitability of a piece or its transport?",
+    "boton": "Consult with the Workshop →",
+    "tab_islas": "Balearic Islands, Canary Islands, Ceuta and Melilla",
+    "tab_islas_info": "€25 — We confirm the delivery time when we prepare your shipment.",
+    "b3_p3": "To request a return, write to info@vetandlux.com with your order number."
+  },
   "CheckoutExito": {
     "cargando": "Loading confirmation...",
     "tituloTransferencia": "Order reserved",
@@ -343,12 +368,12 @@
   },
   "Metadata": {
     "inicio": {
-      "titulo": "Veta & Lux | Handcrafted reclaimed wood lamps",
-      "descripcion": "Light sculptures handmade in Malaga, Spain, from reclaimed noble woods: olive, eucalyptus, chestnut. Unique, one-of-a-kind pieces."
+      "titulo": "Handmade wooden lamps from Malaga, Spain | Veta & Lux",
+      "descripcion": "One-of-a-kind table lamps handmade in Malaga from reclaimed olive, eucalyptus and oak wood. Free insured shipping across mainland Spain."
     },
     "coleccion": {
-      "titulo": "Wooden lamp collection",
-      "descripcion": "Table and pendant lamps made from reclaimed wood, each one a unique piece. Free insured shipping across mainland Spain."
+      "titulo": "Handcrafted wooden table lamps",
+      "descripcion": "Table and pendant lamps handmade in Malaga from reclaimed olive, eucalyptus and oak. Every piece is unique. Free shipping across mainland Spain."
     },
     "proceso": {
       "titulo": "Our craft process",
@@ -377,6 +402,18 @@
     "cookies": {
       "titulo": "Cookie policy",
       "descripcion": "Which cookies the Veta & Lux website uses and how to manage them."
+    },
+    "encargos": {
+      "titulo": "Custom wooden lamps",
+      "descripcion": "Commission a handmade wooden lamp for your space: we choose the wood, shade and size with you in our workshop in Malaga."
+    },
+    "privacidad": {
+      "titulo": "Privacy policy",
+      "descripcion": "How Veta & Lux handles the personal data of its customers and visitors."
+    },
+    "condiciones": {
+      "titulo": "Terms of sale",
+      "descripcion": "Prices, shipping, payments, returns and warranty for purchases at Veta & Lux."
     }
   },
   "CookiesBanner": {
@@ -385,5 +422,180 @@
     "politica": "cookie policy",
     "aceptar": "Accept",
     "rechazar": "Reject"
+  },
+  "Encargos": {
+    "tagline": "Custom orders",
+    "titulo": "Custom wooden lamps",
+    "intro": "If a piece from the collection has already found a home, or you are looking for a lamp for a specific space, we make one for you from the right wood. We work with private clients, interior designers and architects.",
+    "pasosTitulo": "How it works",
+    "pasos": [
+      {
+        "titulo": "Tell us your idea",
+        "texto": "Where the lamp will go, the size you need and which pieces from the collection you like. If you can, send us a photo of the space."
+      },
+      {
+        "titulo": "We choose the wood",
+        "texto": "We suggest the woods available in the workshop (olive, eucalyptus, oak…) and the type of shade or bulb, with a quote and an estimated lead time."
+      },
+      {
+        "titulo": "We make it by hand",
+        "texto": "Every commission follows the same craft process as the rest of the collection: drying, restoring and assembly in our workshop in Malaga."
+      },
+      {
+        "titulo": "We ship it to you",
+        "texto": "With custom packaging and insured shipping, just like any other piece."
+      }
+    ],
+    "interioristasTitulo": "Interior design projects",
+    "interioristasTexto": "If you are working on a project for a home, a hotel or a restaurant, tell us how many pieces you need and when, and we will see how to make it happen.",
+    "devolucionNota": "Custom-made pieces cannot be returned under the standard policy because they are made specifically for you. Transport incidents are still covered.",
+    "ejemplosTitulo": "Pieces that have already found a home",
+    "ejemplosTexto": "They can be a starting point for your commission.",
+    "ctaTitulo": "Shall we talk about your lamp?",
+    "ctaTexto": "Write to us on WhatsApp or by email and we will reply with a first proposal.",
+    "ctaWhatsapp": "Message us on WhatsApp",
+    "ctaEmail": "Send an email",
+    "ctaProceso": "See how we work the wood",
+    "whatsappMensaje": "Hello! I would like to commission a custom wooden lamp."
+  },
+  "Legal": {
+    "borrador": "Draft pending legal review. This text will be final once reviewed by a legal advisor.",
+    "ultimaRevision": "Last reviewed: October 2026",
+    "avisoLegal": "Legal notice"
+  },
+  "Privacidad": {
+    "tagline": "Your data",
+    "titulo": "Privacy policy",
+    "intro": "This page explains what personal data we collect when you visit the website, buy or write to us, what we use it for and what rights you have.",
+    "secciones": [
+      {
+        "titulo": "1. Data controller",
+        "parrafos": [
+          "The controller of the personal data collected on this website is the owner of Veta & Lux, identified in the Legal notice. For any privacy question you can write to info@vetandlux.com."
+        ]
+      },
+      {
+        "titulo": "2. What data we process",
+        "parrafos": [
+          "Purchase data: the name, email and shipping address you enter in the cart.",
+          "Payment data: card payments are processed by Stripe. We never see or store your card details.",
+          "Contact data: whatever you send us by email or WhatsApp.",
+          "Browsing data: only if you accept analytics cookies, Google Analytics collects information about your visit. More details in the Cookie policy."
+        ]
+      },
+      {
+        "titulo": "3. Why we use it and on what legal basis",
+        "parrafos": [
+          "Managing your order, payment, shipping and returns: necessary to perform the purchase contract.",
+          "Answering your questions and preparing quotes for custom orders: at your request, before a possible contract.",
+          "Meeting tax and accounting obligations: legal obligation.",
+          "Measuring website use with Google Analytics: your consent, which you can withdraw at any time from “Cookie settings” in the footer."
+        ]
+      },
+      {
+        "titulo": "4. How long we keep it",
+        "parrafos": [
+          "Order data is kept for as long as needed to manage the order and, afterwards, for the periods required by tax and commercial law. Enquiries that do not end in a purchase are deleted when no longer needed."
+        ]
+      },
+      {
+        "titulo": "5. Who we share it with",
+        "parrafos": [
+          "Only with the providers we need to deliver the service: Stripe (payments), the carrier that delivers your order, Hostinger (website hosting), Google (email and, if you accept it, Google Analytics) and Meta (WhatsApp), if you write to us that way.",
+          "Some of these providers may process data outside the European Economic Area, with the safeguards required by the General Data Protection Regulation. We do not sell your data or share it for advertising."
+        ]
+      },
+      {
+        "titulo": "6. Your rights",
+        "parrafos": [
+          "You can request access to, rectification or erasure of your data, object to its processing, or request its restriction or portability by writing to info@vetandlux.com.",
+          "If you feel we have not handled your request properly, you can lodge a complaint with the Spanish Data Protection Agency (www.aepd.es)."
+        ]
+      },
+      {
+        "titulo": "7. Changes to this policy",
+        "parrafos": [
+          "If we change how we process your data, we will update this page and show the date of the last review."
+        ]
+      }
+    ]
+  },
+  "Condiciones": {
+    "tagline": "Buy with peace of mind",
+    "titulo": "Terms of sale",
+    "intro": "These terms apply to purchases made at vetandlux.com. We recommend reading them before you buy.",
+    "secciones": [
+      {
+        "titulo": "1. Who sells",
+        "parrafos": [
+          "Sales on this website are made by the owner of Veta & Lux, identified in the Legal notice. You can contact us at info@vetandlux.com."
+        ]
+      },
+      {
+        "titulo": "2. The pieces",
+        "parrafos": [
+          "We sell handmade wooden lamps. Every piece is unique: the photos and measurements describe the specific piece you buy, but wood is a natural material and small differences in grain and tone may be visible."
+        ]
+      },
+      {
+        "titulo": "3. Prices and shipping costs",
+        "parrafos": [
+          "Prices are shown in euros and include applicable VAT. Shipping costs are added in the cart before payment: mainland Spain, free; Balearic Islands, Canary Islands, Ceuta and Melilla, €25; France, Italy, Germany and Portugal, €65. For other destinations, write to us before ordering.",
+          "Shipments to the Canary Islands, Ceuta and Melilla may involve local customs procedures and taxes."
+        ]
+      },
+      {
+        "titulo": "4. How to buy",
+        "parrafos": [
+          "Add the piece to the cart, enter your shipping details, accept these terms and choose a payment method. The purchase is confirmed when we receive payment; we will email you an order summary."
+        ]
+      },
+      {
+        "titulo": "5. Payment methods",
+        "parrafos": [
+          "Credit or debit card, through Stripe's secure payment gateway.",
+          "Bank transfer: the piece is reserved for 48 hours. If we do not receive payment within that time, the reservation is cancelled and the piece becomes available again."
+        ]
+      },
+      {
+        "titulo": "6. Availability",
+        "parrafos": [
+          "As every piece is unique, it can only be sold once. If, due to a technical error, a piece were sold twice, we will let you know and refund your order in full."
+        ]
+      },
+      {
+        "titulo": "7. Shipping and delivery",
+        "parrafos": [
+          "We prepare every piece with custom packaging and ship it with tracking and signature on delivery. Estimated times: mainland Spain, 24/48 business hours; France, Italy, Germany and Portugal, 3 to 5 business days; Balearic Islands, Canary Islands, Ceuta and Melilla, confirmed when we prepare your shipment.",
+          "If the parcel arrives damaged, let us know as soon as possible with photos: transport incidents are covered by the workshop."
+        ]
+      },
+      {
+        "titulo": "8. Right of withdrawal (returns)",
+        "parrafos": [
+          "You have 14 calendar days from receiving the piece to withdraw from the purchase without giving any reason. To do so, write to info@vetandlux.com with your order number.",
+          "You must return the piece in its original packaging and in the same condition in which you received it. Return shipping costs are paid by you.",
+          "We will refund the price of the piece and the original shipping costs within 14 days of being told of your decision, using the same payment method. We may wait until we receive the piece before making the refund."
+        ]
+      },
+      {
+        "titulo": "9. Custom orders",
+        "parrafos": [
+          "Pieces made to your specifications cannot be withdrawn from, because they are made specifically for you. Transport incidents are still covered."
+        ]
+      },
+      {
+        "titulo": "10. Warranty",
+        "parrafos": [
+          "All pieces carry the legal guarantee of conformity established by consumer law. Grain, knots and tone variations inherent to wood are not considered defects."
+        ]
+      },
+      {
+        "titulo": "11. Applicable law",
+        "parrafos": [
+          "These terms are governed by Spanish law. If you are a consumer, you may go to the courts of your place of residence."
+        ]
+      }
+    ]
   }
 }

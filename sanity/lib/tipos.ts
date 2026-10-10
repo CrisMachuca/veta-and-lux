@@ -26,7 +26,17 @@ export type ProductoSanity = {
   medidas?: { ancho?: number; largo?: number; alto?: number };
   cuidados?: Traducible;
   estado?: EstadoPieza;
+  tipo?: TipoLampara;
+  electrico?: {
+    casquillo?: string;
+    potenciaMax?: number;
+    bombillaIncluida?: boolean;
+    longitudCable?: number;
+    interruptor?: Traducible;
+  };
 };
+
+export type TipoLampara = "sobremesa" | "colgante" | "pie" | "aplique" | "otra";
 
 // Valor de un campo traducible en el idioma actual, con el español como respaldo
 export function traducir<T>(campo: Traducible<T> | undefined, locale: string): T | undefined {

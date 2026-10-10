@@ -17,7 +17,7 @@ export default async function ContactoPage() {
       {/* CABECERA DE CONTACTO */}
       <section className="px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/70 font-urbanist mb-4">
+          <p className="text-[11px] uppercase tracking-[0.5em] font-bold text-amber-900/90 font-urbanist mb-4">
             {t("tagline")}
           </p>
           <h1 className="text-5xl md:text-7xl font-nixie font-bold text-[#2a2623] tracking-tight mb-6">

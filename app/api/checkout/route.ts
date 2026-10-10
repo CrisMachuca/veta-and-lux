@@ -119,18 +119,24 @@ export async function POST(request: Request) {
       datosCliente,
       regionEnvio: regionRecibida = "peninsula",
       locale: localeRecibido = "es",
+      aceptaCondiciones,
     }: {
       lines: CartLine[];
       metodoPago: string;
       datosCliente: DatosCliente;
       regionEnvio?: string;
       locale?: string;
+      aceptaCondiciones?: boolean;
     } = await request.json();
 
     const locale = localeRecibido === "en" ? "en" : "es";
     const esIngles = locale === "en";
     // Mensajes que ve el cliente, en su idioma
     const msg = (es: string, en: string) => (esIngles ? en : es);
+
+    if (aceptaCondiciones !== true) {
+      return NextResponse.json({ error: msg("Debes aceptar las condiciones de venta y la política de privacidad", "You must accept the terms of sale and the privacy policy") }, { status: 400 });
+    }
 
     if (!Array.isArray(lines) || lines.length === 0) {
       return NextResponse.json({ error: msg("El carrito está vacío", "Your cart is empty") }, { status: 400 });

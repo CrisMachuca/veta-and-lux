@@ -63,3 +63,58 @@ function desactivarAnalytics() {
       });
     });
 }
+
+// --- Eventos de comercio electrónico de GA4 ---
+// gtag solo existe si el visitante ha aceptado las cookies de análisis: sin consentimiento no se envía nada.
+type Gtag = (comando: "event", nombre: string, parametros?: Record<string, unknown>) => void;
+
+export function enviarEvento(nombre: string, parametros: Record<string, unknown> = {}, intento = 0) {
+  if (typeof window === "undefined") return;
+  const gtag = (window as unknown as { gtag?: Gtag }).gtag;
+  if (typeof gtag === "function") {
+    gtag("event", nombre, parametros);
+    return;
+  }
+  // Con consentimiento pero con gtag aún cargando (p. ej. la confirmación de compra recién abierta): reintentar unos segundos
+  if (leerConsentimiento() === "aceptadas" && esDominioProduccion() && intento < 10) {
+    window.setTimeout(() => enviarEvento(nombre, parametros, intento + 1), 500);
+  }
+}
+
+export type ItemAnalytics = {
+  item_id: string;
+  item_name: string;
+  price: number;
+  quantity: number;
+  item_category?: string;
+  item_brand: "Veta & Lux";
+};
+
+export function itemAnalytics(id: string, nombre: string, precio: number, categoria?: string): ItemAnalytics {
+  return { item_id: id, item_name: nombre, price: precio, quantity: 1, item_brand: "Veta & Lux", ...(categoria ? { item_category: categoria } : {}) };
+}
+
+// Pedido con tarjeta en curso: se guarda antes de ir a Stripe para poder enviar `purchase` al volver.
+const CLAVE_PEDIDO = "vetalux-pedido-pendiente";
+const CLAVE_ENVIADOS = "vetalux-compras-medidas";
+
+export function guardarPedidoPendiente(pedido: { value: number; shipping: number; items: ItemAnalytics[] }) {
+  try { sessionStorage.setItem(CLAVE_PEDIDO, JSON.stringify(pedido)); } catch {}
+}
+
+export function leerPedidoPendiente(): { value: number; shipping: number; items: ItemAnalytics[] } | null {
+  try { return JSON.parse(sessionStorage.getItem(CLAVE_PEDIDO) || "null"); } catch { return null; }
+}
+
+// Evita duplicar una compra si se recarga o se vuelve a la página de confirmación
+export function marcarCompraMedida(transactionId: string) {
+  try {
+    const enviados: string[] = JSON.parse(localStorage.getItem(CLAVE_ENVIADOS) || "[]");
+    if (enviados.includes(transactionId)) return false;
+    localStorage.setItem(CLAVE_ENVIADOS, JSON.stringify([...enviados, transactionId].slice(-20)));
+    sessionStorage.removeItem(CLAVE_PEDIDO);
+    return true;
+  } catch {
+    return true;
+  }
+}

@@ -44,6 +44,36 @@ export const producto = defineType({
       ]
     },
 
+    // --- TIPO Y DATOS ELÉCTRICOS (se muestran en la ficha y se usan en el título para buscadores) ---
+    defineField({
+      name: 'tipo', title: 'Tipo de lámpara', type: 'string',
+      description: 'Se añade al título de la ficha en Google: «Nombre · Lámpara de sobremesa».',
+      options: {
+        list: [
+          { title: 'Sobremesa', value: 'sobremesa' },
+          { title: 'Colgante', value: 'colgante' },
+          { title: 'De pie', value: 'pie' },
+          { title: 'Aplique de pared', value: 'aplique' },
+          { title: 'Otra', value: 'otra' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    {
+      name: 'electrico', title: 'Datos eléctricos', type: 'object',
+      fields: [
+        { name: 'casquillo', title: 'Casquillo', type: 'string', description: 'Ej.: E27, E14' },
+        { name: 'potenciaMax', title: 'Potencia máxima recomendada (W)', type: 'number' },
+        { name: 'bombillaIncluida', title: '¿Incluye bombilla?', type: 'boolean' },
+        { name: 'longitudCable', title: 'Longitud del cable (m)', type: 'number' },
+        {
+          name: 'interruptor', title: 'Interruptor', type: 'object',
+          description: 'Ej.: «En el cable», «Regulador de intensidad»',
+          fields: [{ name: 'es', type: 'string', title: 'Español' }, { name: 'en', type: 'string', title: 'Inglés' }],
+        },
+      ],
+    },
+
     // --- CAMPOS ESTÁNDAR ---
     defineField({ name: 'destacado', type: 'boolean', initialValue: false }),
     defineField({ name: 'slug', type: 'slug', options: { source: 'nombre.es' }, validation: (Rule) => Rule.required() }),
