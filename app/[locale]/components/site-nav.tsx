@@ -38,6 +38,9 @@ export function SiteNav() {
           <Link href="/proceso" className="hover:text-stone-900 transition-colors">
             {t("proceso")}
           </Link>
+          <Link href="/sobre-el-taller" className="hover:text-stone-900 transition-colors">
+            {t("taller")}
+          </Link>
           <Link href="/contacto" className="hover:text-stone-900 transition-colors">
             {t("contacto")}
           </Link>
@@ -92,6 +95,9 @@ export function SiteNav() {
             </Link>
             <Link href="/proceso" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
               {t("proceso")}
+            </Link>
+            <Link href="/sobre-el-taller" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
+              {t("taller")}
             </Link>
             <Link href="/contacto" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
               {t("contacto")}

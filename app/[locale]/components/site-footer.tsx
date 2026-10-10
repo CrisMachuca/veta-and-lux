@@ -20,9 +20,9 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h4 className="text-stone-50 font-medium mb-4 uppercase text-xs tracking-widest">
+          <h2 className="text-stone-50 font-medium mb-4 uppercase text-xs tracking-widest">
             {t("nav.titulo")}
-          </h4>
+          </h2>
           <ul className="space-y-2 text-sm">
             <li><Link href="/" className="hover:text-stone-50 transition-colors">{t("nav.inicio")}</Link></li>
             <li><Link href="/coleccion" className="hover:text-stone-50 transition-colors">{t("nav.coleccion")}</Link></li>
@@ -35,9 +35,9 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h4 className="text-stone-50 font-medium mb-4 uppercase text-xs tracking-widest">
+          <h2 className="text-stone-50 font-medium mb-4 uppercase text-xs tracking-widest">
             {t("ayuda.titulo")}
-          </h4>
+          </h2>
           <ul className="space-y-2 text-sm">
             <li><Link href="/envios-devoluciones" className="hover:text-stone-50 transition-colors">{t("ayuda.envios")}</Link></li>
             <li><Link href="/condiciones-venta" className="hover:text-stone-50 transition-colors">{t("ayuda.condiciones")}</Link></li>
@@ -49,9 +49,9 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h4 className="text-stone-50 font-medium mb-4 uppercase text-xs tracking-widest">
+          <h2 className="text-stone-50 font-medium mb-4 uppercase text-xs tracking-widest">
             {t("contacto.titulo")}
-          </h4>
+          </h2>
           <p className="text-sm text-stone-400 mb-2">{t("contacto.ubicacion")}</p>
           <p className="text-sm text-stone-400">
             <Link href="/contacto" className="hover:text-stone-200 transition-colors underline decoration-stone-600 underline-offset-2">

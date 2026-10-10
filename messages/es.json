@@ -6,7 +6,8 @@
     "inicio": "Inicio",
     "coleccion": "Colección",
     "proceso": "Proceso",
-    "contacto": "Contacto"
+    "contacto": "Contacto",
+    "taller": "El taller"
   },
   "Inicio": {
     "Hero": {
@@ -49,7 +50,7 @@
     "Encargos": {
       "titulo": "¿Buscas un proyecto a medida o asesoramiento técnico?",
       "texto": "Trabajamos mano a mano con interioristas, arquitectos y coleccionistas privados para concebir piezas exclusivas adaptadas a espacios singulares.",
-      "botonContacto": "Contactar con el Atelier"
+      "botonContacto": "Ver encargos a medida"
     }
   },
   "Proceso": {
@@ -188,14 +189,20 @@
     "mensajeLabel": "Mensaje",
     "mensajePlaceholder": "Cuéntanos qué pieza te interesa, plazos o cualquier duda…",
     "pieInfo": {
-      "email": "Al enviar se abrirá tu aplicación de correo con el mensaje preparado.",
+      "email": "Te responderemos por email lo antes posible.",
       "whatsapp": "Al enviar se abrirá tu chat de WhatsApp con el texto estructurado listo para mandar.",
       "directo": "Si prefieres escribir de forma directa, nuestro correo es"
     },
     "botonSubmit": {
-      "email": "Enviar por Email",
+      "email": "Enviar mensaje",
       "whatsapp": "Abrir chat de WhatsApp"
-    }
+    },
+    "estado": {
+      "enviando": "Enviando…",
+      "enviado": "Mensaje enviado. Gracias, te responderemos pronto.",
+      "error": "No se ha podido enviar el mensaje. Inténtalo de nuevo o escríbenos a info@vetandlux.com."
+    },
+    "privacidad": "Usaremos tus datos solo para responder a tu consulta. Más información en la <enlace>política de privacidad</enlace>."
   },
   "Footer": {
     "descripcion": "Artesanía en iluminación con madera recuperada. Cada pieza es única, sostenible y hecha a mano.",
@@ -648,5 +655,15 @@
     },
     "galeriaTitulo": "El taller por dentro",
     "altGaleria": "El taller de Veta & Lux"
+  },
+  "NoEncontrada": {
+    "etiqueta": "Error 404",
+    "titulo": "No encontramos esta página",
+    "texto": "Puede que la pieza ya no esté publicada o que el enlace haya cambiado. Te dejamos algunos caminos para seguir.",
+    "inicio": "Volver al inicio",
+    "coleccion": "Ver la colección",
+    "aMedida": "Lámparas a medida",
+    "taller": "Sobre el taller",
+    "contacto": "Contacto"
   }
 }

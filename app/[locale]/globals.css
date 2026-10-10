@@ -83,3 +83,18 @@ body {
     font-family: var(--font-urbanist);
   }
 }
+/* Aparición al entrar en pantalla (componente FadeIn). Solo se oculta si hay JavaScript,
+   así el contenido nunca queda invisible; sin animación con «reducir movimiento». */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translate(var(--reveal-desplazamiento, 0px, 0px)) scale(var(--reveal-escala, 1));
+  }
+  .reveal.reveal-visible {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--reveal-duracion, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-retraso, 0s),
+      transform var(--reveal-duracion, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-retraso, 0s);
+  }
+}

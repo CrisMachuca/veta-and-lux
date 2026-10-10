@@ -148,7 +148,7 @@ export default async function Page() {
           {[1, 2, 3].map((i) => (
             <FadeIn key={i} direction="up" delay={0.3 * i} duration={1}>
               <div className="space-y-4 border-l-2 border-amber-900/10 pl-6 h-full flex flex-col justify-center">
-                <h4 className="font-nixie text-lg text-[#3a3530] font-medium">{t(`Garantias.g${i}Titulo`)}</h4>
+                <h3 className="font-nixie text-lg text-[#3a3530] font-medium">{t(`Garantias.g${i}Titulo`)}</h3>
                 <p className="text-[#6b645d] text-sm font-light leading-relaxed font-urbanist">{t(`Garantias.g${i}Texto`)}</p>
               </div>
             </FadeIn>
@@ -214,7 +214,7 @@ export default async function Page() {
               {t("Encargos.texto")}
             </p>
             <div className="pt-4">
-              <Link href="/contacto" className="inline-block text-[#3a3530] border-b border-[#3a3530] pb-1 uppercase tracking-[0.2em] text-[10px] font-bold font-urbanist hover:text-amber-900 hover:border-amber-900 transition-all">
+              <Link href="/lamparas-a-medida" className="inline-block text-[#3a3530] border-b border-[#3a3530] pb-1 uppercase tracking-[0.2em] text-[10px] font-bold font-urbanist hover:text-amber-900 hover:border-amber-900 transition-all">
                 {t("Encargos.botonContacto")}
               </Link>
             </div>

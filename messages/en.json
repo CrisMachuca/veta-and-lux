@@ -6,7 +6,8 @@
     "inicio": "Home",
     "coleccion": "Collection",
     "proceso": "Process",
-    "contacto": "Contact"
+    "contacto": "Contact",
+    "taller": "About"
   },
   "Inicio": {
     "Hero": {
@@ -49,7 +50,7 @@
     "Encargos": {
       "titulo": "Looking for a bespoke project or technical advice?",
       "texto": "We work hand in hand with interior designers, architects, and private collectors to conceive exclusive pieces adapted to singular spaces.",
-      "botonContacto": "Contact the Atelier"
+      "botonContacto": "See custom lamps"
     }
   },
   "Proceso": {
@@ -188,14 +189,20 @@
     "mensajeLabel": "Message",
     "mensajePlaceholder": "Tell us about the piece you're interested in, deadlines, or any questions...",
     "pieInfo": {
-      "email": "Sending will open your email app with the message ready.",
+      "email": "We will reply by email as soon as possible.",
       "whatsapp": "Sending will open your WhatsApp chat with the structured text ready to send.",
       "directo": "If you prefer to write directly, our email is"
     },
     "botonSubmit": {
-      "email": "Send by Email",
+      "email": "Send message",
       "whatsapp": "Open WhatsApp chat"
-    }
+    },
+    "estado": {
+      "enviando": "Sending…",
+      "enviado": "Message sent. Thank you, we will reply soon.",
+      "error": "The message could not be sent. Please try again or write to info@vetandlux.com."
+    },
+    "privacidad": "We will only use your details to reply to your enquiry. More information in our <enlace>privacy policy</enlace>."
   },
   "Footer": {
     "descripcion": "Handcrafted lighting with reclaimed wood. Each piece is unique, sustainable, and handmade.",
@@ -648,5 +655,15 @@
     },
     "galeriaTitulo": "Inside the workshop",
     "altGaleria": "The Veta & Lux workshop"
+  },
+  "NoEncontrada": {
+    "etiqueta": "Error 404",
+    "titulo": "We couldn't find this page",
+    "texto": "The piece may no longer be listed or the link may have changed. Here are a few ways to carry on.",
+    "inicio": "Back to home",
+    "coleccion": "View the collection",
+    "aMedida": "Custom lamps",
+    "taller": "About us",
+    "contacto": "Contact"
   }
 }
