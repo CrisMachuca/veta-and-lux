@@ -11,7 +11,9 @@ import { etiquetaTipo, nombreProducto } from "@/app/[locale]/lib/producto-seo";
 import { enviarEvento, itemAnalytics } from "@/app/[locale]/lib/analytics";
 import Image from "next/image";
 
-export function ProductGallery({ productos, isHome = false, listName = "coleccion" }: { productos: ProductoSanity[], isHome?: boolean, listName?: string }) {
+// «prioridad»: solo cuando la galería está arriba de la página (colección). En la portada queda bajo el hero
+// y en la ficha va al final: allí se cargan al acercarse, sin competir con la foto principal.
+export function ProductGallery({ productos, isHome = false, listName = "coleccion", prioridad = false }: { productos: ProductoSanity[], isHome?: boolean, listName?: string, prioridad?: boolean }) {
   const { addItem, lines } = useCart();
   const t = useTranslations("Gallery");
   const locale = useLocale();
@@ -75,10 +77,9 @@ export function ProductGallery({ productos, isHome = false, listName = "coleccio
                     src={sanityImageUrl}
                     alt={nombre}
                     fill
-                    sizes="(max-width: 768px) 75vw, (max-width: 1200px) 33vw, 400px"
+                    sizes={isHome ? "(max-width: 768px) 75vw, (max-width: 1200px) 33vw, 400px" : "(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 400px"}
                     className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    loading={index < 3 ? "eager" : "lazy"}
-                    priority={index === 0}
+                    loading={prioridad && index < 3 ? "eager" : "lazy"}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-stone-500 text-[10px] md:text-xs">{t("sin_imagen")}</div>

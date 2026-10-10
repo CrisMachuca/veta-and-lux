@@ -94,7 +94,35 @@
     "titulo": "Handcrafted wooden lamps",
     "descripcion": "Table and pendant lamps carved by hand from reclaimed wood. Every piece is unique: once it is sold, it is gone. If you like a style that has already sold, we can make a similar one to order.",
     "botonVolver": "← Back to home",
-    "srObras": "Available pieces"
+    "srObras": "Pieces in the collection",
+    "filtro": {
+      "aria": "Which pieces to show",
+      "todas": "All ({n})",
+      "disponibles": "Available ({n})"
+    },
+    "faq": {
+      "titulo": "Frequently asked questions",
+      "p1": {
+        "pregunta": "How much is shipping and how long does it take?",
+        "respuesta": "Shipping to mainland Spain is free and takes 1–2 working days. To the Balearic and Canary Islands, Ceuta and Melilla it costs €25, and we confirm the delivery time when we prepare it. To France, Italy, Germany and Portugal it costs €65 and takes 3–5 working days. For other destinations, <contacto>get in touch</contacto> before ordering."
+      },
+      "p2": {
+        "pregunta": "Can I return a lamp?",
+        "respuesta": "Yes. You have 14 calendar days from delivery. It must come back in its original packaging and in the same condition. Return shipping is at your expense, and we refund the price and the original shipping cost. Made-to-order pieces cannot be returned. Full details in <envios>shipping and returns</envios>."
+      },
+      "p3": {
+        "pregunta": "How can I pay?",
+        "respuesta": "By credit or debit card, or by bank transfer. If you choose bank transfer, the piece is reserved for 48 hours while we wait for payment. If it does not arrive in that time, the piece becomes available again."
+      },
+      "p4": {
+        "pregunta": "How does such a delicate piece travel?",
+        "respuesta": "We pack it by hand in the workshop, in a box made to fit it, and ship it with tracking and signature on delivery."
+      },
+      "p5": {
+        "pregunta": "I like a piece that has already sold. Can you make another?",
+        "respuesta": "Every piece is unique and never repeated, because no two pieces of wood are alike. But we can make you a similar one, choosing the wood, size and shade or bulb with you. See how <medida>made-to-order lamps</medida> work."
+      }
+    }
   },
   "FichaProducto": {
     "botonVolver": "← Back to collection",

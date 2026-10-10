@@ -73,6 +73,13 @@ function MagnifierImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+// Foto principal de la ficha: 4:5, en varios anchos para que cada pantalla descargue solo lo que necesita
+const ANCHOS_FOTO = [480, 720, 960, 1200];
+const urlFoto = (img: ImagenSanity, ancho: number) =>
+  urlFor(img).width(ancho).height(Math.round(ancho * 1.25)).fit("crop").auto("format").url();
+// Columna de la galería: ancho de pantalla menos márgenes en móvil; media rejilla (máx. 528 px) en escritorio
+const SIZES_FOTO = "(min-width: 1152px) 528px, (min-width: 1024px) calc(50vw - 48px), calc(100vw - 48px)";
+
 // --- Componente Principal ---
 export function ProductDetailClient({ producto }: { producto: ProductoSanity }) {
   const { addItem } = useCart();
@@ -151,7 +158,7 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
 
           <div className="lg:sticky lg:top-24">
             <button onClick={() => selectedImage?.asset && setOpenImage(urlFor(selectedImage).width(2000).auto("format").url())} className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80">
-              {selectedImage?.asset ? <img src={urlFor(selectedImage).width(1200).height(1500).fit("crop").auto("format").url()} alt={nombreTraducido} fetchPriority="high" loading="eager" decoding="async" className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-500 text-sm">{t("sinImagen")}</div>}
+              {selectedImage?.asset ? <img src={urlFoto(selectedImage, 1200)} srcSet={ANCHOS_FOTO.map((w) => `${urlFoto(selectedImage, w)} ${w}w`).join(", ")} sizes={SIZES_FOTO} alt={nombreTraducido} fetchPriority="high" loading="eager" decoding="async" className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-500 text-sm">{t("sinImagen")}</div>}
             </button>
             {(producto.imagenes?.length ?? 0) > 0 && (
               <div className="grid grid-cols-3 gap-4 mt-4">

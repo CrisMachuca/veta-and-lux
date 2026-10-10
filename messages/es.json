@@ -94,7 +94,35 @@
     "titulo": "Lámparas de madera artesanales",
     "descripcion": "Lámparas de mesa y colgantes talladas a mano a partir de maderas recuperadas. Cada pieza es única: cuando se vende, no vuelve. Si te gusta un estilo ya vendido, podemos hacer una parecida a medida.",
     "botonVolver": "← Volver al inicio",
-    "srObras": "Piezas disponibles"
+    "srObras": "Piezas de la colección",
+    "filtro": {
+      "aria": "Qué piezas mostrar",
+      "todas": "Todas ({n})",
+      "disponibles": "Disponibles ({n})"
+    },
+    "faq": {
+      "titulo": "Preguntas frecuentes",
+      "p1": {
+        "pregunta": "¿Cuánto cuesta el envío y cuánto tarda?",
+        "respuesta": "A España peninsular el envío es gratis y llega en 24/48 horas laborables. A Baleares, Canarias, Ceuta y Melilla cuesta 25 € y te confirmamos el plazo al prepararlo. A Francia, Italia, Alemania y Portugal cuesta 65 € y tarda de 3 a 5 días laborables. Para otros destinos, <contacto>escríbenos</contacto> antes de comprar."
+      },
+      "p2": {
+        "pregunta": "¿Puedo devolver una lámpara?",
+        "respuesta": "Sí. Tienes 14 días naturales desde que la recibes. Tiene que volver en su embalaje original y en el mismo estado. El envío de vuelta corre de tu cuenta y te reembolsamos el precio y el envío inicial. Las piezas hechas por encargo no admiten devolución. Tienes todos los detalles en <envios>envíos y devoluciones</envios>."
+      },
+      "p3": {
+        "pregunta": "¿Cómo puedo pagar?",
+        "respuesta": "Con tarjeta de crédito o débito, o por transferencia bancaria. Si eliges transferencia, la pieza queda reservada 48 horas a la espera del pago. Si no llega en ese plazo, vuelve a estar disponible."
+      },
+      "p4": {
+        "pregunta": "¿Cómo viaja una pieza tan delicada?",
+        "respuesta": "La embalamos a mano en el taller, en una caja hecha a su medida, y la enviamos con seguimiento y entrega bajo firma."
+      },
+      "p5": {
+        "pregunta": "Me gusta una pieza que ya está vendida. ¿Podéis hacer otra?",
+        "respuesta": "Cada pieza es única y no se repite, porque no hay dos maderas iguales. Pero podemos hacerte una parecida, eligiendo contigo la madera, las medidas y la pantalla o la bombilla. Mira cómo funcionan los <medida>encargos a medida</medida>."
+      }
+    }
   },
   "FichaProducto": {
     "botonVolver": "← Volver a colección",

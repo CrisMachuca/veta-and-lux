@@ -51,7 +51,6 @@ export default async function Page() {
               alt="Lámpara escultórica Veta & Lux"
               fill
               sizes="(max-width: 1023px) 100vw, 33vw"
-              priority={true}
               loading="eager"
               fetchPriority="high"
               className="object-cover"
@@ -67,7 +66,7 @@ export default async function Page() {
               alt="Detalle de escultura de olivo Veta & Lux"
               fill
               sizes="(max-width: 1023px) 100vw, 33vw"
-              priority={false}
+              fetchPriority="low"
               className="object-cover"
             />
           </div>

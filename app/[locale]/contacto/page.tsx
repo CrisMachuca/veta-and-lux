@@ -31,7 +31,7 @@ export default async function ContactoPage() {
               href="/"
               className="border-b border-[#a69680] pb-1 hover:text-[#3a3530] hover:border-[#3a3530] transition-colors uppercase tracking-[0.2em] text-[10px]"
             >
-              ← {t("botonVolver")}
+              {t("botonVolver")}
             </Link>
           </p>
         </div>
