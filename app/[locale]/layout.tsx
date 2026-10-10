@@ -3,26 +3,10 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { notFound } from "next/navigation";
 import { Providers } from "@/app/[locale]/components/providers";
 import { ConsentimientoCookies } from "@/app/[locale]/components/consentimiento-cookies";
-import { Nixie_One, Urbanist } from "next/font/google";
 import type { Metadata } from "next";
 import { IMAGEN_OG_POR_DEFECTO, SITE_URL, ogLocale } from "@/app/[locale]/lib/seo";
+import { CLASES_FUENTES } from "@/app/[locale]/lib/fuentes";
 import "./globals.css";
-
-// Configuramos las fuentes nativas de Next.js para eliminar los bloqueos de Google Fonts
-const nixieOne = Nixie_One({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-nixie-one",
-  display: "swap",
-});
-
-const urbanist = Urbanist({
-  subsets: ["latin"],
-  weight: ["300", "400", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-urbanist-sans",
-  display: "swap",
-});
 
 // Valores por defecto para todas las páginas; cada página define su título y descripción.
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -72,7 +56,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <div className={`${nixieOne.variable} ${urbanist.variable} font-sans antialiased min-h-full flex flex-col`}>
+        <div className={`${CLASES_FUENTES} font-sans antialiased min-h-full flex flex-col`}>
           <NextIntlClientProvider messages={messages} locale={locale}>
             <Providers>
               {children}

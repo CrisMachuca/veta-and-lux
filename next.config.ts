@@ -5,6 +5,10 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // 404 con HTML completo para las URL que no existen (app/global-not-found.tsx)
+  experimental: {
+    globalNotFound: true,
+  },
   // Fotos de Sanity servidas por next/image (galería): solo las de nuestro proyecto.
   // Sin "search" porque las URLs de Sanity llevan parámetros (?w=, rect=...).
   images: {
