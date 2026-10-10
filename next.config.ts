@@ -9,6 +9,17 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/h7lwi6jz/**" }],
   },
+  // Un solo dominio: vetandlux.com (sin www) redirige con 301 a www.vetandlux.com, conservando ruta y parámetros.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "vetandlux.com" }],
+        destination: "https://www.vetandlux.com/:path*",
+        statusCode: 301,
+      },
+    ];
+  },
   async headers() {
     return [
       {
