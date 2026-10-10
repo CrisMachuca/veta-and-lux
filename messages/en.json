@@ -206,7 +206,8 @@
       "proceso": "Process",
       "contacto": "Contact",
       "carrito": "Cart",
-      "medida": "Custom lamps"
+      "medida": "Custom lamps",
+      "taller": "About us"
     },
     "ayuda": {
       "titulo": "Help",
@@ -414,6 +415,10 @@
     "condiciones": {
       "titulo": "Terms of sale",
       "descripcion": "Prices, shipping, payments, returns and warranty for purchases at Veta & Lux."
+    },
+    "taller": {
+      "titulo": "About the workshop: Cristina and Rafa",
+      "descripcion": "We are Cristina and Rafa, two friends handcrafting reclaimed wood lamps in Malaga. This is how Veta & Lux began and how we work."
     }
   },
   "CookiesBanner": {
@@ -597,5 +602,51 @@
         ]
       }
     ]
+  },
+  "Taller": {
+    "tagline": "The workshop",
+    "titulo": "We are Cristina and Rafa",
+    "intro": "Veta & Lux began with two friends who discovered they shared the same passions: craftsmanship, wood, DIY and respect for nature.",
+    "historiaTitulo": "How it started",
+    "historia": [
+      "When we made our first wooden lamps, we realised we could give pride of place to something that was being lost. The result amazed us, and we wanted to share it with the world.",
+      "We also saw that it was nothing like what you find in shops, where almost everything is mass-produced and feels impersonal. This was different and original, and above all, we loved making it."
+    ],
+    "personasTitulo": "Who we are",
+    "personas": [
+      {
+        "nombre": "Cristina",
+        "rol": "Co-founder",
+        "texto": "Web developer with a passion for nature and woodworking. She set up her own workshop at home and decided to devote herself fully to Veta & Lux to help build a more sustainable world."
+      },
+      {
+        "nombre": "Rafa",
+        "rol": "Co-founder",
+        "texto": "Forest firefighter. His work has given him a deep respect for nature, and he has found some of the wood we use after his firefighting work."
+      }
+    ],
+    "manosTitulo": "Everything goes through our hands",
+    "manosTexto": "We look for the wood, work it, finish it, assemble each lamp and prepare its packaging. We put the utmost care and detail into every piece, as if it were for ourselves.",
+    "etapas": [
+      "Finding the wood",
+      "Finishing",
+      "Assembly",
+      "Packaging"
+    ],
+    "altTaller": "Reclaimed wood log on the workshop bench",
+    "altCurado": "Wood during the curing process in the workshop",
+    "altLampara": "Finished Veta & Lux lamp on a bedside table",
+    "ubicacionTitulo": "Where we are",
+    "ubicacionTexto": "Our workshop is in Malaga, Spain. If you would like to visit and see the pieces available, you can come by appointment.",
+    "ctaContacto": "Book a visit",
+    "ctaColeccion": "View the collection",
+    "ctaMedida": "Commission a custom lamp",
+    "ctaProceso": "How we work the wood",
+    "altPersonas": {
+      "Cristina": "Cristina out in nature",
+      "Rafa": "Rafa at work as a forest firefighter"
+    },
+    "galeriaTitulo": "Inside the workshop",
+    "altGaleria": "The Veta & Lux workshop"
   }
 }

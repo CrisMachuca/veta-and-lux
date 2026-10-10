@@ -206,7 +206,8 @@
       "proceso": "Proceso",
       "contacto": "Contacto",
       "carrito": "Carrito",
-      "medida": "A medida"
+      "medida": "A medida",
+      "taller": "Sobre el taller"
     },
     "ayuda": {
       "titulo": "Ayuda",
@@ -414,6 +415,10 @@
     "condiciones": {
       "titulo": "Condiciones de venta",
       "descripcion": "Precios, envíos, pagos, devoluciones y garantía de las compras en Veta & Lux."
+    },
+    "taller": {
+      "titulo": "Sobre el taller: Cristina y Rafa",
+      "descripcion": "Somos Cristina y Rafa, dos amigos que hacen a mano en Málaga lámparas de madera recuperada. Así empezó Veta & Lux y así trabajamos."
     }
   },
   "CookiesBanner": {
@@ -597,5 +602,51 @@
         ]
       }
     ]
+  },
+  "Taller": {
+    "tagline": "El taller",
+    "titulo": "Somos Cristina y Rafa",
+    "intro": "Veta & Lux empezó con dos amigos que descubrieron que compartían las mismas pasiones: la artesanía, la madera, el bricolaje y el respeto por la naturaleza.",
+    "historiaTitulo": "Cómo empezó",
+    "historia": [
+      "Al hacer nuestras primeras lámparas de madera nos dimos cuenta de que podíamos darle protagonismo a algo que se estaba perdiendo. El resultado nos impactó, y quisimos compartirlo con el mundo.",
+      "También vimos que no se parecía en nada a lo que se encuentra en las tiendas, donde casi todo se fabrica en serie y resulta impersonal. Esto era distinto, original y, sobre todo, disfrutábamos haciéndolo."
+    ],
+    "personasTitulo": "Quiénes somos",
+    "personas": [
+      {
+        "nombre": "Cristina",
+        "rol": "Cofundadora",
+        "texto": "Desarrolladora web, apasionada de la naturaleza y de la carpintería. Montó su propio taller en casa y decidió dedicarse de lleno a Veta & Lux para contribuir a un mundo más sostenible."
+      },
+      {
+        "nombre": "Rafa",
+        "rol": "Cofundador",
+        "texto": "Bombero forestal. Su trabajo le ha dado un profundo respeto por la naturaleza, y algunas de las maderas que usamos las ha encontrado tras sus labores de extinción de incendios."
+      }
+    ],
+    "manosTitulo": "Todo pasa por nuestras manos",
+    "manosTexto": "Buscamos la madera, la trabajamos, hacemos el acabado, montamos cada lámpara y preparamos su embalaje. Ponemos el máximo cariño y detalle en cada pieza, como si fuera para nosotros.",
+    "etapas": [
+      "La búsqueda de la madera",
+      "El acabado",
+      "El montaje",
+      "El embalaje"
+    ],
+    "altTaller": "Tronco de madera recuperada sobre el banco de trabajo del taller",
+    "altCurado": "Madera durante el proceso de curado en el taller",
+    "altLampara": "Lámpara de Veta & Lux terminada, sobre una mesilla de noche",
+    "ubicacionTitulo": "Dónde estamos",
+    "ubicacionTexto": "Nuestro taller está en Málaga. Si quieres conocerlo y ver las piezas disponibles, puedes visitarnos con cita previa.",
+    "ctaContacto": "Pedir cita",
+    "ctaColeccion": "Ver la colección",
+    "ctaMedida": "Encargar una lámpara a medida",
+    "ctaProceso": "Cómo trabajamos la madera",
+    "altPersonas": {
+      "Cristina": "Cristina en plena naturaleza",
+      "Rafa": "Rafa durante su trabajo como bombero forestal"
+    },
+    "galeriaTitulo": "El taller por dentro",
+    "altGaleria": "El taller de Veta & Lux"
   }
 }

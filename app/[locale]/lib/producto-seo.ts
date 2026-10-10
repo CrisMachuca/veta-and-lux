@@ -124,6 +124,10 @@ export function organizacionJsonLd() {
     logo: `${SITE_URL}/web-app-manifest-512x512.png`,
     email: "info@vetandlux.com",
     address: { "@type": "PostalAddress", addressLocality: "Málaga", addressCountry: "ES" },
+    founder: [
+      { "@type": "Person", name: "Cristina" },
+      { "@type": "Person", name: "Rafa" },
+    ],
     hasMerchantReturnPolicy: POLITICA_DEVOLUCIONES,
   };
 }

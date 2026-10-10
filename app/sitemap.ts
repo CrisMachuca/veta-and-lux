@@ -20,7 +20,7 @@ function entradas(
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 1. Rutas estáticas principales
-  const rutasEstaticas = ["", "/coleccion", "/lamparas-a-medida", "/proceso", "/contacto"];
+  const rutasEstaticas = ["", "/coleccion", "/lamparas-a-medida", "/sobre-el-taller", "/proceso", "/contacto"];
 
   // 2. Rutas de ayuda / legales (del footer)
   const rutasLegales = [
