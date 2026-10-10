@@ -1,33 +1,30 @@
 'use client'
-
+import {esESLocale} from '@sanity/locale-es-es'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
-
 import {apiVersion, dataset, projectId} from './sanity/env'
 import {schema} from './sanity/schemaTypes'
 import {structure} from './sanity/structure'
-
-// IMPORTAMOS LA ACCIÓN QUE CREAMOS
-import { TranslateAction } from './actions/translateAction'
+import {RetranslateAction, TranslateAction} from './actions/translateAction'
 
 export default defineConfig({
   basePath: '/studio',
+  title: 'Veta & Lux',
   projectId,
   dataset,
   schema,
   plugins: [
-    structureTool({structure}),
+    structureTool({structure, title: 'Lámparas'}),
     visionTool({defaultApiVersion: apiVersion}),
+    // Studio en español
+    esESLocale(),
   ],
-  // AÑADIMOS ESTO PARA EL BOTÓN
   document: {
-    actions: (prev, context) => {
-      // Solo añadimos el botón si el documento es de tipo 'producto'
-      if (context.schemaType === 'producto') {
-        return [...prev, TranslateAction]
-      }
-      return prev
-    },
+    // «Traducir al inglés» queda la primera del menú ⋯ junto a «Publicar»; «Rehacer traducción», la última
+    actions: (prev, context) =>
+      context.schemaType === 'producto'
+        ? [prev[0], TranslateAction, ...prev.slice(1), RetranslateAction]
+        : prev,
   },
 })
