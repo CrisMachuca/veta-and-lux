@@ -27,8 +27,10 @@ export function SiteFooter() {
             <li><Link href="/" className="hover:text-stone-50 transition-colors">{t("nav.inicio")}</Link></li>
             <li><Link href="/coleccion" className="hover:text-stone-50 transition-colors">{t("nav.coleccion")}</Link></li>
             <li><Link href="/proceso" className="hover:text-stone-50 transition-colors">{t("nav.proceso")}</Link></li>
+            <li><Link href="/materiales-y-procedencia" className="hover:text-stone-50 transition-colors">{t("nav.materiales")}</Link></li>
             <li><Link href="/lamparas-a-medida" className="hover:text-stone-50 transition-colors">{t("nav.medida")}</Link></li>
             <li><Link href="/sobre-el-taller" className="hover:text-stone-50 transition-colors">{t("nav.taller")}</Link></li>
+            <li><Link href="/interioristas" className="hover:text-stone-50 transition-colors">{t("nav.interioristas")}</Link></li>
             <li><Link href="/contacto" className="hover:text-stone-50 transition-colors">{t("nav.contacto")}</Link></li>
             <li><Link href="/carrito" className="hover:text-stone-50 transition-colors">{t("nav.carrito")}</Link></li>
           </ul>

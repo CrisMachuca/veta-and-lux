@@ -7,7 +7,8 @@
     "coleccion": "Colección",
     "proceso": "Proceso",
     "contacto": "Contacto",
-    "taller": "El taller"
+    "taller": "El taller",
+    "interioristas": "Interioristas"
   },
   "Inicio": {
     "Hero": {
@@ -137,7 +138,8 @@
     "certificadoTitulo": "Certificado de autenticidad",
     "certificadoTexto": "Cada pieza es única y se entrega numerada, con un certificado de autenticidad firmado por quienes la han hecho.",
     "certificadoNumero": "Número de esta pieza: {numero}.",
-    "terminada": "Terminada en {fecha}."
+    "terminada": "Terminada en {fecha}.",
+    "verMateriales": "Todas las procedencias de nuestra madera"
   },
   "DetalleCliente": {
     "base": "Base",
@@ -251,7 +253,10 @@
       "contacto": "Contacto",
       "carrito": "Carrito",
       "medida": "A medida",
-      "taller": "Sobre el taller"
+      "taller": "Sobre el taller",
+      "materiales": "Materiales y procedencia",
+      "interioristas": "Para interioristas",
+      "journal": "Journal"
     },
     "ayuda": {
       "titulo": "Ayuda",
@@ -464,6 +469,18 @@
     "taller": {
       "titulo": "Sobre el taller: Cristina y Rafa",
       "descripcion": "Somos Cristina y Rafa, dos amigos que hacen a mano en Málaga lámparas de madera recuperada. Así empezó Veta & Lux y así trabajamos."
+    },
+    "materiales": {
+      "titulo": "Materiales y procedencia de la madera",
+      "descripcion": "De dónde viene la madera de nuestras lámparas: árboles caídos, ríos y arroyos, incendios, viviendas en ruinas y poda controlada. Tratada y secada en nuestro taller de Málaga."
+    },
+    "interioristas": {
+      "titulo": "Lámparas de madera para interioristas y proyectos",
+      "descripcion": "Lámparas únicas de madera recuperada para proyectos de interiorismo: tamaño, pantalla, casquillo y cable a medida, fabricadas en semanas en Málaga."
+    },
+    "journal": {
+      "titulo": "Journal: guías de madera e iluminación",
+      "descripcion": "Guías y relatos del taller de Veta & Lux: maderas recuperadas, cuidados y cómo elegir una lámpara de madera."
     }
   },
   "CookiesBanner": {
@@ -506,7 +523,16 @@
     "ctaWhatsapp": "Escribir por WhatsApp",
     "ctaEmail": "Enviar un email",
     "ctaProceso": "Ver cómo trabajamos la madera",
-    "whatsappMensaje": "¡Hola! Me gustaría encargar una lámpara de madera a medida."
+    "whatsappMensaje": "¡Hola! Me gustaría encargar una lámpara de madera a medida.",
+    "personalizarTitulo": "Qué se puede personalizar",
+    "personalizar": [
+      "El tamaño de la pieza",
+      "La pantalla",
+      "El color del casquillo y de la tija",
+      "El tipo de cable"
+    ],
+    "plazoTexto": "Plazo de fabricación: semanas. La madera lleva meses tratada y secándose en nuestro almacén, lista para trabajar.",
+    "interioristasEnlace": "Información para interioristas"
   },
   "Legal": {
     "borrador": "Borrador pendiente de revisión legal. Este texto será definitivo cuando lo revise una asesoría.",
@@ -703,5 +729,146 @@
     "aMedida": "Lámparas a medida",
     "taller": "Sobre el taller",
     "contacto": "Contacto"
+  },
+  "Materiales": {
+    "tagline": "Materiales y procedencia",
+    "titulo": "De dónde viene nuestra madera",
+    "respuesta": "Toda la madera de Veta & Lux es recuperada: no talamos árboles para hacer lámparas. La encontramos caída en el bosque, en desembocaduras de ríos y arroyos, en zonas quemadas por incendios y en viviendas en ruinas, o la compramos como leña de poda controlada. Antes de trabajarla, la tratamos contra insectos y la secamos en nuestro almacén hasta que alcanza la humedad adecuada.",
+    "procedenciasTitulo": "Cinco procedencias",
+    "procedencias": [
+      {
+        "titulo": "Árboles caídos en el bosque",
+        "texto": "Troncos y ramas de árboles que han caído por sí solos. Recogemos la madera que el bosque ya ha soltado, con la forma que le dio el árbol."
+      },
+      {
+        "titulo": "Desembocaduras de ríos y arroyos",
+        "texto": "Maderas que el agua ha arrastrado hasta la desembocadura. La corriente y la arena las pulen y redondean con los años."
+      },
+      {
+        "titulo": "Incendios forestales",
+        "texto": "Madera de árboles afectados por incendios. Rafa es bombero forestal y ha encontrado muchas de estas piezas después de un incendio."
+      },
+      {
+        "titulo": "Viviendas en ruinas",
+        "texto": "Vigas caídas y abandonadas en casas en ruinas. Maderas que un día sostuvieron una casa."
+      },
+      {
+        "titulo": "Leña de poda controlada",
+        "texto": "Compramos leña de podas controladas y elegimos a mano las piezas con más carácter, que de otro modo acabarían en una chimenea."
+      }
+    ],
+    "preparacionTitulo": "Cómo la preparamos",
+    "pasos": [
+      {
+        "titulo": "Selección",
+        "texto": "Elegimos cada pieza por su forma, su veta y su estado. Si la madera no es apta para durar, no la usamos."
+      },
+      {
+        "titulo": "Tratamiento contra insectos",
+        "texto": "Aplicamos productos contra la carcoma y otros insectos, de forma preventiva y, cuando hace falta, curativa."
+      },
+      {
+        "titulo": "Secado",
+        "texto": "La madera reposa en nuestro almacén hasta alcanzar el grado de humedad adecuado. Puede tardar meses: por eso siempre tenemos madera seca y tratada lista para trabajar."
+      },
+      {
+        "titulo": "Saneado y acabado",
+        "texto": "Retiramos a mano las partes debilitadas y aplicamos el acabado, respetando las texturas y las grietas estables que dan carácter a la pieza."
+      }
+    ],
+    "maderasTitulo": "Maderas con las que trabajamos",
+    "maderasTexto": "Olivo, eucalipto, castaño, roble, nogal y pino. Cada ficha indica la madera de la pieza y, cuando lo conocemos, su origen.",
+    "faqTitulo": "Preguntas frecuentes",
+    "faq": [
+      {
+        "pregunta": "¿Talan árboles para hacer las lámparas?",
+        "respuesta": "No. Trabajamos solo con madera recuperada: árboles caídos, maderas arrastradas por ríos y arroyos, madera de incendios, vigas de casas en ruinas y leña de poda controlada."
+      },
+      {
+        "pregunta": "¿Es duradera una lámpara de madera recuperada?",
+        "respuesta": "Sí, si la madera está sana, tratada y seca. Cada pieza recibe un tratamiento contra insectos, se seca en nuestro almacén hasta la humedad adecuada y retiramos a mano las partes debilitadas antes de convertirla en lámpara."
+      },
+      {
+        "pregunta": "¿Puede tener carcoma?",
+        "respuesta": "Tratamos la madera con productos contra la carcoma y otros insectos, de forma preventiva y curativa, antes de secarla y trabajarla."
+      },
+      {
+        "pregunta": "¿Por qué no hay dos lámparas iguales?",
+        "respuesta": "Porque cada trozo de madera tiene su forma, su veta y sus marcas. Diseñamos cada lámpara a partir de la pieza que tenemos delante, y por eso cada una se entrega numerada con su certificado de autenticidad."
+      },
+      {
+        "pregunta": "¿Puedo saber de dónde viene la madera de una lámpara concreta?",
+        "respuesta": "Sí. En cada ficha contamos la madera y su origen cuando lo conocemos. Si tienes dudas sobre una pieza, escríbenos."
+      }
+    ],
+    "ctaColeccion": "Ver la colección",
+    "ctaMedida": "Encargar una lámpara a medida",
+    "ctaProceso": "Cómo trabajamos la madera"
+  },
+  "Interioristas": {
+    "tagline": "Para interioristas",
+    "titulo": "Lámparas únicas para proyectos de interiorismo",
+    "respuesta": "Trabajamos con interioristas, arquitectos y estudios que buscan piezas que no se repiten: lámparas de madera recuperada hechas a mano en Málaga. Podéis elegir entre las piezas disponibles o encargarnos lámparas a medida, adaptando el tamaño, la pantalla, el color del casquillo y de la tija, y el tipo de cable. Como tenemos madera seca y tratada desde hace meses, fabricamos en semanas.",
+    "ofrecemosTitulo": "Qué ofrecemos",
+    "ofrecemos": [
+      {
+        "titulo": "Piezas únicas y documentadas",
+        "texto": "Cada lámpara está numerada y se entrega con certificado de autenticidad. Su ficha indica la madera, su origen cuando lo conocemos, las medidas y los materiales."
+      },
+      {
+        "titulo": "Personalización",
+        "texto": "Tamaño de la pieza, pantalla, color del casquillo y de la tija, y tipo de cable."
+      },
+      {
+        "titulo": "Plazos de semanas",
+        "texto": "La madera lleva meses tratada y secándose en nuestro almacén, así que empezamos a fabricar en cuanto cerramos el diseño."
+      },
+      {
+        "titulo": "Envío asegurado",
+        "texto": "Embalaje hecho a medida y envío con seguimiento y entrega bajo firma. Gratis en España peninsular y 65 € a Francia, Italia, Alemania y Portugal; para otros destinos, os preparamos presupuesto."
+      }
+    ],
+    "pasosTitulo": "Cómo trabajamos un proyecto",
+    "pasos": [
+      {
+        "titulo": "Nos contáis el proyecto",
+        "texto": "Espacios, número de piezas, estilo y fechas. Si podéis, enviadnos planos o fotos."
+      },
+      {
+        "titulo": "Propuesta",
+        "texto": "Os proponemos piezas disponibles o maderas para fabricar, con las opciones de pantalla, acabados y cable, el presupuesto y el plazo."
+      },
+      {
+        "titulo": "Fabricación",
+        "texto": "Hacemos cada lámpara a mano en nuestro taller de Málaga."
+      },
+      {
+        "titulo": "Entrega",
+        "texto": "Embalaje a medida y envío asegurado a la dirección del proyecto."
+      }
+    ],
+    "fichaTitulo": "Información técnica",
+    "fichaTexto": "Si necesitáis medidas exactas, fotos o datos de una pieza para presentarla a vuestro cliente, escribidnos y os los enviamos.",
+    "ctaTitulo": "¿Tenéis un proyecto?",
+    "ctaTexto": "Escribidnos por WhatsApp o por email con los detalles y os respondemos con una primera propuesta.",
+    "ctaWhatsapp": "Escribir por WhatsApp",
+    "ctaEmail": "Enviar un email",
+    "whatsappMensaje": "Hola, os escribo por un proyecto de interiorismo.",
+    "asunto": "Proyecto de interiorismo",
+    "ctaMedida": "Ver cómo funcionan los encargos a medida",
+    "ctaMateriales": "De dónde viene nuestra madera"
+  },
+  "Journal": {
+    "tagline": "Journal",
+    "titulo": "Guías y relatos del taller",
+    "descripcion": "Maderas recuperadas, cuidados y cómo elegir una lámpara de madera, contado por quienes las hacemos.",
+    "vacio": "Muy pronto publicaremos las primeras guías.",
+    "por": "Por {autor}",
+    "publicado": "Publicado el {fecha}",
+    "revisado": "Revisado el {fecha}",
+    "leer": "Leer",
+    "piezasTitulo": "Piezas relacionadas",
+    "volver": "Volver al Journal",
+    "migaInicio": "Inicio"
   }
 }

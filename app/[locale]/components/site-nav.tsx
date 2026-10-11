@@ -41,6 +41,10 @@ export function SiteNav() {
           <Link href="/sobre-el-taller" className="hover:text-stone-900 transition-colors">
             {t("taller")}
           </Link>
+          {/* Solo con espacio suficiente: en tableta no cabe (sigue en el pie y en el menú del móvil) */}
+          <Link href="/interioristas" className="hidden lg:inline whitespace-nowrap hover:text-stone-900 transition-colors">
+            {t("interioristas")}
+          </Link>
           <Link href="/contacto" className="hover:text-stone-900 transition-colors">
             {t("contacto")}
           </Link>
@@ -98,6 +102,9 @@ export function SiteNav() {
             </Link>
             <Link href="/sobre-el-taller" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
               {t("taller")}
+            </Link>
+            <Link href="/interioristas" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
+              {t("interioristas")}
             </Link>
             <Link href="/contacto" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
               {t("contacto")}

@@ -5,14 +5,15 @@ import { enviarEvento } from "@/app/[locale]/lib/analytics";
 const TELEFONO_TALLER = "34660800631";
 const EMAIL = "info@vetandlux.com";
 
-// Botones de contacto de la página de encargos: miden el contacto como `generate_lead` en GA4
-export function EnlacesContactoEncargo({ textoWhatsapp, textoEmail, mensajeWhatsapp, asuntoEmail }: {
+// Botones de contacto de encargos e interioristas: miden el contacto como `generate_lead` en GA4
+export function EnlacesContactoEncargo({ textoWhatsapp, textoEmail, mensajeWhatsapp, asuntoEmail, origen = "lamparas_a_medida" }: {
   textoWhatsapp: string;
   textoEmail: string;
   mensajeWhatsapp: string;
   asuntoEmail: string;
+  origen?: string;
 }) {
-  const medir = (via: string) => enviarEvento("generate_lead", { via, origen: "lamparas_a_medida" });
+  const medir = (via: string) => enviarEvento("generate_lead", { via, origen });
 
   return (
     <div className="space-y-3">

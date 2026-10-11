@@ -23,7 +23,7 @@ export default defineConfig({
   document: {
     // «Traducir al inglés» queda la primera del menú ⋯ junto a «Publicar»; «Rehacer traducción», la última
     actions: (prev, context) =>
-      context.schemaType === 'producto'
+      context.schemaType === 'producto' || context.schemaType === 'articulo'
         ? [prev[0], TranslateAction, ...prev.slice(1), RetranslateAction]
         : prev,
   },

@@ -189,6 +189,11 @@ export default async function ProductoPage(props: PageProps) {
               <h2 id={`${s.id}-titulo`} className="text-2xl md:text-3xl font-nixie text-stone-900 mb-4">{s.titulo}</h2>
               <div className="space-y-4 text-stone-700 text-lg font-light leading-relaxed font-urbanist">
                 {s.parrafos.map((texto, i) => <p key={i}>{texto}</p>)}
+                {s.id === "origen" && (
+                  <p>
+                    <Link href="/materiales-y-procedencia" className="text-sm uppercase tracking-[0.2em] font-bold underline underline-offset-4 hover:text-amber-900">{t("verMateriales")}</Link>
+                  </p>
+                )}
               </div>
             </section>
           ))}

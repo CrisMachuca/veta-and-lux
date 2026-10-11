@@ -3,7 +3,7 @@ import { defineField, defineType, type Rule, type ValidationContext } from 'sani
 // Ficha de lámpara. OJO: no cambiar los «name» de los campos (la web y los datos ya guardados dependen de ellos).
 // Los títulos, ayudas, pestañas y avisos sí se pueden cambiar libremente.
 
-const tieneTexto = (valor: unknown) => typeof valor === 'string' && valor.trim() !== '';
+export const tieneTexto = (valor: unknown) => typeof valor === 'string' && valor.trim() !== '';
 
 // Aviso (no bloquea publicar) cuando hay texto en español y falta el inglés.
 // Busca el campo español equivalente cambiando «en» por «es» en la ruta (sirve también para cable.en.tipo).
@@ -24,7 +24,7 @@ function avisoIngles(rule: Rule) {
 }
 
 // Campo con versión en español e inglés, una al lado de la otra
-function bilingue(
+export function bilingue(
   name: string,
   title: string,
   opciones: {
@@ -76,13 +76,13 @@ function bilingueTipoColor(name: string, title: string, description: string, eje
 }
 
 // Texto alternativo de cada foto: lo leen Google Imágenes, las IA y quien usa un lector de pantalla
-const textoAlternativo = bilingue('alt', 'Texto alternativo', {
+export const textoAlternativo = bilingue('alt', 'Texto alternativo', {
   description: 'Describe lo que se ve: «Lámpara de olivo encendida sobre una mesilla de roble». Sin repetir palabras clave. Si lo dejas vacío, se usa el nombre de la pieza.',
   placeholder: 'Lámpara de olivo encendida sobre una mesilla',
 });
 
 // Slug limpio para la URL: sin tildes, eñes ni símbolos («Viga de Castaño» → «viga-de-castano»)
-const slugLimpio = (texto: string) =>
+export const slugLimpio = (texto: string) =>
   texto
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')

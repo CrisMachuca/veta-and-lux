@@ -66,10 +66,25 @@ export default async function LamparasAMedidaPage({ params }: { params: Promise<
         </div>
       </section>
 
+      <section aria-labelledby="personalizar" className="px-6 pb-20">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <h2 id="personalizar" className="text-3xl md:text-4xl font-nixie">{t("personalizarTitulo")}</h2>
+          <ul className="flex flex-wrap justify-center gap-3 font-urbanist">
+            {(t.raw("personalizar") as string[]).map((opcion) => (
+              <li key={opcion} className="rounded-full border border-[#3a3530]/20 bg-white px-5 py-2 text-sm text-[#3a3530]">{opcion}</li>
+            ))}
+          </ul>
+          <p className="text-[#5f5852] font-urbanist leading-relaxed">{t("plazoTexto")}</p>
+        </div>
+      </section>
+
       <section className="bg-[#f2efe9] border-y border-[#e5e0d8] px-6 py-16">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <h2 className="text-2xl md:text-3xl font-nixie">{t("interioristasTitulo")}</h2>
           <p className="text-[#5f5852] font-urbanist leading-relaxed">{t("interioristasTexto")}</p>
+          <p className="font-urbanist">
+            <Link href="/interioristas" className="text-xs uppercase tracking-[0.25em] font-bold underline underline-offset-4 hover:text-amber-900">{t("interioristasEnlace")}</Link>
+          </p>
         </div>
       </section>
 

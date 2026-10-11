@@ -4,6 +4,7 @@ import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import { locales } from "@/navigation";
 import { urlAbsoluta, hrefPieza, type Href } from "@/app/[locale]/lib/rutas";
 import { TEXTOS_LEGALES_BORRADOR } from "@/app/[locale]/lib/legal";
+import { getArticulos, hrefArticulo, idiomasDe } from "@/app/[locale]/lib/journal";
 
 // Se regenera con el catálogo (antes solo al compilar: las piezas nuevas no entraban hasta el siguiente despliegue)
 export const revalidate = 60;
@@ -24,7 +25,7 @@ function entradas(
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 1. Rutas estáticas principales
-  const rutasEstaticas = ["/", "/coleccion", "/lamparas-a-medida", "/sobre-el-taller", "/proceso", "/contacto"] as const;
+  const rutasEstaticas = ["/", "/coleccion", "/lamparas-a-medida", "/interioristas", "/materiales-y-procedencia", "/sobre-el-taller", "/proceso", "/contacto"] as const;
 
   // 2. Rutas de ayuda / legales (del footer)
   const rutasLegales: Href[] = [
@@ -61,5 +62,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  return [...staticUrls, ...legalUrls, ...productUrls];
+  // 4. Journal: solo si hay artículos, y cada uno en los idiomas en que existe
+  const articulos = await getArticulos();
+  const journalUrls: MetadataRoute.Sitemap = articulos.length ? entradas("/journal", { changeFrequency: "weekly", priority: 0.6 }) : [];
+  const articuloUrls: MetadataRoute.Sitemap = articulos.flatMap((a) => {
+    const idiomas = idiomasDe(a);
+    const languages = Object.fromEntries(idiomas.map((l) => [l, urlAbsoluta(hrefArticulo(a.slug), l)]));
+    return idiomas.map((l) => ({
+      url: urlAbsoluta(hrefArticulo(a.slug), l),
+      lastModified: new Date(a.revisado ?? a._updatedAt ?? a.publicado),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: { languages },
+    }));
+  });
+
+  return [...staticUrls, ...legalUrls, ...productUrls, ...journalUrls, ...articuloUrls];
 }

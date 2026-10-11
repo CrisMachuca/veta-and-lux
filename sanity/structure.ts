@@ -4,6 +4,7 @@ import {
   CheckmarkCircleIcon,
   ClockIcon,
   DocumentsIcon,
+  DocumentTextIcon,
   StarIcon,
   WarningOutlineIcon,
 } from '@sanity/icons'
@@ -64,4 +65,6 @@ export const structure: StructureResolver = (S) =>
       lista(S, 'destacadas', 'Destacadas en portada', StarIcon, 'destacado == true'),
       S.divider(),
       S.documentTypeListItem('producto').title('Todas las lámparas').icon(DocumentsIcon),
+      S.divider(),
+      S.documentTypeListItem('articulo').title('Journal').icon(DocumentTextIcon),
     ])

@@ -7,7 +7,8 @@
     "coleccion": "Collection",
     "proceso": "Process",
     "contacto": "Contact",
-    "taller": "About"
+    "taller": "About",
+    "interioristas": "Interior designers"
   },
   "Inicio": {
     "Hero": {
@@ -137,7 +138,8 @@
     "certificadoTitulo": "Certificate of authenticity",
     "certificadoTexto": "Every piece is one of a kind and comes numbered, with a certificate of authenticity signed by the people who made it.",
     "certificadoNumero": "This piece is number {numero}.",
-    "terminada": "Completed in {fecha}."
+    "terminada": "Completed in {fecha}.",
+    "verMateriales": "All the sources of our wood"
   },
   "DetalleCliente": {
     "base": "Base",
@@ -251,7 +253,10 @@
       "contacto": "Contact",
       "carrito": "Cart",
       "medida": "Custom lamps",
-      "taller": "About us"
+      "taller": "About us",
+      "materiales": "Materials and provenance",
+      "interioristas": "For interior designers",
+      "journal": "Journal"
     },
     "ayuda": {
       "titulo": "Help",
@@ -464,6 +469,18 @@
     "taller": {
       "titulo": "About the workshop: Cristina and Rafa",
       "descripcion": "We are Cristina and Rafa, two friends handcrafting reclaimed wood lamps in Malaga. This is how Veta & Lux began and how we work."
+    },
+    "materiales": {
+      "titulo": "Materials and provenance of our wood",
+      "descripcion": "Where the wood in our lamps comes from: fallen trees, rivers and streams, wildfires, ruined houses and controlled pruning. Treated and dried in our workshop in Malaga."
+    },
+    "interioristas": {
+      "titulo": "Wooden lamps for interior designers and projects",
+      "descripcion": "One-of-a-kind reclaimed wood lamps for interior design projects: custom size, shade, lamp holder and cable, made in weeks in Malaga, Spain."
+    },
+    "journal": {
+      "titulo": "Journal: guides on wood and lighting",
+      "descripcion": "Guides and stories from the Veta & Lux workshop: reclaimed woods, care and how to choose a wooden lamp."
     }
   },
   "CookiesBanner": {
@@ -506,7 +523,16 @@
     "ctaWhatsapp": "Message us on WhatsApp",
     "ctaEmail": "Send an email",
     "ctaProceso": "See how we work the wood",
-    "whatsappMensaje": "Hello! I would like to commission a custom wooden lamp."
+    "whatsappMensaje": "Hello! I would like to commission a custom wooden lamp.",
+    "personalizarTitulo": "What you can customise",
+    "personalizar": [
+      "The size of the piece",
+      "The shade",
+      "The colour of the lamp holder and stem",
+      "The type of cable"
+    ],
+    "plazoTexto": "Lead time: weeks. Our wood has been treated and drying in our warehouse for months, ready to work.",
+    "interioristasEnlace": "Information for interior designers"
   },
   "Legal": {
     "borrador": "Draft pending legal review. This text will be final once reviewed by a legal advisor.",
@@ -703,5 +729,146 @@
     "aMedida": "Custom lamps",
     "taller": "About us",
     "contacto": "Contact"
+  },
+  "Materiales": {
+    "tagline": "Materials and provenance",
+    "titulo": "Where our wood comes from",
+    "respuesta": "All the wood at Veta & Lux is reclaimed: we do not fell trees to make lamps. We find it fallen in the forest, at river and stream mouths, in areas burned by wildfires and in ruined houses, or we buy it as firewood from controlled pruning. Before working it, we treat it against insects and dry it in our warehouse until it reaches the right moisture level.",
+    "procedenciasTitulo": "Five sources",
+    "procedencias": [
+      {
+        "titulo": "Fallen trees in the forest",
+        "texto": "Trunks and branches from trees that fell on their own. We collect wood the forest has already let go of, in the shape the tree gave it."
+      },
+      {
+        "titulo": "River and stream mouths",
+        "texto": "Wood carried by the water down to the river mouth. The current and the sand polish and round it over the years."
+      },
+      {
+        "titulo": "Wildfires",
+        "texto": "Wood from trees affected by wildfires. Rafa is a forest firefighter and has found many of these pieces after a fire."
+      },
+      {
+        "titulo": "Ruined houses",
+        "texto": "Fallen beams left behind in ruined houses. Timber that once held up a home."
+      },
+      {
+        "titulo": "Firewood from controlled pruning",
+        "texto": "We buy firewood from controlled pruning and hand-pick the pieces with the most character, which would otherwise end up in a fireplace."
+      }
+    ],
+    "preparacionTitulo": "How we prepare it",
+    "pasos": [
+      {
+        "titulo": "Selection",
+        "texto": "We choose each piece for its shape, grain and condition. If the wood is not fit to last, we do not use it."
+      },
+      {
+        "titulo": "Insect treatment",
+        "texto": "We apply treatments against woodworm and other insects, preventively and, when needed, curatively."
+      },
+      {
+        "titulo": "Drying",
+        "texto": "The wood rests in our warehouse until it reaches the right moisture level. It can take months, which is why we always have dry, treated wood ready to work."
+      },
+      {
+        "titulo": "Cleaning and finishing",
+        "texto": "We remove weakened parts by hand and apply the finish, keeping the textures and stable cracks that give each piece its character."
+      }
+    ],
+    "maderasTitulo": "Woods we work with",
+    "maderasTexto": "Olive, eucalyptus, chestnut, oak, walnut and pine. Each product page names the wood of the piece and, when we know it, its origin.",
+    "faqTitulo": "Frequently asked questions",
+    "faq": [
+      {
+        "pregunta": "Do you fell trees to make your lamps?",
+        "respuesta": "No. We only work with reclaimed wood: fallen trees, wood carried by rivers and streams, wood from wildfires, beams from ruined houses and firewood from controlled pruning."
+      },
+      {
+        "pregunta": "Are reclaimed wood lamps durable?",
+        "respuesta": "Yes, as long as the wood is sound, treated and dry. Every piece is treated against insects, dried in our warehouse to the right moisture level, and we remove weakened parts by hand before turning it into a lamp."
+      },
+      {
+        "pregunta": "Can the wood have woodworm?",
+        "respuesta": "We treat the wood against woodworm and other insects, preventively and curatively, before drying and working it."
+      },
+      {
+        "pregunta": "Why are no two lamps the same?",
+        "respuesta": "Because every piece of wood has its own shape, grain and marks. We design each lamp around the piece in front of us, which is why every one comes numbered with its certificate of authenticity."
+      },
+      {
+        "pregunta": "Can I know where the wood in a specific lamp comes from?",
+        "respuesta": "Yes. Each product page describes the wood and its origin when we know it. If you have questions about a piece, get in touch."
+      }
+    ],
+    "ctaColeccion": "View the collection",
+    "ctaMedida": "Order a bespoke lamp",
+    "ctaProceso": "How we work the wood"
+  },
+  "Interioristas": {
+    "tagline": "For interior designers",
+    "titulo": "One-of-a-kind lamps for interior design projects",
+    "respuesta": "We work with interior designers, architects and studios looking for pieces that are never repeated: reclaimed wood lamps handmade in Malaga, Spain. You can choose from the pieces available or commission bespoke lamps, adapting the size, the shade, the colour of the lamp holder and stem, and the type of cable. Because we keep wood that has been drying and treated for months, we make them in weeks.",
+    "ofrecemosTitulo": "What we offer",
+    "ofrecemos": [
+      {
+        "titulo": "Unique, documented pieces",
+        "texto": "Every lamp is numbered and comes with a certificate of authenticity. Its page lists the wood, its origin when we know it, the dimensions and the materials."
+      },
+      {
+        "titulo": "Customisation",
+        "texto": "Size of the piece, shade, colour of the lamp holder and stem, and type of cable."
+      },
+      {
+        "titulo": "Lead times in weeks",
+        "texto": "Our wood has been treated and drying in our warehouse for months, so we can start making as soon as the design is agreed."
+      },
+      {
+        "titulo": "Insured shipping",
+        "texto": "Made-to-measure packaging, tracked shipping and signature on delivery. Free to mainland Spain and €65 to France, Italy, Germany and Portugal; for other destinations we will send you a quote."
+      }
+    ],
+    "pasosTitulo": "How we work on a project",
+    "pasos": [
+      {
+        "titulo": "Tell us about the project",
+        "texto": "Spaces, number of pieces, style and dates. If you can, send us plans or photos."
+      },
+      {
+        "titulo": "Proposal",
+        "texto": "We suggest available pieces or woods to work with, with shade, finish and cable options, a quote and a lead time."
+      },
+      {
+        "titulo": "Making",
+        "texto": "We make each lamp by hand in our workshop in Malaga."
+      },
+      {
+        "titulo": "Delivery",
+        "texto": "Made-to-measure packaging and insured shipping to the project address."
+      }
+    ],
+    "fichaTitulo": "Technical information",
+    "fichaTexto": "If you need exact dimensions, photos or details of a piece to present it to your client, write to us and we will send them.",
+    "ctaTitulo": "Do you have a project?",
+    "ctaTexto": "Message us on WhatsApp or by email with the details and we will reply with a first proposal.",
+    "ctaWhatsapp": "Message on WhatsApp",
+    "ctaEmail": "Send an email",
+    "whatsappMensaje": "Hello, I'm writing about an interior design project.",
+    "asunto": "Interior design project",
+    "ctaMedida": "See how bespoke orders work",
+    "ctaMateriales": "Where our wood comes from"
+  },
+  "Journal": {
+    "tagline": "Journal",
+    "titulo": "Guides and stories from the workshop",
+    "descripcion": "Reclaimed woods, care and how to choose a wooden lamp, told by the people who make them.",
+    "vacio": "Our first guides are coming soon.",
+    "por": "By {autor}",
+    "publicado": "Published on {fecha}",
+    "revisado": "Updated on {fecha}",
+    "leer": "Read",
+    "piezasTitulo": "Related pieces",
+    "volver": "Back to the Journal",
+    "migaInicio": "Home"
   }
 }
