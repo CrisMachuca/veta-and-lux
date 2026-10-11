@@ -6,7 +6,7 @@ import { traducir, type ImagenSanity, type ProductoSanity, type Traducible } fro
 import { useTranslations, useLocale } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@/navigation";
-import { conNombreArchivo, descriptorProducto, etiquetaTipo, nombreArchivoFoto, nombreProducto, tieneCertificado } from "@/app/[locale]/lib/producto-seo";
+import { conNombreArchivo, descriptorProducto, etiquetaTipo, nombreArchivoFoto, nombreProducto, procedenciaDe, tieneCertificado } from "@/app/[locale]/lib/producto-seo";
 import { enviarEvento, itemAnalytics } from "@/app/[locale]/lib/analytics";
 
 // --- Magnifier: Mantenido tal cual ---
@@ -142,6 +142,7 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
 
   // Solo se muestran los datos que existen: nada de etiquetas vacías
   const base = getTrad(producto.materialBase);
+  const procedencia = procedenciaDe(producto, locale);
   const pantallaObj = traducir(producto.materialPantalla, locale);
   const pantalla = pantallaObj ? [pantallaObj.tipo, pantallaObj.color ? `(${pantallaObj.color})` : ""].filter(Boolean).join(" ").trim() : "";
   const cableObj = traducir(producto.cable, locale);
@@ -158,7 +159,7 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
     typeof el?.longitudCable === "number" ? [t("longitudCable"), `${el.longitudCable} m`] : null,
   ].filter(Boolean) as [string, string][];
 
-  const hayFichaTecnica = Boolean(base || pantalla || cable || medidas.length || datosElectricos.length || cuidados);
+  const hayFichaTecnica = Boolean(base || procedencia || pantalla || cable || medidas.length || datosElectricos.length || cuidados);
 
   const etiqueta = "text-stone-500 w-24 shrink-0 uppercase";
   const subtitulo = "text-[10px] uppercase tracking-wider text-stone-600 font-bold";
@@ -217,11 +218,17 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
             <div className="rounded-sm border-l-2 border-stone-800 bg-stone-100/50 p-6 space-y-6">
               <h2 className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-600">{t("compTecnica")}</h2>
 
-              {(base || pantalla || cable) && (
+              {(base || procedencia || pantalla || cable) && (
                 <div className="space-y-2">
                   <p className={subtitulo}>{t("materiales")}</p>
                   <ul className="space-y-1 font-mono text-xs text-stone-700">
                     {base && <li className="flex gap-4"><span className={etiqueta}>{t("base")}</span> {base}</li>}
+                    {procedencia && (
+                      <li className="flex gap-4">
+                        <span className={etiqueta}>{t("procedencia")}</span>
+                        <Link href="/materiales-y-procedencia" className="underline underline-offset-2 hover:text-stone-900">{procedencia}</Link>
+                      </li>
+                    )}
                     {pantalla && <li className="flex gap-4"><span className={etiqueta}>{t("pantalla")}</span> {pantalla}</li>}
                     {cable && <li className="flex gap-4"><span className={etiqueta}>{t("cable")}</span> {cable}</li>}
                   </ul>

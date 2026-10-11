@@ -1,6 +1,6 @@
 // Nombre, título, descripción y datos estructurados de una pieza: la misma lógica para la ficha,
 // los metadatos (title/description) y el JSON-LD.
-import { traducir, type EstadoPieza, type MaderaPieza, type ProductoSanity, type TipoLampara } from "@/sanity/lib/tipos";
+import { traducir, type EstadoPieza, type MaderaPieza, type ProcedenciaMadera, type ProductoSanity, type TipoLampara } from "@/sanity/lib/tipos";
 import { COSTES_ENVIO } from "@/app/[locale]/lib/envio";
 import { SITE_URL } from "@/app/[locale]/lib/sitio";
 import { hrefPieza, urlAbsoluta } from "@/app/[locale]/lib/rutas";
@@ -69,13 +69,40 @@ const TIPO_EN_FRASE: Record<TipoLampara, { es: string; en: string }> = {
   otra: { es: "Lámpara", en: "lamp" },
 };
 
+// Procedencia de la madera (campo «Procedencia» del Studio), para la ficha y los datos estructurados
+export const PROCEDENCIAS: Record<ProcedenciaMadera, { es: string; en: string }> = {
+  bosque: { es: "Árbol caído en el bosque", en: "Fallen tree from the forest" },
+  deriva: { es: "Madera de deriva de ríos y arroyos", en: "Driftwood from rivers and streams" },
+  incendio: { es: "Madera de un incendio forestal", en: "Wood from a wildfire" },
+  vigas: { es: "Viga de una vivienda en ruinas", en: "Reclaimed beam from a ruined house" },
+  poda: { es: "Leña de poda controlada", en: "Firewood from controlled pruning" },
+};
+
+export const procedenciaDe = (p: ProductoSanity, locale: string) => (p.procedencia ? PROCEDENCIAS[p.procedencia]?.[idioma(locale)] : undefined);
+
+// Nombre corto de la madera en inglés para combinarlo («Eucalyptus driftwood», «Reclaimed oak»)
+const MADERA_CORTA_EN: Record<Exclude<MaderaPieza, "otra">, string> = {
+  olivo: "olive", eucalipto: "eucalyptus", castano: "chestnut", roble: "oak", nogal: "walnut", pino: "pine", almendro: "almond",
+};
+
+const conMayuscula = (texto: string) => texto.charAt(0).toUpperCase() + texto.slice(1);
+
 // «Lámpara de sobremesa de madera de olivo» / «Olive wood table lamp». Va bajo el H1, en el título y en el JSON-LD.
+// La procedencia entra cuando es una búsqueda con demanda: madera de deriva («driftwood lamp», «lámpara de madera
+// de deriva») y, en inglés, las vigas recuperadas («reclaimed wood table lamp»).
 export function descriptorProducto(p: ProductoSanity, locale: string) {
   const tipo = TIPO_EN_FRASE[tipoPieza(p) ?? "otra"];
   const madera = maderaPieza(p);
-  return idioma(locale) === "en"
-    ? `${madera?.en ?? "Wooden"} ${tipo.en}`
-    : `${tipo.es} de madera${madera ? ` de ${madera.es}` : ""}`;
+  const claveMadera = (Object.keys(MADERAS) as (keyof typeof MADERAS)[]).find((k) => MADERAS[k] === madera);
+  const corta = claveMadera ? MADERA_CORTA_EN[claveMadera] : undefined;
+
+  if (idioma(locale) === "en") {
+    if (p.procedencia === "deriva") return conMayuscula(`${corta ? `${corta} ` : ""}driftwood ${tipo.en}`);
+    if (p.procedencia === "vigas") return `Reclaimed ${corta ?? "wood"} ${tipo.en}`;
+    return `${madera?.en ?? "Wooden"} ${tipo.en}`;
+  }
+  if (p.procedencia === "deriva") return `${tipo.es} de madera de deriva${madera ? ` de ${madera.es}` : ""}`;
+  return `${tipo.es} de madera${madera ? ` de ${madera.es}` : ""}`;
 }
 
 // Título para buscadores: lo que es primero y el nombre después, como los talleres que mejor posicionan:
@@ -184,6 +211,7 @@ function propiedadesPieza(p: ProductoSanity, locale: string) {
     [en ? "Edition" : "Edición", en ? "One of a kind" : "Pieza única"],
     [en ? "Production method" : "Fabricación", en ? "Handcrafted in Malaga, Spain" : "Hecha a mano en Málaga"],
     [en ? "Wood" : "Madera", madera ? (en ? madera.en : madera.es.charAt(0).toUpperCase() + madera.es.slice(1)) : undefined],
+    [en ? "Origin of the wood" : "Origen de la madera", procedenciaDe(p, locale)],
     [en ? "Piece number" : "Número de pieza", p.numeroPieza],
     [en ? "Certificate of authenticity" : "Certificado de autenticidad", tieneCertificado(p) ? (en ? "Included" : "Incluido") : undefined],
   ];

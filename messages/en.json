@@ -190,7 +190,8 @@
     "envioMas": "Shipping and returns",
     "aMedida": "Commission a custom piece →",
     "piezaNumero": "Piece no. {numero}",
-    "certificadoIncluido": "Certificate of authenticity included"
+    "certificadoIncluido": "Certificate of authenticity included",
+    "procedencia": "Origin"
   },
   "Contacto": {
     "tagline": "Let's talk",

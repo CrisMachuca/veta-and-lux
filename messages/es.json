@@ -190,7 +190,8 @@
     "envioMas": "Envíos y devoluciones",
     "aMedida": "Encargar una pieza a medida →",
     "piezaNumero": "Pieza nº {numero}",
-    "certificadoIncluido": "Certificado de autenticidad incluido"
+    "certificadoIncluido": "Certificado de autenticidad incluido",
+    "procedencia": "Procedencia"
   },
   "Contacto": {
     "tagline": "Hablemos",

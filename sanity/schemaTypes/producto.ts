@@ -175,6 +175,24 @@ export const producto = defineType({
       validation: (rule) => rule.required().warning('Elige la madera: es lo primero que busca la gente («lámpara de madera de olivo»)'),
     }),
     defineField({
+      name: 'procedencia',
+      title: 'Procedencia de la madera',
+      type: 'string',
+      group: ['esencial', 'ficha'],
+      description: 'De dónde salió esta madera. Se muestra en la ficha y en Google; la madera de deriva va además en el título («lámpara de madera de deriva»), que es una búsqueda con poca competencia.',
+      options: {
+        list: [
+          { title: 'Árbol caído en el bosque', value: 'bosque' },
+          { title: 'Madera de deriva de ríos y arroyos', value: 'deriva' },
+          { title: 'Incendio forestal', value: 'incendio' },
+          { title: 'Viga de una vivienda en ruinas', value: 'vigas' },
+          { title: 'Leña de poda controlada', value: 'poda' },
+        ],
+        layout: 'radio',
+      },
+      validation: (rule) => rule.required().warning('Indica la procedencia: es lo que hace única cada pieza'),
+    }),
+    defineField({
       name: 'precio',
       title: 'Precio (€)',
       type: 'number',

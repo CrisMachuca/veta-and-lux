@@ -30,6 +30,7 @@ export type ProductoSanity = {
   estado?: EstadoPieza;
   tipo?: TipoLampara;
   madera?: MaderaPieza;
+  procedencia?: ProcedenciaMadera;
   // Identidad de la pieza: número del certificado (VL-001), fecha de terminación y si lleva certificado
   numeroPieza?: string;
   fechaCreacion?: string;
@@ -46,6 +47,8 @@ export type ProductoSanity = {
 };
 
 export type TipoLampara = "sobremesa" | "colgante" | "pie" | "aplique" | "otra";
+
+export type ProcedenciaMadera = "bosque" | "deriva" | "incendio" | "vigas" | "poda";
 
 export type MaderaPieza = "olivo" | "eucalipto" | "castano" | "roble" | "nogal" | "pino" | "almendro" | "otra";
 

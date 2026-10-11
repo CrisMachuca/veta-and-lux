@@ -20,6 +20,7 @@ const sinTexto = (campo: string) => `(!defined(${campo}) || ${campo} == "")`
 const FICHA_INCOMPLETA = [
   '!defined(tipo)',
   '!defined(madera)',
+  '!defined(procedencia)',
   '!defined(medidas.alto)',
   '!defined(electrico.casquillo)',
   sinTexto('materialBase.es'),

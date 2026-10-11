@@ -57,6 +57,7 @@ const CAMPOS_PIEZA = `
   cuidados,
   tipo,
   madera,
+  procedencia,
   electrico,
   numeroPieza,
   fechaCreacion,
