@@ -79,7 +79,7 @@ export function descriptorProducto(p: ProductoSanity, locale: string) {
 }
 
 // Título para buscadores: lo que es primero y el nombre después, como los talleres que mejor posicionan:
-// «Lámpara de sobremesa de madera de olivo · Olivo a la deriva» (la plantilla del layout añade «| Veta & Lux»)
+// «Lámpara de sobremesa de madera de eucalipto · Eucalipto a la deriva» (la plantilla del layout añade «| Veta & Lux»)
 export function tituloProducto(p: ProductoSanity, locale: string) {
   const nombre = traducir(p.nombre, locale)?.trim();
   const descriptor = descriptorProducto(p, locale);
@@ -97,7 +97,7 @@ const enMinusculasSinTildes = (texto: string) =>
     .replace(/^-+|-+$/g, "")
     .slice(0, 90);
 
-// «lampara-de-sobremesa-de-madera-de-olivo-olivo-a-la-deriva» (y «-2», «-3»… para el resto de fotos)
+// «lampara-de-sobremesa-de-madera-de-eucalipto-eucalipto-a-la-deriva» (y «-2», «-3»… para el resto de fotos)
 export function nombreArchivoFoto(p: ProductoSanity, locale: string, indice = 0) {
   const base = enMinusculasSinTildes(tituloProducto(p, locale));
   return indice > 0 ? `${base}-${indice + 1}` : base;

@@ -75,7 +75,7 @@ function MagnifierImage({ src, alt }: { src: string; alt: string }) {
 
 // Foto principal de la ficha: 4:5, en varios anchos para que cada pantalla descargue solo lo que necesita
 const ANCHOS_FOTO = [480, 720, 960, 1200];
-// «archivo»: nombre descriptivo que se añade a la URL (…/lampara-de-sobremesa-de-madera-de-olivo-olivo-a-la-deriva.jpg)
+// «archivo»: nombre descriptivo que se añade a la URL (…/lampara-de-sobremesa-de-madera-de-eucalipto-eucalipto-a-la-deriva.jpg)
 const urlFoto = (img: ImagenSanity, ancho: number, archivo: string) =>
   conNombreArchivo(urlFor(img).width(ancho).height(Math.round(ancho * 1.25)).fit("crop").auto("format").url(), archivo);
 // Columna de la galería: ancho de pantalla menos márgenes en móvil; media rejilla (máx. 528 px) en escritorio

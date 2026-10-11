@@ -1,7 +1,8 @@
 export const revalidate = 60;
 
 import { Link } from "@/navigation";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { SLUGS_RENOMBRADOS } from "@/app/[locale]/lib/slugs-renombrados";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ProductDetailClient } from "@/app/[locale]/components/product-detail-client";
 import { ProductGallery } from "@/app/[locale]/components/product-gallery";
@@ -129,6 +130,9 @@ export default async function ProductoPage(props: PageProps) {
   const [producto, relacionadas] = await Promise.all([getProductoSanityBySlug(slug), getPiezasRelacionadas(slug)]);
 
   if (!producto) {
+    // Pieza renombrada: la dirección antigua lleva a la nueva de forma permanente
+    const nuevoSlug = SLUGS_RENOMBRADOS[slug];
+    if (nuevoSlug) permanentRedirect(rutaLocalizada(hrefPieza(nuevoSlug), locale));
     notFound();
   }
 
