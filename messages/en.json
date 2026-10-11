@@ -870,6 +870,7 @@
     "leer": "Read",
     "piezasTitulo": "Related pieces",
     "volver": "Back to the Journal",
-    "migaInicio": "Home"
+    "migaInicio": "Home",
+    "lectura": "{minutos} min read"
   }
 }

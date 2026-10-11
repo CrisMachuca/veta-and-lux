@@ -3,7 +3,7 @@ export const revalidate = 60;
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PortableText, type PortableTextComponents } from "next-sanity";
+import { PortableText, toPlainText, type PortableTextComponents } from "next-sanity";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/navigation";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
@@ -14,7 +14,7 @@ import { jsonLdHtml, migasJsonLd } from "@/app/[locale]/lib/producto-seo";
 import { rutaLocalizada, urlAbsoluta } from "@/app/[locale]/lib/rutas";
 import { articuloJsonLd, disponibleEn, fechaLegible, getArticulo, hrefArticulo, idiomasDe } from "@/app/[locale]/lib/journal";
 import { urlFor } from "@/sanity/lib/client";
-import { traducir, type ImagenSanity } from "@/sanity/lib/tipos";
+import { traducir, type ImagenSanity, type Traducible } from "@/sanity/lib/tipos";
 import { ordenarPorDisponibilidad } from "@/app/[locale]/lib/producto-seo";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -77,6 +77,9 @@ export default async function ArticuloPage({ params }: Props) {
   const titulo = traducir(articulo.titulo, locale) ?? "";
   const resumen = traducir(articulo.resumen, locale);
   const cuerpo = traducir(articulo.cuerpo, locale) ?? [];
+  // Tiempo de lectura a unas 200 palabras por minuto
+  const palabras = `${resumen ?? ""} ${toPlainText(cuerpo)}`.split(/\s+/).filter(Boolean).length;
+  const minutos = Math.max(1, Math.round(palabras / 200));
   const piezas = ordenarPorDisponibilidad(articulo.piezas ?? []).filter((p) => p?._id);
   const revisado = articulo.revisado && articulo.revisado > articulo.publicado ? articulo.revisado : null;
 
@@ -91,7 +94,8 @@ export default async function ArticuloPage({ params }: Props) {
       normal: ({ children }) => <p className="text-lg text-[#4a443e] leading-relaxed">{children}</p>,
       h2: ({ children }) => <h2 className="text-3xl font-nixie text-[#3a3530] pt-6">{children}</h2>,
       h3: ({ children }) => <h3 className="text-2xl font-nixie text-[#3a3530] pt-4">{children}</h3>,
-      blockquote: ({ children }) => <blockquote className="border-l-2 border-amber-900/40 pl-5 text-xl italic text-[#5f5852]">{children}</blockquote>,
+      // «Cita» en el Studio: recuadro destacado para lo esencial
+      blockquote: ({ children }) => <blockquote className="rounded-xl border border-[#e5e0d8] bg-[#f2efe9] px-6 py-5 text-lg text-[#3a3530] leading-relaxed">{children}</blockquote>,
     },
     list: {
       bullet: ({ children }) => <ul className="list-disc pl-6 space-y-2 text-lg text-[#4a443e]">{children}</ul>,
@@ -109,19 +113,34 @@ export default async function ArticuloPage({ params }: Props) {
       },
     },
     types: {
-      image: ({ value }: { value: ImagenSanity }) => {
+      image: ({ value }: { value: ImagenSanity & { pie?: Traducible } }) => {
         if (!value?.asset) return null;
         const { ancho, alto } = medidas(value);
         return (
-          <figure className="py-4">
-            <Image
-              src={urlFor(value).width(1400).auto("format").url()}
-              alt={traducir(value.alt, locale) ?? ""}
-              width={ancho}
-              height={alto}
-              sizes="(max-width: 768px) 100vw, 720px"
-              className="w-full h-auto rounded-xl"
-            />
+          <figure className="py-4 space-y-3">
+            {/* Las fotos verticales, a 4:5 y con ancho limitado: a todo el ancho ocuparían una pantalla entera */}
+            {alto > ancho ? (
+              <Image
+                src={urlFor(value).width(900).height(1125).fit("crop").auto("format").url()}
+                alt={traducir(value.alt, locale) ?? ""}
+                width={900}
+                height={1125}
+                sizes="(max-width: 768px) 90vw, 448px"
+                className="w-full max-w-md mx-auto h-auto rounded-xl"
+              />
+            ) : (
+              <Image
+                src={urlFor(value).width(1400).auto("format").url()}
+                alt={traducir(value.alt, locale) ?? ""}
+                width={ancho}
+                height={alto}
+                sizes="(max-width: 768px) 100vw, 720px"
+                className="w-full h-auto rounded-xl"
+              />
+            )}
+            {traducir(value.pie, locale) && (
+              <figcaption className="text-sm text-stone-500 text-center">{traducir(value.pie, locale)}</figcaption>
+            )}
           </figure>
         );
       },
@@ -146,6 +165,7 @@ export default async function ArticuloPage({ params }: Props) {
             <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-stone-600 font-urbanist">
               {articulo.autor && <span>{t("por", { autor: articulo.autor })}</span>}
               <time dateTime={articulo.publicado}>{t("publicado", { fecha: fechaLegible(articulo.publicado, locale) })}</time>
+              <span>{t("lectura", { minutos })}</span>
               {revisado && <time dateTime={revisado}>{t("revisado", { fecha: fechaLegible(revisado, locale) })}</time>}
             </p>
           </header>

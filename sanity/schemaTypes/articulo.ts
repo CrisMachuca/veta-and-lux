@@ -44,7 +44,16 @@ const cuerpoIdioma = (titulo: string) => ({
         ],
       },
     }),
-    defineArrayMember({ type: 'image', options: { hotspot: true }, fields: [textoAlternativo] }),
+    defineArrayMember({
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        textoAlternativo,
+        bilingue('pie', 'Pie de foto', {
+          description: 'Opcional: una frase que se ve bajo la foto («La veta del olivo, de cerca»).',
+        }),
+      ],
+    }),
   ],
 });
 

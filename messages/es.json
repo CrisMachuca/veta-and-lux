@@ -870,6 +870,7 @@
     "leer": "Leer",
     "piezasTitulo": "Piezas relacionadas",
     "volver": "Volver al Journal",
-    "migaInicio": "Inicio"
+    "migaInicio": "Inicio",
+    "lectura": "{minutos} min de lectura"
   }
 }
