@@ -472,7 +472,7 @@
     },
     "materiales": {
       "titulo": "Materiales y procedencia de la madera",
-      "descripcion": "De dónde viene la madera de nuestras lámparas: árboles caídos, ríos y arroyos, incendios, viviendas en ruinas y poda controlada. Tratada y secada en nuestro taller de Málaga."
+      "descripcion": "De dónde viene la madera de nuestras lámparas: árboles caídos, madera de deriva, incendios, vigas de casas en ruinas y poda controlada. Tratada y secada en nuestro taller de Málaga."
     },
     "interioristas": {
       "titulo": "Lámparas de madera para interioristas y proyectos",
@@ -733,7 +733,7 @@
   "Materiales": {
     "tagline": "Materiales y procedencia",
     "titulo": "De dónde viene nuestra madera",
-    "respuesta": "Toda la madera de Veta & Lux es recuperada: no talamos árboles para hacer lámparas. La encontramos caída en el bosque, en desembocaduras de ríos y arroyos, en zonas quemadas por incendios y en viviendas en ruinas, o la compramos como leña de poda controlada. Antes de trabajarla, la tratamos contra insectos y la secamos en nuestro almacén hasta que alcanza la humedad adecuada.",
+    "respuesta": "Toda la madera de Veta & Lux es recuperada: no talamos árboles para hacer lámparas. La encontramos caída en el bosque, como madera de deriva en desembocaduras de ríos y arroyos, en zonas quemadas por incendios y en viviendas en ruinas, o la compramos como leña de poda controlada. Antes de trabajarla, la tratamos contra insectos y la secamos en nuestro almacén hasta que alcanza la humedad adecuada.",
     "procedenciasTitulo": "Cinco procedencias",
     "procedencias": [
       {
@@ -741,16 +741,16 @@
         "texto": "Troncos y ramas de árboles que han caído por sí solos. Recogemos la madera que el bosque ya ha soltado, con la forma que le dio el árbol."
       },
       {
-        "titulo": "Desembocaduras de ríos y arroyos",
-        "texto": "Maderas que el agua ha arrastrado hasta la desembocadura. La corriente y la arena las pulen y redondean con los años."
+        "titulo": "Madera de deriva de ríos y arroyos",
+        "texto": "Maderas que el agua ha arrastrado hasta la desembocadura de ríos y arroyos: lo que se conoce como madera de deriva. La corriente y la arena las pulen y redondean con los años."
       },
       {
         "titulo": "Incendios forestales",
         "texto": "Madera de árboles afectados por incendios. Rafa es bombero forestal y ha encontrado muchas de estas piezas después de un incendio."
       },
       {
-        "titulo": "Viviendas en ruinas",
-        "texto": "Vigas caídas y abandonadas en casas en ruinas. Maderas que un día sostuvieron una casa."
+        "titulo": "Vigas de viviendas en ruinas",
+        "texto": "Vigas caídas y abandonadas en casas en ruinas que recuperamos antes de que se pierdan. Maderas que un día sostuvieron una casa."
       },
       {
         "titulo": "Leña de poda controlada",

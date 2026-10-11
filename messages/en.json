@@ -472,7 +472,7 @@
     },
     "materiales": {
       "titulo": "Materials and provenance of our wood",
-      "descripcion": "Where the wood in our lamps comes from: fallen trees, rivers and streams, wildfires, ruined houses and controlled pruning. Treated and dried in our workshop in Malaga."
+      "descripcion": "Where the wood in our lamps comes from: fallen trees, driftwood, wildfires, reclaimed beams from ruined houses and controlled pruning. Treated and dried in our workshop in Malaga."
     },
     "interioristas": {
       "titulo": "Wooden lamps for interior designers and projects",
@@ -733,7 +733,7 @@
   "Materiales": {
     "tagline": "Materials and provenance",
     "titulo": "Where our wood comes from",
-    "respuesta": "All the wood at Veta & Lux is reclaimed: we do not fell trees to make lamps. We find it fallen in the forest, at river and stream mouths, in areas burned by wildfires and in ruined houses, or we buy it as firewood from controlled pruning. Before working it, we treat it against insects and dry it in our warehouse until it reaches the right moisture level.",
+    "respuesta": "All the wood at Veta & Lux is reclaimed: we do not fell trees to make lamps. We find it fallen in the forest, as driftwood at river and stream mouths, in areas burned by wildfires and in ruined houses, or we buy it as firewood from controlled pruning. Before working it, we treat it against insects and dry it in our warehouse until it reaches the right moisture level.",
     "procedenciasTitulo": "Five sources",
     "procedencias": [
       {
@@ -741,16 +741,16 @@
         "texto": "Trunks and branches from trees that fell on their own. We collect wood the forest has already let go of, in the shape the tree gave it."
       },
       {
-        "titulo": "River and stream mouths",
-        "texto": "Wood carried by the water down to the river mouth. The current and the sand polish and round it over the years."
+        "titulo": "Driftwood from rivers and streams",
+        "texto": "Wood carried by the water down to the mouth of rivers and streams: what is known as driftwood. The current and the sand polish and round it over the years."
       },
       {
         "titulo": "Wildfires",
         "texto": "Wood from trees affected by wildfires. Rafa is a forest firefighter and has found many of these pieces after a fire."
       },
       {
-        "titulo": "Ruined houses",
-        "texto": "Fallen beams left behind in ruined houses. Timber that once held up a home."
+        "titulo": "Reclaimed beams from ruined houses",
+        "texto": "Fallen beams left behind in ruined houses, which we recover before they are lost. Timber that once held up a home."
       },
       {
         "titulo": "Firewood from controlled pruning",
