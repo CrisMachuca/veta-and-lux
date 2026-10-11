@@ -1,21 +1,27 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "@/navigation"; // 🌟 Importamos desde nuestro archivo del Paso 1
+import { useParams } from "next/navigation";
+import { usePathname, useRouter } from "@/navigation";
 import { ChangeEvent, useTransition } from "react";
 
 export function SelectorIdioma() {
   const locale = useLocale(); // Idioma actual ('es' o 'en')
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
   const [isPending, startTransition] = useTransition();
 
   const cambiarIdioma = (event: ChangeEvent<HTMLSelectElement>) => {
     const siguienteLocale = event.target.value;
     
-    // Cambia el prefijo de la URL de forma fluida conservando la ruta interna
+    // Misma página en el otro idioma, con su dirección traducida (/es/coleccion/viga → /en/collection/viga)
     startTransition(() => {
-      router.replace(pathname, { locale: siguienteLocale });
+      router.replace(
+        // @ts-expect-error -- pathname y params son los de la página actual, así que siempre coinciden
+        { pathname, params },
+        { locale: siguienteLocale }
+      );
     });
   };
 

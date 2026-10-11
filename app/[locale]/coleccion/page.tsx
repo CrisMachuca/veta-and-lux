@@ -9,7 +9,8 @@ import { client } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
-import { jsonLdHtml, ordenarPorDisponibilidad } from "@/app/[locale]/lib/producto-seo";
+import { jsonLdHtml, nombreProducto, ordenarPorDisponibilidad, paginaJsonLd } from "@/app/[locale]/lib/producto-seo";
+import { hrefPieza, urlAbsoluta } from "@/app/[locale]/lib/rutas";
 import type { ProductoSanity } from "@/sanity/lib/tipos";
 
 export const generateMetadata = metadataPagina("coleccion", "/coleccion");
@@ -69,6 +70,21 @@ export default async function ColeccionPage({ params }: { params: Promise<{ loca
   return (
     <main className="min-h-screen bg-[#fcfaf8] text-[#3a3530] antialiased">
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdHtml(faqJsonLd)} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdHtml(
+          paginaJsonLd("CollectionPage", {
+            url: urlAbsoluta("/coleccion", locale),
+            nombre: t("titulo"),
+            descripcion: t("descripcion"),
+            locale,
+            piezas: productosSanity
+              .map((p) => ({ p, slug: typeof p.slug === "string" ? p.slug : p.slug?.current }))
+              .filter((x): x is { p: typeof x.p; slug: string } => Boolean(x.slug))
+              .map(({ p, slug }) => ({ nombre: nombreProducto(p, locale), url: urlAbsoluta(hrefPieza(slug), locale) })),
+          })
+        )}
+      />
       <SiteNav />
 
       {/* CABECERA DE LA COLECCIÓN (Centrada, elegante y con escala adaptada) */}

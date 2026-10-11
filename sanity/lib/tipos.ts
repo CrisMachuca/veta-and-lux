@@ -6,6 +6,8 @@ export type ImagenSanity = {
   _key?: string;
   // Sin expandir llega { _ref }; con "asset->" llega el documento del asset ({ _id, url })
   asset?: { _ref?: string; _id?: string; url?: string };
+  // Texto alternativo propio de la foto (si falta, se usa el nombre de la pieza)
+  alt?: Traducible;
 };
 
 export type EstadoPieza = "disponible" | "reservado" | "vendido";
@@ -28,6 +30,12 @@ export type ProductoSanity = {
   estado?: EstadoPieza;
   tipo?: TipoLampara;
   madera?: MaderaPieza;
+  // Identidad de la pieza: número del certificado (VL-001), fecha de terminación y si lleva certificado
+  numeroPieza?: string;
+  fechaCreacion?: string;
+  certificado?: boolean;
+  origenMadera?: Traducible;
+  proceso?: Traducible;
   electrico?: {
     casquillo?: string;
     potenciaMax?: number;

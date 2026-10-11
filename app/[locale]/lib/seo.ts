@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { locales } from "@/navigation";
+import { routing } from "@/i18n/routing";
+import { rutaLocalizada, type Href } from "@/app/[locale]/lib/rutas";
 
 import { SITE_URL } from "@/app/[locale]/lib/sitio";
 export { SITE_URL };
@@ -11,20 +13,21 @@ type ParamsLocale = { params: Promise<{ locale: string }> };
 
 const ogLocale = (locale: string) => (locale === "en" ? "en_GB" : "es_ES");
 
-// canonical + hreflang para una ruta sin prefijo de idioma ("" = home, "/coleccion", ...)
-export function alternatesPara(locale: string, ruta: string): Metadata["alternates"] {
+// canonical + hreflang de una página («/», «/coleccion», { pathname: "/coleccion/[slug]", params }),
+// cada idioma con su dirección traducida. x-default: la versión inglesa, para el resto de Europa.
+export function alternatesPara(locale: string, href: Href): Metadata["alternates"] {
   return {
-    canonical: `/${locale}${ruta}`,
+    canonical: rutaLocalizada(href, locale),
     languages: {
-      ...Object.fromEntries(locales.map((l) => [l, `/${l}${ruta}`])),
-      "x-default": `/es${ruta}`,
+      ...Object.fromEntries(locales.map((l) => [l, rutaLocalizada(href, l)])),
+      "x-default": rutaLocalizada(href, routing.defaultLocale),
     },
   };
 }
 
 // Devuelve un generateMetadata para una página estática con título y descripción
 // traducidos en el namespace "Metadata" de messages/*.json.
-export function metadataPagina(clave: string, ruta: string, opciones: { noIndex?: boolean; tituloAbsoluto?: boolean } = {}) {
+export function metadataPagina(clave: string, ruta: Href, opciones: { noIndex?: boolean; tituloAbsoluto?: boolean } = {}) {
   return async function generateMetadata({ params }: ParamsLocale): Promise<Metadata> {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: "Metadata" });
@@ -38,7 +41,7 @@ export function metadataPagina(clave: string, ruta: string, opciones: { noIndex?
       openGraph: {
         title: titulo,
         description: descripcion,
-        url: `/${locale}${ruta}`,
+        url: rutaLocalizada(ruta, locale),
         locale: ogLocale(locale),
         type: "website",
         siteName: "Veta & Lux",

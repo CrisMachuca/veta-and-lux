@@ -75,6 +75,12 @@ function bilingueTipoColor(name: string, title: string, description: string, eje
   });
 }
 
+// Texto alternativo de cada foto: lo leen Google Imágenes, las IA y quien usa un lector de pantalla
+const textoAlternativo = bilingue('alt', 'Texto alternativo', {
+  description: 'Describe lo que se ve: «Lámpara de olivo encendida sobre una mesilla de roble». Sin repetir palabras clave. Si lo dejas vacío, se usa el nombre de la pieza.',
+  placeholder: 'Lámpara de olivo encendida sobre una mesilla',
+});
+
 // Slug limpio para la URL: sin tildes, eñes ni símbolos («Viga de Castaño» → «viga-de-castano»)
 const slugLimpio = (texto: string) =>
   texto
@@ -219,6 +225,52 @@ export const producto = defineType({
       initialValue: false,
     }),
 
+    // --- IDENTIDAD DE LA PIEZA (número del certificado de autenticidad) ---
+    defineField({
+      name: 'numeroPieza',
+      title: 'Número de pieza',
+      type: 'string',
+      group: ['esencial', 'ficha'],
+      description: 'El del certificado de autenticidad, p. ej. VL-007. Al crear una lámpara se propone el siguiente libre. Se muestra en la ficha y en Google.',
+      placeholder: 'VL-001',
+      // Siguiente número libre: VL-001, VL-002…
+      initialValue: async (_params, { getClient }) => {
+        const numeros: string[] = await getClient({ apiVersion: '2024-03-24' }).fetch(
+          '*[_type == "producto" && defined(numeroPieza)].numeroPieza',
+        );
+        const mayor = Math.max(0, ...numeros.map((n) => Number(n.match(/\d+/)?.[0] ?? 0)));
+        return `VL-${String(mayor + 1).padStart(3, '0')}`;
+      },
+      validation: (rule) =>
+        rule
+          .custom(async (valor: string | undefined, contexto) => {
+            if (!valor) return 'Pon el número de pieza: va en el certificado y en Google';
+            if (!/^VL-\d{3,}$/.test(valor)) return 'Usa el formato VL-001';
+            const id = (contexto.document?._id ?? '').replace(/^drafts\./, '');
+            const repetidas: number = await contexto
+              .getClient({ apiVersion: '2024-03-24' })
+              .fetch('count(*[_type == "producto" && numeroPieza == $valor && !(_id in [$id, "drafts." + $id])])', { valor, id });
+            return repetidas > 0 ? 'Ese número ya lo tiene otra pieza' : true;
+          })
+          .warning(),
+    }),
+    defineField({
+      name: 'fechaCreacion',
+      title: 'Terminada el',
+      type: 'date',
+      group: 'ficha',
+      description: 'Fecha en que se terminó la pieza (la del certificado).',
+      options: { dateFormat: 'DD/MM/YYYY' },
+    }),
+    defineField({
+      name: 'certificado',
+      title: '¿Se entrega con certificado de autenticidad?',
+      type: 'boolean',
+      group: ['esencial', 'ficha'],
+      description: 'Si está marcado, la ficha lo indica y explica qué incluye.',
+      initialValue: true,
+    }),
+
     // --- FOTOS ---
     defineField({
       name: 'imagen',
@@ -227,6 +279,7 @@ export const producto = defineType({
       group: ['esencial', 'fotos'],
       description: 'La que se ve en la colección y al compartir. Mejor vertical o cuadrada, con buena luz. Pulsa el lápiz para elegir el punto de interés.',
       options: { hotspot: true },
+      fields: [textoAlternativo],
       validation: (rule) => rule.required().error('Falta la foto principal'),
     }),
     defineField({
@@ -235,7 +288,7 @@ export const producto = defineType({
       type: 'array',
       group: 'fotos',
       description: 'Detalles de la veta, encendida, de lado, en un ambiente… Arrastra para cambiar el orden. Puedes soltar varias a la vez.',
-      of: [{ type: 'image', options: { hotspot: true } }],
+      of: [{ type: 'image', options: { hotspot: true }, fields: [textoAlternativo] }],
       options: { layout: 'grid' },
     }),
 
@@ -252,13 +305,27 @@ export const producto = defineType({
           })
           .warning(),
     }),
-    bilingue('descripcionLarga', 'Historia de la pieza', {
+    bilingue('descripcionLarga', 'La pieza', {
       tipo: 'text',
       filas: 6,
       group: 'textos',
-      description: 'De dónde viene la madera, cómo la habéis trabajado, qué la hace única. Separa los párrafos con una línea en blanco.',
+      description: 'Sección «La pieza» de la ficha: su forma, cómo da la luz y qué la hace única. 80–150 palabras. Separa los párrafos con una línea en blanco.',
       validacionEs: (rule) =>
-        rule.custom((valor: unknown) => (tieneTexto(valor) ? true : 'Cuenta la historia de la pieza: es lo que más vende')).warning(),
+        rule.custom((valor: unknown) => (tieneTexto(valor) ? true : 'Cuenta cómo es la pieza: es lo que más vende')).warning(),
+    }),
+    bilingue('origenMadera', 'La madera y su origen', {
+      tipo: 'text',
+      filas: 5,
+      group: 'textos',
+      description: 'Qué madera es, de dónde viene y cómo llegó al taller. Solo lo que podáis acreditar (fotos, fechas, lugar): Google y las IA citan estos datos literalmente.',
+      validacionEs: (rule) =>
+        rule.custom((valor: unknown) => (tieneTexto(valor) ? true : 'Cuenta el origen de la madera: es vuestra mayor diferencia')).warning(),
+    }),
+    bilingue('proceso', 'Cómo la hicimos', {
+      tipo: 'text',
+      filas: 5,
+      group: 'textos',
+      description: 'Secado, tallado, acabado y montaje de esta pieza en concreto: tiempos, herramientas, decisiones.',
     }),
     bilingue('cuidados', 'Cuidados', {
       tipo: 'text',

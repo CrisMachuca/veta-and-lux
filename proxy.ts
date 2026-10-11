@@ -1,19 +1,15 @@
 import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
 
-export default createMiddleware({
-  locales: ['es', 'en'],
-  defaultLocale: 'es',
-  // Sin hreflang en la cabecera HTTP `Link`: la única fuente es el HTML (lib/seo.ts) y el sitemap.
-  // La cabecera de next-intl usaba otro x-default y el host de la petición (también sin www).
-  alternateLinks: false
-});
+// Idioma por URL, direcciones traducidas y detección del idioma del navegador en "/" (i18n/routing.ts)
+export default createMiddleware(routing);
 
 export const config = {
   // La clave está en añadir 'studio' a la lista de exclusiones (el bloque después de ?!)
   matcher: [
-    '/', 
-    '/(es|en)/:path*', 
+    '/',
+    '/(es|en)/:path*',
     // Excluimos api, _next, _vercel, archivos estáticos y AHORA TAMBIÉN studio
-    '/((?!api|_next|_vercel|.*\\..*|studio).*)' 
+    '/((?!api|_next|_vercel|.*\\..*|studio).*)'
   ]
 };

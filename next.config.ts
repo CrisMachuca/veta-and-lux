@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin"; // 🌟 Importamos el plugin
+import { routing } from "./i18n/routing";
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -16,7 +17,14 @@ const nextConfig: NextConfig = {
   },
   // Un solo dominio: vetandlux.com (sin www) redirige con 301 a www.vetandlux.com, conservando ruta y parámetros.
   async redirects() {
+    // Direcciones antiguas de la versión inglesa (rutas en español) → las traducidas, con 301
+    // para que Google traslade lo ya indexado (i18n/routing.ts)
+    const rutasEnTraducidas = Object.entries(routing.pathnames).flatMap(([interna, destinos]) => {
+      if (typeof destinos === "string" || destinos.en === interna) return [];
+      return [{ source: `/en${interna.replace("[slug]", ":slug")}`, destination: `/en${destinos.en.replace("[slug]", ":slug")}`, permanent: true }];
+    });
     return [
+      ...rutasEnTraducidas,
       {
         source: "/:path*",
         has: [{ type: "host", value: "vetandlux.com" }],

@@ -12,10 +12,10 @@ import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import { CACHE_CATALOGO } from "@/sanity/lib/cache";
 import FadeIn from "@/app/[locale]/components/motion/FadeIn";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
-import { jsonLdHtml, ordenarPorDisponibilidad, organizacionJsonLd } from "@/app/[locale]/lib/producto-seo";
+import { jsonLdHtml, ordenarPorDisponibilidad, organizacionJsonLd, webSiteJsonLd } from "@/app/[locale]/lib/producto-seo";
 import type { ProductoSanity } from "@/sanity/lib/tipos";
 
-export const generateMetadata = metadataPagina("inicio", "", { tituloAbsoluto: true });
+export const generateMetadata = metadataPagina("inicio", "/", { tituloAbsoluto: true });
 
 async function getProductosDestacados() {
   const query = `*[_type == "producto" && destacado == true] | order(_createdAt desc) {
@@ -41,7 +41,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
   return (
     <main className="min-h-screen bg-[#fcfaf8] antialiased text-[#3a3530]">
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdHtml(organizacionJsonLd())} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdHtml(organizacionJsonLd(locale))} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdHtml(webSiteJsonLd(locale))} />
       <SiteNav />
 
       {/* 💎 HERO: Dos imágenes en móvil con fundido limpio + Tríptico en escritorio */}

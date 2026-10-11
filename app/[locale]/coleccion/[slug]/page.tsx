@@ -10,9 +10,10 @@ import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { client, urlFor } from "@/sanity/lib/client";
 import { ESTADO_EFECTIVO } from "@/sanity/lib/reservas";
 import { CACHE_CATALOGO } from "@/sanity/lib/cache";
-import type { ProductoSanity } from "@/sanity/lib/tipos";
+import { traducir, type ProductoSanity } from "@/sanity/lib/tipos";
 import { Metadata } from "next";
-import { alternatesPara, ogLocale, SITE_URL } from "@/app/[locale]/lib/seo";
+import { alternatesPara, ogLocale } from "@/app/[locale]/lib/seo";
+import { hrefPieza, rutaLocalizada, urlAbsoluta } from "@/app/[locale]/lib/rutas";
 import {
   descripcionProducto,
   jsonLdHtml,
@@ -21,6 +22,9 @@ import {
   ordenarPorDisponibilidad,
   productoJsonLd,
   tituloProducto,
+  conNombreArchivo,
+  nombreArchivoFoto,
+  tieneCertificado,
 } from "@/app/[locale]/lib/producto-seo";
 
 export async function generateStaticParams() {
@@ -54,6 +58,11 @@ const CAMPOS_PIEZA = `
   tipo,
   madera,
   electrico,
+  numeroPieza,
+  fechaCreacion,
+  certificado,
+  origenMadera,
+  proceso,
   ${ESTADO_EFECTIVO}
 `;
 
@@ -92,11 +101,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: titulo,
     description: descripcion,
-    alternates: alternatesPara(locale, `/coleccion/${slug}`),
+    alternates: alternatesPara(locale, hrefPieza(slug)),
     openGraph: {
       title: `${titulo} | Veta & Lux`,
       description: descripcion,
-      url: `/${locale}/coleccion/${slug}`,
+      url: rutaLocalizada(hrefPieza(slug), locale),
       locale: ogLocale(locale),
       images: imagenUrl ? [{ url: imagenUrl }] : [],
     },
@@ -130,11 +139,28 @@ export default async function ProductoPage(props: PageProps) {
   const imagenesLd = [producto.imagen, ...(producto.imagenes ?? [])]
     .filter((img) => img?.asset)
     .slice(0, 4)
-    .map((img) => urlFor(img!).width(1200).auto("format").url());
+    .map((img, i) => conNombreArchivo(urlFor(img!).width(1200).auto("format").url(), nombreArchivoFoto(producto, locale, i)));
+
+  // Secciones de la ficha (solo las que tienen texto): lo que buscan saber quien compra, Google y las IA
+  const parrafos = (texto?: string) => (texto ?? "").split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+  const fecha = producto.fechaCreacion
+    ? new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "es-ES", { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(producto.fechaCreacion))
+    : null;
+  const textoCertificado = [
+    t("certificadoTexto"),
+    producto.numeroPieza ? t("certificadoNumero", { numero: producto.numeroPieza }) : null,
+    fecha ? t("terminada", { fecha }) : null,
+  ].filter(Boolean).join(" ");
+  const secciones = [
+    { id: "la-pieza", titulo: t("laPieza"), parrafos: parrafos(traducir(producto.descripcionLarga, locale)) },
+    { id: "origen", titulo: t("origen"), parrafos: parrafos(traducir(producto.origenMadera, locale)) },
+    { id: "hecha-a-mano", titulo: t("proceso"), parrafos: parrafos(traducir(producto.proceso, locale)) },
+    { id: "certificado", titulo: t("certificadoTitulo"), parrafos: tieneCertificado(producto) ? [textoCertificado] : [] },
+  ].filter((s) => s.parrafos.length > 0);
   const migas = [
-    { nombre: t("migaInicio"), url: `${SITE_URL}/${locale}` },
-    { nombre: t("migaColeccion"), url: `${SITE_URL}/${locale}/coleccion` },
-    { nombre, url: `${SITE_URL}/${locale}/coleccion/${slug}` },
+    { nombre: t("migaInicio"), url: urlAbsoluta("/", locale) },
+    { nombre: t("migaColeccion"), url: urlAbsoluta("/coleccion", locale) },
+    { nombre, url: urlAbsoluta(hrefPieza(slug), locale) },
   ];
 
   return (
@@ -155,6 +181,19 @@ export default async function ProductoPage(props: PageProps) {
       </nav>
 
       <ProductDetailClient producto={producto} />
+
+      {secciones.length > 0 && (
+        <div className="max-w-3xl mx-auto px-6 pb-20 space-y-12">
+          {secciones.map((s) => (
+            <section key={s.id} id={s.id} aria-labelledby={`${s.id}-titulo`}>
+              <h2 id={`${s.id}-titulo`} className="text-2xl md:text-3xl font-nixie text-stone-900 mb-4">{s.titulo}</h2>
+              <div className="space-y-4 text-stone-700 text-lg font-light leading-relaxed font-urbanist">
+                {s.parrafos.map((texto, i) => <p key={i}>{texto}</p>)}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
 
       {relacionadas.length > 0 && (
         <section className="max-w-6xl mx-auto px-6 pb-24" aria-labelledby="otras-piezas">

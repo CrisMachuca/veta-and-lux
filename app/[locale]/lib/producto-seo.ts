@@ -3,6 +3,7 @@
 import { traducir, type EstadoPieza, type MaderaPieza, type ProductoSanity, type TipoLampara } from "@/sanity/lib/tipos";
 import { COSTES_ENVIO } from "@/app/[locale]/lib/envio";
 import { SITE_URL } from "@/app/[locale]/lib/sitio";
+import { hrefPieza, urlAbsoluta } from "@/app/[locale]/lib/rutas";
 
 const ETIQUETAS_TIPO: Record<TipoLampara, { es: string; en: string }> = {
   sobremesa: { es: "Lámpara de sobremesa", en: "Table lamp" },
@@ -85,6 +86,30 @@ export function tituloProducto(p: ProductoSanity, locale: string) {
   return nombre ? `${descriptor} · ${nombre}` : descriptor;
 }
 
+// --- Fotos: nombre de archivo descriptivo en la URL de Sanity (Google Imágenes lo lee) ---
+
+const enMinusculasSinTildes = (texto: string) =>
+  texto
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 90);
+
+// «lampara-de-sobremesa-de-madera-de-olivo-olivo-a-la-deriva» (y «-2», «-3»… para el resto de fotos)
+export function nombreArchivoFoto(p: ProductoSanity, locale: string, indice = 0) {
+  const base = enMinusculasSinTildes(tituloProducto(p, locale));
+  return indice > 0 ? `${base}-${indice + 1}` : base;
+}
+
+// El CDN de Sanity acepta un nombre tras el archivo: …/abc-896x1195.jpg/lampara-de-olivo.jpg?w=720
+export function conNombreArchivo(url: string, nombre: string) {
+  const [ruta, consulta] = url.split("?");
+  const extension = ruta.match(/\.(\w+)$/)?.[1] ?? "jpg";
+  return `${ruta}/${nombre}.${extension}${consulta ? `?${consulta}` : ""}`;
+}
+
 function recortar(texto: string, max = 155) {
   const limpio = texto.replace(/\s+/g, " ").trim();
   if (limpio.length <= max) return limpio;
@@ -137,18 +162,59 @@ const ENVIOS_MARCADOS = ["FR", "IT", "DE", "PT"].map((pais) => ({
   },
 }));
 
+// Todas las piezas se entregan con certificado salvo que en el Studio se desmarque expresamente
+export const tieneCertificado = (p: ProductoSanity) => p.certificado !== false;
+
+const CATEGORIAS: Record<TipoLampara, { es: string; en: string }> = {
+  sobremesa: { es: "Lámparas de sobremesa", en: "Table lamps" },
+  colgante: { es: "Lámparas colgantes", en: "Pendant lamps" },
+  pie: { es: "Lámparas de pie", en: "Floor lamps" },
+  aplique: { es: "Apliques de pared", en: "Wall lights" },
+  otra: { es: "Lámparas", en: "Lamps" },
+};
+
+const centimetros = (valor?: number) =>
+  typeof valor === "number" ? { "@type": "QuantitativeValue", value: valor, unitCode: "CMT" } : undefined;
+
+// Lo que hace única a la pieza, como datos verificables (lo leen Google y los asistentes de IA)
+function propiedadesPieza(p: ProductoSanity, locale: string) {
+  const en = idioma(locale) === "en";
+  const madera = maderaPieza(p);
+  const propiedades: [string, string | undefined][] = [
+    [en ? "Edition" : "Edición", en ? "One of a kind" : "Pieza única"],
+    [en ? "Production method" : "Fabricación", en ? "Handcrafted in Malaga, Spain" : "Hecha a mano en Málaga"],
+    [en ? "Wood" : "Madera", madera ? (en ? madera.en : madera.es.charAt(0).toUpperCase() + madera.es.slice(1)) : undefined],
+    [en ? "Piece number" : "Número de pieza", p.numeroPieza],
+    [en ? "Certificate of authenticity" : "Certificado de autenticidad", tieneCertificado(p) ? (en ? "Included" : "Incluido") : undefined],
+  ];
+  return propiedades
+    .filter((par): par is [string, string] => Boolean(par[1]))
+    .map(([name, value]) => ({ "@type": "PropertyValue", name, value }));
+}
+
 export function productoJsonLd(p: ProductoSanity, locale: string, slug: string, imagenes: string[]) {
-  const url = `${SITE_URL}/${idioma(locale)}/coleccion/${slug}`;
-  const material = traducir(p.materialBase, locale);
+  const url = urlAbsoluta(hrefPieza(slug), idioma(locale));
+  const pantalla = traducir(p.materialPantalla, locale);
+  const materiales = [traducir(p.materialBase, locale), pantalla?.tipo]
+    .map((m) => m?.trim())
+    .filter((m): m is string => Boolean(m));
+  const tipo = tipoPieza(p);
   return {
     "@context": "https://schema.org",
     "@type": "Product",
     name: tituloProducto(p, locale),
     description: descripcionProducto(p, locale),
     image: imagenes,
-    sku: slug,
+    // El número del certificado identifica la pieza; si aún no lo tiene, su dirección
+    sku: p.numeroPieza || slug,
     brand: { "@type": "Brand", name: "Veta & Lux" },
-    ...(material ? { material } : {}),
+    ...(tipo ? { category: CATEGORIAS[tipo][idioma(locale)] } : {}),
+    ...(materiales.length ? { material: materiales.length === 1 ? materiales[0] : materiales } : {}),
+    ...(centimetros(p.medidas?.alto) ? { height: centimetros(p.medidas?.alto) } : {}),
+    ...(centimetros(p.medidas?.ancho) ? { width: centimetros(p.medidas?.ancho) } : {}),
+    ...(centimetros(p.medidas?.largo) ? { depth: centimetros(p.medidas?.largo) } : {}),
+    ...(p.fechaCreacion ? { productionDate: p.fechaCreacion } : {}),
+    additionalProperty: propiedadesPieza(p, locale),
     offers: {
       "@type": "Offer",
       url,
@@ -170,13 +236,23 @@ export function migasJsonLd(migas: { nombre: string; url: string }[]) {
   };
 }
 
-export function organizacionJsonLd() {
+const ID_ORGANIZACION = `${SITE_URL}/#organizacion`;
+const ID_WEB = `${SITE_URL}/#web`;
+
+// Qué es la marca, en una frase verificable: la definición que usan Google y los asistentes de IA
+const DESCRIPCION_MARCA = {
+  es: "Taller de Málaga que crea lámparas escultóricas únicas, hechas a mano con maderas recuperadas como el olivo, el eucalipto o el castaño.",
+  en: "Workshop in Malaga, Spain, creating one-of-a-kind sculptural lamps handcrafted from reclaimed woods such as olive, eucalyptus and chestnut.",
+};
+
+export function organizacionJsonLd(locale = "es") {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${SITE_URL}/#organizacion`,
+    "@id": ID_ORGANIZACION,
     name: "Veta & Lux",
     url: SITE_URL,
+    description: DESCRIPCION_MARCA[idioma(locale)],
     logo: `${SITE_URL}/web-app-manifest-512x512.png`,
     email: "info@vetandlux.com",
     address: { "@type": "PostalAddress", addressLocality: "Málaga", addressCountry: "ES" },
@@ -185,6 +261,43 @@ export function organizacionJsonLd() {
       { "@type": "Person", name: "Rafa" },
     ],
     hasMerchantReturnPolicy: POLITICA_DEVOLUCIONES,
+  };
+}
+
+// La web oficial de la marca (portada)
+export function webSiteJsonLd(locale: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": ID_WEB,
+    url: SITE_URL,
+    name: "Veta & Lux",
+    description: DESCRIPCION_MARCA[idioma(locale)],
+    inLanguage: ["es", "en"],
+    publisher: { "@id": ID_ORGANIZACION },
+  };
+}
+
+// Página general (Sobre el taller, colección…) enlazada con la web y la marca
+export function paginaJsonLd(tipo: "AboutPage" | "CollectionPage" | "WebPage", datos: { url: string; nombre: string; descripcion?: string; locale: string; piezas?: { nombre: string; url: string }[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": tipo,
+    url: datos.url,
+    name: datos.nombre,
+    ...(datos.descripcion ? { description: datos.descripcion } : {}),
+    inLanguage: idioma(datos.locale),
+    isPartOf: { "@id": ID_WEB },
+    about: { "@id": ID_ORGANIZACION },
+    ...(datos.piezas?.length
+      ? {
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: datos.piezas.length,
+            itemListElement: datos.piezas.map((p, i) => ({ "@type": "ListItem", position: i + 1, name: p.nombre, url: p.url })),
+          },
+        }
+      : {}),
   };
 }
 

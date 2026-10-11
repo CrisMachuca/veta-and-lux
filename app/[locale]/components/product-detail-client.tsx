@@ -6,7 +6,7 @@ import { traducir, type ImagenSanity, type ProductoSanity, type Traducible } fro
 import { useTranslations, useLocale } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@/navigation";
-import { descriptorProducto, etiquetaTipo, nombreProducto } from "@/app/[locale]/lib/producto-seo";
+import { conNombreArchivo, descriptorProducto, etiquetaTipo, nombreArchivoFoto, nombreProducto, tieneCertificado } from "@/app/[locale]/lib/producto-seo";
 import { enviarEvento, itemAnalytics } from "@/app/[locale]/lib/analytics";
 
 // --- Magnifier: Mantenido tal cual ---
@@ -75,8 +75,9 @@ function MagnifierImage({ src, alt }: { src: string; alt: string }) {
 
 // Foto principal de la ficha: 4:5, en varios anchos para que cada pantalla descargue solo lo que necesita
 const ANCHOS_FOTO = [480, 720, 960, 1200];
-const urlFoto = (img: ImagenSanity, ancho: number) =>
-  urlFor(img).width(ancho).height(Math.round(ancho * 1.25)).fit("crop").auto("format").url();
+// «archivo»: nombre descriptivo que se añade a la URL (…/lampara-de-sobremesa-de-madera-de-olivo-olivo-a-la-deriva.jpg)
+const urlFoto = (img: ImagenSanity, ancho: number, archivo: string) =>
+  conNombreArchivo(urlFor(img).width(ancho).height(Math.round(ancho * 1.25)).fit("crop").auto("format").url(), archivo);
 // Columna de la galería: ancho de pantalla menos márgenes en móvil; media rejilla (máx. 528 px) en escritorio
 const SIZES_FOTO = "(min-width: 1152px) 528px, (min-width: 1024px) calc(50vw - 48px), calc(100vw - 48px)";
 
@@ -101,6 +102,15 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
   const nombreTraducido = nombreProducto(producto, locale);
   // Qué es la pieza («Lámpara de sobremesa de madera de olivo»): segunda línea del H1, para buscadores y para quien llega
   const descriptor = descriptorProducto(producto, locale);
+
+  // Fotos: nombre de archivo descriptivo (la principal sin número; las demás -2, -3…) y texto alternativo
+  // propio de cada foto si lo tiene en Sanity; si no, el nombre y lo que es la pieza
+  const archivoDe = (img: ImagenSanity) => {
+    const posicion = producto.imagenes?.findIndex((x) => x._key && x._key === img._key) ?? -1;
+    return nombreArchivoFoto(producto, locale, posicion >= 0 ? posicion + 1 : 0);
+  };
+  const altPrincipal = descriptor !== nombreTraducido ? `${nombreTraducido}, ${descriptor.charAt(0).toLowerCase()}${descriptor.slice(1)}` : nombreTraducido;
+  const altDe = (img: ImagenSanity | null, alternativo: string) => traducir(img?.alt, locale)?.trim() || alternativo;
   const categoria = etiquetaTipo(producto.tipo, "es");
   const itemGa = itemAnalytics(producto._id, nombreTraducido, producto.precio ?? 0, categoria);
 
@@ -160,14 +170,14 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
 
           <div className="lg:sticky lg:top-24">
             <button onClick={() => selectedImage?.asset && setOpenImage(urlFor(selectedImage).width(2000).auto("format").url())} className="w-full rounded-2xl overflow-hidden bg-stone-100 ring-1 ring-stone-200/80">
-              {selectedImage?.asset ? <img src={urlFoto(selectedImage, 1200)} srcSet={ANCHOS_FOTO.map((w) => `${urlFoto(selectedImage, w)} ${w}w`).join(", ")} sizes={SIZES_FOTO} alt={nombreTraducido} fetchPriority="high" loading="eager" decoding="async" className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-500 text-sm">{t("sinImagen")}</div>}
+              {selectedImage?.asset ? <img src={urlFoto(selectedImage, 1200, archivoDe(selectedImage))} srcSet={ANCHOS_FOTO.map((w) => `${urlFoto(selectedImage, w, archivoDe(selectedImage))} ${w}w`).join(", ")} sizes={SIZES_FOTO} alt={altDe(selectedImage, altPrincipal)} fetchPriority="high" loading="eager" decoding="async" className="w-full aspect-[4/5] object-cover" /> : <div className="w-full aspect-[4/5] flex items-center justify-center text-stone-500 text-sm">{t("sinImagen")}</div>}
             </button>
             {(producto.imagenes?.length ?? 0) > 0 && (
               <div className="grid grid-cols-3 gap-4 mt-4">
                 {producto.imagenes?.map((img, index) => (
                   img?.asset && (
                     <button key={img._key || index} onClick={() => setSelectedImage(img)} className={`rounded-xl overflow-hidden ring-1 transition-all ${(selectedImage?.asset?._id ?? selectedImage?.asset?._ref) === (img.asset?._id ?? img.asset?._ref) ? "ring-stone-900" : "ring-stone-200 opacity-60"}`}>
-                      <img src={urlFor(img).width(400).height(400).fit("crop").auto("format").url()} loading="lazy" alt={`${nombreTraducido} — ${t("miniaturaAlt")}`} className="w-full aspect-square object-cover" />
+                      <img src={conNombreArchivo(urlFor(img).width(400).height(400).fit("crop").auto("format").url(), archivoDe(img))} loading="lazy" alt={altDe(img, `${nombreTraducido} — ${t("miniaturaAlt")}`)} className="w-full aspect-square object-cover" />
                     </button>
                   )
                 ))}
@@ -186,13 +196,21 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
                 )}
               </h1>
               <p className="text-2xl font-light text-stone-800 mb-2 font-urbanist">{producto?.precio}€</p>
+              {/* Identidad de la pieza: número del certificado y certificado de autenticidad */}
+              {(producto.numeroPieza || tieneCertificado(producto)) && (
+                <p className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.15em] text-amber-900 font-urbanist font-semibold mb-2">
+                  {producto.numeroPieza && <span>{t("piezaNumero", { numero: producto.numeroPieza })}</span>}
+                  {tieneCertificado(producto) && <span>{t("certificadoIncluido")}</span>}
+                </p>
+              )}
               <p className="text-xs text-stone-600 mb-6 font-urbanist">
                 {t("envioResumen")}{" "}
                 <Link href="/envios-devoluciones" className="underline underline-offset-2 hover:text-stone-900">{t("envioMas")}</Link>
               </p>
-              <p className="text-stone-600 leading-relaxed text-lg font-light">
-                {getTrad(producto?.descripcionLarga) || getTrad(producto?.descripcion)}
-              </p>
+              {/* La descripción corta; la larga va completa más abajo, en «La pieza» */}
+              {getTrad(producto?.descripcion) && (
+                <p className="text-stone-600 leading-relaxed text-lg font-light">{getTrad(producto?.descripcion)}</p>
+              )}
             </div>
 
             {hayFichaTecnica && (

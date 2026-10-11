@@ -15,6 +15,8 @@ const CAMPOS = [
   { es: 'nombre.es', en: 'nombre.en', padres: ['nombre'] },
   { es: 'descripcion.es', en: 'descripcion.en', padres: ['descripcion'] },
   { es: 'descripcionLarga.es', en: 'descripcionLarga.en', padres: ['descripcionLarga'] },
+  { es: 'origenMadera.es', en: 'origenMadera.en', padres: ['origenMadera'] },
+  { es: 'proceso.es', en: 'proceso.en', padres: ['proceso'] },
   { es: 'materialBase.es', en: 'materialBase.en', padres: ['materialBase'] },
   { es: 'materialPantalla.es.tipo', en: 'materialPantalla.en.tipo', padres: ['materialPantalla', 'materialPantalla.en'] },
   { es: 'materialPantalla.es.color', en: 'materialPantalla.en.color', padres: ['materialPantalla', 'materialPantalla.en'] },
@@ -34,6 +36,27 @@ function leer(doc: Record<string, unknown>, ruta: string): string {
   return typeof valor === 'string' ? valor.trim() : ''
 }
 
+// Un texto por traducir: ruta donde escribir el inglés, texto en español, inglés actual y objetos que deben existir
+type Campo = { en: string; textoEs: string; textoEn: string; padres: string[] }
+
+type Foto = { _key?: string; alt?: { es?: string; en?: string } }
+
+// Campos fijos más el texto alternativo de la foto principal y de cada foto de la galería
+// (en la galería se localiza la foto por su _key: imagenes[_key=="…"].alt.en)
+function camposDe(doc: Record<string, unknown>): Campo[] {
+  const fijos = CAMPOS.map((c) => ({ en: c.en, textoEs: leer(doc, c.es), textoEn: leer(doc, c.en), padres: [...c.padres] }))
+  const principal = doc.imagen as Foto | undefined
+  const fotos: Campo[] = principal
+    ? [{ en: 'imagen.alt.en', textoEs: principal.alt?.es?.trim() ?? '', textoEn: principal.alt?.en?.trim() ?? '', padres: ['imagen.alt'] }]
+    : []
+  for (const foto of (doc.imagenes as Foto[] | undefined) ?? []) {
+    if (!foto._key) continue
+    const ruta = `imagenes[_key=="${foto._key}"].alt`
+    fotos.push({ en: `${ruta}.en`, textoEs: foto.alt?.es?.trim() ?? '', textoEn: foto.alt?.en?.trim() ?? '', padres: [ruta] })
+  }
+  return [...fijos, ...fotos]
+}
+
 const MENSAJES_ERROR: Record<string, string> = {
   origen: 'Abre el Studio desde la propia web (vetandlux.com/studio) para poder traducir.',
   limite: 'Demasiadas traducciones seguidas. Espera unos minutos y vuelve a probar.',
@@ -47,9 +70,7 @@ function useTraducir(props: DocumentActionProps, modo: Modo) {
   const [dialogo, setDialogo] = useState<DocumentActionDialogProps | null>(null)
 
   const doc = (props.draft || props.published) as Record<string, unknown> | null
-  const pendientes = doc
-    ? CAMPOS.filter((campo) => leer(doc, campo.es) && (modo === 'todo' || !leer(doc, campo.en)))
-    : []
+  const pendientes = doc ? camposDe(doc).filter((campo) => campo.textoEs && (modo === 'todo' || !campo.textoEn)) : []
 
   const cerrar = () => {
     setDialogo(null)
@@ -76,7 +97,7 @@ function useTraducir(props: DocumentActionProps, modo: Modo) {
       const respuesta = await fetch('/api/traducir', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ textos: pendientes.map((campo) => leer(doc, campo.es)) }),
+        body: JSON.stringify({ textos: pendientes.map((campo) => campo.textoEs) }),
       })
       const datos = (await respuesta.json().catch(() => ({}))) as {
         traducciones?: string[]

@@ -130,7 +130,14 @@
     "migaColeccion": "Collection",
     "migasAria": "Breadcrumb",
     "relacionadas": "More pieces from the workshop",
-    "verColeccion": "View the whole collection"
+    "verColeccion": "View the whole collection",
+    "laPieza": "The piece",
+    "origen": "The wood and its origin",
+    "proceso": "Crafted by hand",
+    "certificadoTitulo": "Certificate of authenticity",
+    "certificadoTexto": "Every piece is one of a kind and comes numbered, with a certificate of authenticity signed by the people who made it.",
+    "certificadoNumero": "This piece is number {numero}.",
+    "terminada": "Completed in {fecha}."
   },
   "DetalleCliente": {
     "base": "Base",
@@ -178,7 +185,9 @@
     "longitudCable": "Cable length",
     "envioResumen": "Free insured shipping across mainland Spain · 14-day returns.",
     "envioMas": "Shipping and returns",
-    "aMedida": "Commission a custom piece →"
+    "aMedida": "Commission a custom piece →",
+    "piezaNumero": "Piece no. {numero}",
+    "certificadoIncluido": "Certificate of authenticity included"
   },
   "Contacto": {
     "tagline": "Let's talk",

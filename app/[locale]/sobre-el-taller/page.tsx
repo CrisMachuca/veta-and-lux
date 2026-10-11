@@ -4,6 +4,8 @@ import { Link } from "@/navigation";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { metadataPagina } from "@/app/[locale]/lib/seo";
+import { jsonLdHtml, organizacionJsonLd, paginaJsonLd } from "@/app/[locale]/lib/producto-seo";
+import { urlAbsoluta } from "@/app/[locale]/lib/rutas";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -30,6 +32,7 @@ export default async function SobreElTallerPage({ params }: { params: Promise<{ 
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "Taller" });
+  const tm = await getTranslations({ locale, namespace: "Metadata" });
   const historia = t.raw("historia") as string[];
   const personas = t.raw("personas") as Persona[];
   const etapas = t.raw("etapas") as string[];
@@ -38,6 +41,14 @@ export default async function SobreElTallerPage({ params }: { params: Promise<{ 
 
   return (
     <main className="min-h-screen bg-[#fcfaf8] text-[#3a3530] antialiased">
+      {/* Quiénes somos, para Google y los asistentes de IA: la página «sobre» de la marca y la marca misma */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdHtml(
+          paginaJsonLd("AboutPage", { url: urlAbsoluta("/sobre-el-taller", locale), nombre: tm("taller.titulo"), descripcion: tm("taller.descripcion"), locale })
+        )}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdHtml(organizacionJsonLd(locale))} />
       <SiteNav />
 
       {/* CABECERA */}

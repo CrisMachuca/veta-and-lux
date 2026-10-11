@@ -69,13 +69,13 @@ export function ProductGallery({ productos, isHome = false, listName = "coleccio
 
         return (
           <article key={producto._id} className={`group flex flex-col h-full ${isHome ? "flex-none w-[75vw] md:w-auto snap-start" : ""}`}>
-            <Link href={`/coleccion/${slugNormalizado}`} className="block rounded-xl md:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800">
+            <Link href={{ pathname: "/coleccion/[slug]", params: { slug: slugNormalizado ?? "" } }} className="block rounded-xl md:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl md:rounded-2xl bg-stone-100 ring-1 ring-stone-200/50 shadow-sm transition-all duration-500 group-hover:shadow-md">
 
                 {producto.imagen?.asset ? (
                   <Image
                     src={sanityImageUrl}
-                    alt={nombre}
+                    alt={traducir(producto.imagen?.alt, locale)?.trim() || nombre}
                     fill
                     sizes={isHome ? "(max-width: 768px) 75vw, (max-width: 1200px) 33vw, 400px" : "(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 400px"}
                     className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
@@ -106,7 +106,7 @@ export function ProductGallery({ productos, isHome = false, listName = "coleccio
 
               <div className="mt-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                 <div className="flex flex-col gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] font-urbanist font-bold">
-                  <Link href={`/coleccion/${slugNormalizado}`} className="text-stone-600 hover:text-stone-950 transition-colors underline underline-offset-4 w-fit">
+                  <Link href={{ pathname: "/coleccion/[slug]", params: { slug: slugNormalizado ?? "" } }} className="text-stone-600 hover:text-stone-950 transition-colors underline underline-offset-4 w-fit">
                     {t("detalles")}
                   </Link>
 

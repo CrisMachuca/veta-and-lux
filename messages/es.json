@@ -130,7 +130,14 @@
     "migaColeccion": "Colección",
     "migasAria": "Ruta de navegación",
     "relacionadas": "Otras piezas del taller",
-    "verColeccion": "Ver toda la colección"
+    "verColeccion": "Ver toda la colección",
+    "laPieza": "La pieza",
+    "origen": "La madera y su origen",
+    "proceso": "Hecha a mano",
+    "certificadoTitulo": "Certificado de autenticidad",
+    "certificadoTexto": "Cada pieza es única y se entrega numerada, con un certificado de autenticidad firmado por quienes la han hecho.",
+    "certificadoNumero": "Número de esta pieza: {numero}.",
+    "terminada": "Terminada en {fecha}."
   },
   "DetalleCliente": {
     "base": "Base",
@@ -178,7 +185,9 @@
     "longitudCable": "Long. cable",
     "envioResumen": "Envío asegurado gratis en España peninsular · Devolución en 14 días.",
     "envioMas": "Envíos y devoluciones",
-    "aMedida": "Encargar una pieza a medida →"
+    "aMedida": "Encargar una pieza a medida →",
+    "piezaNumero": "Pieza nº {numero}",
+    "certificadoIncluido": "Certificado de autenticidad incluido"
   },
   "Contacto": {
     "tagline": "Hablemos",

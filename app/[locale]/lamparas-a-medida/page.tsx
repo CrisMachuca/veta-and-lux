@@ -81,7 +81,7 @@ export default async function LamparasAMedidaPage({ params }: { params: Promise<
             <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10">
               {vendidas.map((p) => (
                 <li key={p._id}>
-                  <Link href={`/coleccion/${p.slug as string}`} className="group block">
+                  <Link href={{ pathname: "/coleccion/[slug]", params: { slug: p.slug as string } }} className="group block">
                     <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-stone-100">
                       <Image
                         src={urlFor(p.imagen!).width(600).height(750).fit("crop").auto("format").url()}

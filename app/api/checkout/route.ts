@@ -6,6 +6,7 @@ import type { CartLine } from "@/app/[locale]/components/cart-provider";
 import { COSTES_ENVIO, esRegionEnvio } from "@/app/[locale]/lib/envio";
 import { ESTADO_EFECTIVO, fechaFinReserva } from "@/sanity/lib/reservas";
 import { invalidarCatalogo } from "@/sanity/lib/cache";
+import { rutaLocalizada } from "@/app/[locale]/lib/rutas";
 
 // 1. Inicialización de Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -281,7 +282,7 @@ export async function POST(request: Request) {
         },
 
         success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/checkout/success?method=stripe&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/carrito`,
+        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}${rutaLocalizada("/carrito", locale)}`,
       });
 
       return NextResponse.json({ url: session.url });
