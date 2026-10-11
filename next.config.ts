@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin"; // 🌟 Importamos el plugin
 import { routing } from "./i18n/routing";
+import { SLUGS_RENOMBRADOS } from "./app/[locale]/lib/slugs-renombrados";
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -23,7 +24,14 @@ const nextConfig: NextConfig = {
       if (typeof destinos === "string" || destinos.en === interna) return [];
       return [{ source: `/en${interna.replace("[slug]", ":slug")}`, destination: `/en${destinos.en.replace("[slug]", ":slug")}`, permanent: true }];
     });
+    // Piezas renombradas (también desde la antigua ruta inglesa en español, sin pasar por dos redirecciones)
+    const piezasRenombradas = Object.entries(SLUGS_RENOMBRADOS).flatMap(([viejo, nuevo]) => [
+      { source: `/es/coleccion/${viejo}`, destination: `/es/coleccion/${nuevo}`, permanent: true },
+      { source: `/en/collection/${viejo}`, destination: `/en/collection/${nuevo}`, permanent: true },
+      { source: `/en/coleccion/${viejo}`, destination: `/en/collection/${nuevo}`, permanent: true },
+    ]);
     return [
+      ...piezasRenombradas,
       ...rutasEnTraducidas,
       {
         source: "/:path*",
