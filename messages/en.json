@@ -196,13 +196,13 @@
   "Contacto": {
     "tagline": "Let's talk",
     "titulo": "Contact",
-    "descripcion": "Would you like a custom piece, have questions about shipping, or want to drop by the workshop? Write to us: we reply with the same calm with which we work the wood.",
+    "descripcion": "Would you like a custom piece or have questions about shipping? Write to us: we reply with the same calm with which we work the wood.",
     "botonVolver": "← Back to home",
     "srFormulario": "Contact form",
     "taller": {
       "titulo": "Workshop",
       "ubicacion": "Malaga, Spain",
-      "texto": "Visits by appointment only to discover the process and see available pieces."
+      "texto": "Our own workshop, no physical shop: we sell online. Within the province of Malaga we can come and see your space for a bespoke commission."
     },
     "email": {
       "titulo": "Email",
@@ -216,7 +216,7 @@
       "titulo": "Hours",
       "linea1": "Monday to Friday, mornings ",
       "horas": "9:00 AM – 2:00 PM",
-      "linea2": "Afternoons by appointment."
+      "linea2": "Visits within the province, by appointment."
     }
   },
   "ContactForm": {
@@ -434,7 +434,7 @@
     },
     "contacto": {
       "titulo": "Contact and custom orders",
-      "descripcion": "Write to us to order a custom lamp, ask about shipping or visit our workshop in Malaga."
+      "descripcion": "Write to us to commission a custom lamp or ask about shipping. Workshop in Malaga, sold online."
     },
     "carrito": {
       "titulo": "Cart",
@@ -710,8 +710,8 @@
     "altCurado": "Wood during the curing process in the workshop",
     "altLampara": "Finished Veta & Lux lamp on a bedside table",
     "ubicacionTitulo": "Where we are",
-    "ubicacionTexto": "Our workshop is in Malaga, Spain. If you would like to visit and see the pieces available, you can come by appointment.",
-    "ctaContacto": "Book a visit",
+    "ubicacionTexto": "Our workshop is in Malaga, Spain, and is not open to the public: we sell online and ship every piece in made-to-measure packaging. If you are in the province and would like a bespoke lamp, we can come and see your space.",
+    "ctaContacto": "Get in touch",
     "ctaColeccion": "View the collection",
     "ctaMedida": "Commission a custom lamp",
     "ctaProceso": "How we work the wood",

@@ -196,13 +196,13 @@
   "Contacto": {
     "tagline": "Hablemos",
     "titulo": "Contacto",
-    "descripcion": "¿Te gustaría una pieza a medida, resolver dudas sobre envíos o pasar por el taller? Escríbenos: respondemos con la misma calma con la que trabajamos la madera.",
+    "descripcion": "¿Te gustaría una pieza a medida o resolver dudas sobre envíos? Escríbenos: respondemos con la misma calma con la que trabajamos la madera.",
     "botonVolver": "← Volver al inicio",
     "srFormulario": "Formulario de contacto",
     "taller": {
       "titulo": "Taller",
       "ubicacion": "Málaga, España",
-      "texto": "Visitas con cita previa para conocer el proceso y ver piezas disponibles."
+      "texto": "Taller propio, sin tienda física: vendemos online. En la provincia de Málaga podemos ir a ver tu espacio para un encargo a medida."
     },
     "email": {
       "titulo": "Email",
@@ -216,7 +216,7 @@
       "titulo": "Horario",
       "linea1": "Lunes a viernes, mañanas ",
       "horas": "9:00 – 14:00",
-      "linea2": "Tardes con cita concertada."
+      "linea2": "Visitas en la provincia, con cita."
     }
   },
   "ContactForm": {
@@ -434,7 +434,7 @@
     },
     "contacto": {
       "titulo": "Contacto y encargos a medida",
-      "descripcion": "Escríbenos para encargar una lámpara a medida, resolver dudas sobre envíos o visitar el taller en Málaga."
+      "descripcion": "Escríbenos para encargar una lámpara a medida o resolver dudas sobre envíos. Taller en Málaga, venta online."
     },
     "carrito": {
       "titulo": "Carrito",
@@ -710,8 +710,8 @@
     "altCurado": "Madera durante el proceso de curado en el taller",
     "altLampara": "Lámpara de Veta & Lux terminada, sobre una mesilla de noche",
     "ubicacionTitulo": "Dónde estamos",
-    "ubicacionTexto": "Nuestro taller está en Málaga. Si quieres conocerlo y ver las piezas disponibles, puedes visitarnos con cita previa.",
-    "ctaContacto": "Pedir cita",
+    "ubicacionTexto": "Nuestro taller está en Málaga y no abre al público: vendemos online y enviamos cada pieza con embalaje a medida. Si estás en la provincia y quieres una lámpara a medida, podemos ir a ver tu espacio.",
+    "ctaContacto": "Escríbenos",
     "ctaColeccion": "Ver la colección",
     "ctaMedida": "Encargar una lámpara a medida",
     "ctaProceso": "Cómo trabajamos la madera",

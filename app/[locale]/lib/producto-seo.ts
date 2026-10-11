@@ -288,6 +288,8 @@ export function organizacionJsonLd(locale = "es") {
       { "@type": "Person", name: "Cristina" },
       { "@type": "Person", name: "Rafa" },
     ],
+    // Perfiles oficiales de la marca: solo cuentas propias y activas (ayuda a Google y a las IA a identificarla)
+    sameAs: ["https://www.instagram.com/vetandlux/", "https://www.facebook.com/vetandlux"],
     hasMerchantReturnPolicy: POLITICA_DEVOLUCIONES,
   };
 }
