@@ -45,6 +45,9 @@ export function SiteNav() {
           <Link href="/interioristas" className="hidden lg:inline whitespace-nowrap hover:text-stone-900 transition-colors">
             {t("interioristas")}
           </Link>
+          <Link href="/journal" className="hidden lg:inline whitespace-nowrap hover:text-stone-900 transition-colors">
+            {t("journal")}
+          </Link>
           <Link href="/contacto" className="hover:text-stone-900 transition-colors">
             {t("contacto")}
           </Link>
@@ -105,6 +108,9 @@ export function SiteNav() {
             </Link>
             <Link href="/interioristas" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
               {t("interioristas")}
+            </Link>
+            <Link href="/journal" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
+              {t("journal")}
             </Link>
             <Link href="/contacto" onClick={() => setMenuAbierto(false)} className="hover:text-stone-900 border-b border-stone-200/60 pb-3 transition-colors">
               {t("contacto")}
