@@ -31,6 +31,22 @@ const nextConfig: NextConfig = {
     // Sin «no-store», el navegador puede volver atrás al instante (bfcache).
     const htmlSinCacheEnCdn = [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }];
     return [
+      // Cabeceras de seguridad en todas las respuestas
+      {
+        source: "/:path*",
+        headers: [
+          // Solo HTTPS durante un año (sin includeSubDomains hasta confirmar que todos los subdominios tienen HTTPS)
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
+          // El navegador no adivina tipos de archivo
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          // A otras webs solo llega el dominio, nunca la URL completa
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // Ninguna otra web puede mostrar esta dentro de un marco (clickjacking)
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // Funciones del navegador que la web no usa, desactivadas
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
+        ],
+      },
       { source: "/:locale(es|en)", headers: htmlSinCacheEnCdn },
       { source: "/:locale(es|en)/:path*", headers: htmlSinCacheEnCdn },
       { source: "/studio/:path*", headers: htmlSinCacheEnCdn },

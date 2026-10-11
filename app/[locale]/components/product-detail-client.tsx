@@ -6,7 +6,7 @@ import { traducir, type ImagenSanity, type ProductoSanity, type Traducible } fro
 import { useTranslations, useLocale } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@/navigation";
-import { etiquetaTipo, nombreProducto } from "@/app/[locale]/lib/producto-seo";
+import { descriptorProducto, etiquetaTipo, nombreProducto } from "@/app/[locale]/lib/producto-seo";
 import { enviarEvento, itemAnalytics } from "@/app/[locale]/lib/analytics";
 
 // --- Magnifier: Mantenido tal cual ---
@@ -99,6 +99,8 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
   const TELEFONO_TALLER = "34660800631";
 
   const nombreTraducido = nombreProducto(producto, locale);
+  // Qué es la pieza («Lámpara de sobremesa de madera de olivo»): segunda línea del H1, para buscadores y para quien llega
+  const descriptor = descriptorProducto(producto, locale);
   const categoria = etiquetaTipo(producto.tipo, "es");
   const itemGa = itemAnalytics(producto._id, nombreTraducido, producto.precio ?? 0, categoria);
 
@@ -175,7 +177,14 @@ export function ProductDetailClient({ producto }: { producto: ProductoSanity }) 
 
           <div className="space-y-10">
             <div>
-              <h1 className="text-4xl md:text-5xl font-nixie font-bold text-stone-900 mb-4">{nombreTraducido}</h1>
+              <h1 className="mb-4">
+                <span className="block text-4xl md:text-5xl font-nixie font-bold text-stone-900">{nombreTraducido}</span>
+                {/* El espacio separa las dos líneas en el texto que leen buscadores y lectores de pantalla */}
+                {" "}
+                {descriptor !== nombreTraducido && (
+                  <span className="block mt-3 text-base md:text-lg font-urbanist font-normal text-stone-600">{descriptor}</span>
+                )}
+              </h1>
               <p className="text-2xl font-light text-stone-800 mb-2 font-urbanist">{producto?.precio}€</p>
               <p className="text-xs text-stone-600 mb-6 font-urbanist">
                 {t("envioResumen")}{" "}

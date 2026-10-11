@@ -131,7 +131,7 @@ export const producto = defineType({
       title: 'Tipo de lámpara',
       type: 'string',
       group: ['esencial', 'ficha'],
-      description: 'Se añade al título en Google: «Olivo Veta · Lámpara de sobremesa».',
+      description: 'Va en el título de Google y bajo el nombre: «Lámpara de sobremesa de madera de olivo · Olivo Veta».',
       initialValue: 'sobremesa',
       options: {
         list: [
@@ -145,6 +145,28 @@ export const producto = defineType({
         direction: 'horizontal',
       },
       validation: (rule) => rule.required().warning('Elige el tipo: ayuda a que la encuentren en Google'),
+    }),
+    defineField({
+      name: 'madera',
+      title: 'Madera',
+      type: 'string',
+      group: ['esencial', 'ficha'],
+      description: 'La madera principal. Va en el título de Google («… de madera de olivo»), que es lo que busca la gente. El detalle (recuperada, centenaria…) va en «Madera / material de la base».',
+      options: {
+        list: [
+          { title: 'Olivo', value: 'olivo' },
+          { title: 'Eucalipto', value: 'eucalipto' },
+          { title: 'Castaño', value: 'castano' },
+          { title: 'Roble', value: 'roble' },
+          { title: 'Nogal', value: 'nogal' },
+          { title: 'Pino', value: 'pino' },
+          { title: 'Almendro', value: 'almendro' },
+          { title: 'Otra', value: 'otra' },
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+      validation: (rule) => rule.required().warning('Elige la madera: es lo primero que busca la gente («lámpara de madera de olivo»)'),
     }),
     defineField({
       name: 'precio',

@@ -8,6 +8,7 @@ import { COSTES_ENVIO } from "@/app/[locale]/lib/envio";
 import { useHaMontado } from "@/app/[locale]/lib/use-ha-montado";
 import { Link } from "@/navigation";
 import { enviarEvento, guardarPedidoPendiente, itemAnalytics } from "@/app/[locale]/lib/analytics";
+import { guardarPedidoTransferencia } from "@/app/[locale]/lib/pedido-transferencia";
 
 const PROVINCIAS_PENINSULA = ["Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real", "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara", "Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña", "La Rioja", "León", "Lérida", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra", "Orense", "Palencia", "Pontevedra", "Salamanca", "Segovia", "Sevilla", "Soria", "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"];
 const PROVINCIAS_ISLAS = ["Baleares", "Las Palmas (Canarias)", "Santa Cruz de Tenerife (Canarias)", "Ceuta", "Melilla"];
@@ -71,6 +72,7 @@ export function CarritoClient() {
       });
       const datos = await respuesta.json();
       if (!respuesta.ok) throw new Error(datos.error || t("alert_error"));
+      if (datos.pedido) guardarPedidoTransferencia(datos.pedido);
       if (datos.url) window.location.href = datos.url;
     } catch (error) {
       console.error("Error:", error);

@@ -1,6 +1,6 @@
 // Nombre, título, descripción y datos estructurados de una pieza: la misma lógica para la ficha,
 // los metadatos (title/description) y el JSON-LD.
-import { traducir, type EstadoPieza, type ProductoSanity, type TipoLampara } from "@/sanity/lib/tipos";
+import { traducir, type EstadoPieza, type MaderaPieza, type ProductoSanity, type TipoLampara } from "@/sanity/lib/tipos";
 import { COSTES_ENVIO } from "@/app/[locale]/lib/envio";
 import { SITE_URL } from "@/app/[locale]/lib/sitio";
 
@@ -18,16 +18,71 @@ export function etiquetaTipo(tipo: TipoLampara | undefined, locale: string) {
   return tipo ? ETIQUETAS_TIPO[tipo]?.[idioma(locale)] : undefined;
 }
 
-// Nombre visible (H1, alt de las fotos). Si la pieza aún no tiene nombre en Sanity, uno genérico en vez de vacío.
+// Nombre visible (H1, alt de las fotos). Si la pieza aún no tiene nombre en Sanity, lo que es («Lámpara de madera de olivo»).
 export function nombreProducto(p: ProductoSanity, locale: string) {
-  return traducir(p.nombre, locale)?.trim() || etiquetaTipo(p.tipo, locale) || (idioma(locale) === "en" ? "Handcrafted wooden lamp" : "Lámpara artesanal de madera");
+  return traducir(p.nombre, locale)?.trim() || descriptorProducto(p, locale);
 }
 
-// Título para buscadores: «Nombre · Lámpara de sobremesa» (la plantilla del layout añade «| Veta & Lux»)
+// --- Qué es la pieza, con las palabras que busca la gente («lámpara de sobremesa de madera de olivo») ---
+
+const MADERAS: Record<Exclude<MaderaPieza, "otra">, { es: string; en: string; patron: RegExp }> = {
+  olivo: { es: "olivo", en: "Olive wood", patron: /olivo|olive/i },
+  eucalipto: { es: "eucalipto", en: "Eucalyptus", patron: /eucalipt/i },
+  castano: { es: "castaño", en: "Chestnut", patron: /casta[ñn]o|chestnut/i },
+  roble: { es: "roble", en: "Oak", patron: /roble|\boak\b/i },
+  nogal: { es: "nogal", en: "Walnut", patron: /nogal|walnut/i },
+  pino: { es: "pino", en: "Pine", patron: /\bpino\b|\bpine\b/i },
+  almendro: { es: "almendro", en: "Almond wood", patron: /almendro|almond/i },
+};
+
+// Tipo y madera elegidos en Sanity. Mientras falten, se deducen del texto de la pieza
+// («Madera de Olivo recuperada», «Sobremesa Raíz Serena»); lo elegido en el Studio siempre manda.
+// Se mira el nombre, la descripción corta («Lámpara de sobremesa de olivo…») y la dirección web
+function tipoPieza(p: ProductoSanity): TipoLampara | undefined {
+  if (p.tipo) return p.tipo;
+  const slug = typeof p.slug === "string" ? p.slug : p.slug?.current;
+  for (const texto of [p.nombre?.es, p.descripcion?.es, slug]) {
+    if (/sobremesa/i.test(texto ?? "")) return "sobremesa";
+    if (/colgante/i.test(texto ?? "")) return "colgante";
+    if (/aplique/i.test(texto ?? "")) return "aplique";
+  }
+  return undefined;
+}
+
+// Se mira la madera de la base, el nombre y la dirección web («viga-castano»)
+function maderaPieza(p: ProductoSanity) {
+  if (p.madera) return p.madera === "otra" ? undefined : MADERAS[p.madera];
+  const slug = typeof p.slug === "string" ? p.slug : p.slug?.current;
+  for (const texto of [p.materialBase?.es, p.nombre?.es, slug?.replace(/-/g, " ")]) {
+    const madera = Object.values(MADERAS).find((m) => m.patron.test(texto ?? ""));
+    if (madera) return madera;
+  }
+  return undefined;
+}
+
+const TIPO_EN_FRASE: Record<TipoLampara, { es: string; en: string }> = {
+  sobremesa: { es: "Lámpara de sobremesa", en: "table lamp" },
+  colgante: { es: "Lámpara colgante", en: "pendant lamp" },
+  pie: { es: "Lámpara de pie", en: "floor lamp" },
+  aplique: { es: "Aplique de pared", en: "wall light" },
+  otra: { es: "Lámpara", en: "lamp" },
+};
+
+// «Lámpara de sobremesa de madera de olivo» / «Olive wood table lamp». Va bajo el H1, en el título y en el JSON-LD.
+export function descriptorProducto(p: ProductoSanity, locale: string) {
+  const tipo = TIPO_EN_FRASE[tipoPieza(p) ?? "otra"];
+  const madera = maderaPieza(p);
+  return idioma(locale) === "en"
+    ? `${madera?.en ?? "Wooden"} ${tipo.en}`
+    : `${tipo.es} de madera${madera ? ` de ${madera.es}` : ""}`;
+}
+
+// Título para buscadores: lo que es primero y el nombre después, como los talleres que mejor posicionan:
+// «Lámpara de sobremesa de madera de olivo · Olivo a la deriva» (la plantilla del layout añade «| Veta & Lux»)
 export function tituloProducto(p: ProductoSanity, locale: string) {
-  const nombre = nombreProducto(p, locale);
-  const tipo = etiquetaTipo(p.tipo, locale);
-  return tipo && tipo !== nombre ? `${nombre} · ${tipo}` : nombre;
+  const nombre = traducir(p.nombre, locale)?.trim();
+  const descriptor = descriptorProducto(p, locale);
+  return nombre ? `${descriptor} · ${nombre}` : descriptor;
 }
 
 function recortar(texto: string, max = 155) {
@@ -44,9 +99,10 @@ export function descripcionProducto(p: ProductoSanity, locale: string) {
   if (corta.length >= 70) return recortar(corta);
   if (larga) return recortar(larga);
   if (corta) return corta;
+  const descriptor = descriptorProducto(p, locale);
   return idioma(locale) === "en"
-    ? "One-of-a-kind wooden lamp, handmade in our workshop in Malaga, Spain."
-    : "Lámpara de madera única, hecha a mano en nuestro taller de Málaga.";
+    ? `One-of-a-kind ${descriptor.charAt(0).toLowerCase()}${descriptor.slice(1)}, handmade in our workshop in Malaga, Spain.`
+    : `Pieza única hecha a mano en nuestro taller de Málaga: ${descriptor.charAt(0).toLowerCase()}${descriptor.slice(1)}.`;
 }
 
 const DISPONIBILIDAD: Record<EstadoPieza, string> = {

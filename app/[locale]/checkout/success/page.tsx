@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
+import { useEffect, useMemo, useSyncExternalStore, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
@@ -8,6 +8,9 @@ import { useCart } from "@/app/[locale]/components/cart-provider";
 import { SiteNav } from "@/app/[locale]/components/site-nav";
 import { SiteFooter } from "@/app/[locale]/components/site-footer";
 import { enviarEvento, leerPedidoPendiente, marcarCompraMedida } from "@/app/[locale]/lib/analytics";
+import { interpretarPedidoTransferencia, leerPedidoTransferenciaCrudo } from "@/app/[locale]/lib/pedido-transferencia";
+
+const sinSuscripcion = () => () => {};
 
 // Datos bancarios configurados en .env (los mismos que se envían por correo)
 const IBAN = process.env.NEXT_PUBLIC_IBAN_TRANSFERENCIA;
@@ -20,9 +23,12 @@ function SuccessContent() {
 
   const metodo = searchParams.get("method");
   const orderId = searchParams.get("orderId") || "";
-  const items = searchParams.get("items");
-  const email = searchParams.get("clientEmail") || "";
-  const total = searchParams.get("total");
+  // Email, piezas e importe de una transferencia: del sessionStorage, nunca de la URL
+  const pedidoCrudo = useSyncExternalStore(sinSuscripcion, leerPedidoTransferenciaCrudo, () => null);
+  const pedido = useMemo(() => interpretarPedidoTransferencia(pedidoCrudo, orderId), [pedidoCrudo, orderId]);
+  const items = pedido?.items ?? "";
+  const email = pedido?.email ?? "";
+  const total = pedido?.total ?? "";
 
   useEffect(() => {
     clearCart();
@@ -32,15 +38,15 @@ function SuccessContent() {
   const sessionId = searchParams.get("session_id") || "";
   useEffect(() => {
     if (metodo === "stripe" && sessionId) {
-      const pedido = leerPedidoPendiente();
-      if (pedido && marcarCompraMedida(sessionId)) {
-        enviarEvento("purchase", { transaction_id: sessionId, currency: "EUR", value: pedido.value, shipping: pedido.shipping, items: pedido.items });
+      const pedidoTarjeta = leerPedidoPendiente();
+      if (pedidoTarjeta && marcarCompraMedida(sessionId)) {
+        enviarEvento("purchase", { transaction_id: sessionId, currency: "EUR", value: pedidoTarjeta.value, shipping: pedidoTarjeta.shipping, items: pedidoTarjeta.items });
       }
-    } else if (metodo === "transferencia" && orderId && marcarCompraMedida(orderId)) {
+    } else if (metodo === "transferencia" && orderId && pedido && marcarCompraMedida(orderId)) {
       // Una transferencia es una reserva, no un pago confirmado: evento propio
       enviarEvento("reserva_transferencia", { transaction_id: orderId, currency: "EUR", value: Number(total) || 0 });
     }
-  }, [metodo, sessionId, orderId, total]);
+  }, [metodo, sessionId, orderId, total, pedido]);
 
   return (
     <section className="max-w-3xl mx-auto px-4 py-20 md:py-32 text-center space-y-8">
@@ -64,14 +70,18 @@ function SuccessContent() {
                 <span className="text-stone-400 block text-[10px] uppercase tracking-wider">{t("numeroPedido")}</span>
                 <span className="text-sm font-semibold text-amber-900">{orderId}</span>
               </div>
-              <div className="py-2">
-                <span className="text-stone-400 block text-[10px] uppercase tracking-wider">{t("email")}</span>
-                <span className="text-stone-800 font-medium">{email}</span>
-              </div>
-              <div className="py-2">
-                <span className="text-stone-400 block text-[10px] uppercase tracking-wider">{t("piezas")}</span>
-                <span className="text-stone-800 font-medium">{items}</span>
-              </div>
+              {email && (
+                <div className="py-2">
+                  <span className="text-stone-400 block text-[10px] uppercase tracking-wider">{t("email")}</span>
+                  <span className="text-stone-800 font-medium">{email}</span>
+                </div>
+              )}
+              {items && (
+                <div className="py-2">
+                  <span className="text-stone-400 block text-[10px] uppercase tracking-wider">{t("piezas")}</span>
+                  <span className="text-stone-800 font-medium">{items}</span>
+                </div>
+              )}
               {total && (
                 <div className="py-2">
                   <span className="text-stone-400 block text-[10px] uppercase tracking-wider">{t("importe")}</span>
@@ -93,11 +103,9 @@ function SuccessContent() {
             </div>
 
             <p className="text-xs text-stone-500 italic leading-relaxed">
-              {t.rich("notaTransferencia", {
-                email,
-                pedido: orderId,
-                b: (chunks) => <strong>{chunks}</strong>,
-              })}
+              {email
+                ? t.rich("notaTransferencia", { email, pedido: orderId, b: (chunks) => <strong>{chunks}</strong> })
+                : t.rich("notaTransferenciaSinEmail", { pedido: orderId, b: (chunks) => <strong>{chunks}</strong> })}
             </p>
           </div>
         ) : (

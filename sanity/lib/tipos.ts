@@ -27,6 +27,7 @@ export type ProductoSanity = {
   cuidados?: Traducible;
   estado?: EstadoPieza;
   tipo?: TipoLampara;
+  madera?: MaderaPieza;
   electrico?: {
     casquillo?: string;
     potenciaMax?: number;
@@ -37,6 +38,8 @@ export type ProductoSanity = {
 };
 
 export type TipoLampara = "sobremesa" | "colgante" | "pie" | "aplique" | "otra";
+
+export type MaderaPieza = "olivo" | "eucalipto" | "castano" | "roble" | "nogal" | "pino" | "almendro" | "otra";
 
 // Valor de un campo traducible en el idioma actual, con el español como respaldo
 export function traducir<T>(campo: Traducible<T> | undefined, locale: string): T | undefined {

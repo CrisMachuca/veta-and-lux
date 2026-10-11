@@ -18,6 +18,7 @@ const sinTexto = (campo: string) => `(!defined(${campo}) || ${campo} == "")`
 // Lo que la web necesita para que la ficha esté completa en los dos idiomas
 const FICHA_INCOMPLETA = [
   '!defined(tipo)',
+  '!defined(madera)',
   '!defined(medidas.alto)',
   '!defined(electrico.casquillo)',
   sinTexto('materialBase.es'),

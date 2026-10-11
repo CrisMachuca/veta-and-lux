@@ -400,7 +400,8 @@
     "concepto": "Required reference",
     "notaTransferencia": "We have sent a copy of these instructions to <b>{email}</b>. Please use the order number <b>{pedido}</b> as the reference. Your pieces are reserved for 48 hours.",
     "textoTarjeta": "We have received your payment. We are now preparing your piece and its packaging in the workshop. You will shortly receive a confirmation email and, once it ships, the tracking number.",
-    "volver": "Back to home"
+    "volver": "Back to home",
+    "notaTransferenciaSinEmail": "We have sent you a copy of these instructions by email. Please use the order number <b>{pedido}</b> as the reference. Your pieces are reserved for 48 hours."
   },
   "Metadata": {
     "inicio": {

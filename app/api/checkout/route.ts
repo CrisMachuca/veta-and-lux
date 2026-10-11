@@ -74,6 +74,38 @@ function escapeHtml(texto: string) {
 
 const formatoEUR = (valor: number) => `${valor.toFixed(2)}€`;
 
+// Límite contra abusos: cada reserva por transferencia bloquea piezas 48 h y envía un correo,
+// así que se aceptan como mucho 5 intentos de pago cada 10 minutos por IP (en memoria del proceso)
+const VENTANA_MS = 10 * 60 * 1000;
+const MAX_INTENTOS = 5;
+const intentosPorIp = new Map<string, number[]>();
+
+function superaLimite(ip: string) {
+  const ahora = Date.now();
+  const recientes = (intentosPorIp.get(ip) ?? []).filter((t) => ahora - t < VENTANA_MS);
+  recientes.push(ahora);
+  intentosPorIp.set(ip, recientes);
+  return recientes.length > MAX_INTENTOS;
+}
+
+const EMAIL_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+// Segunda barrera, independiente de la IP (que puede falsearse): como mucho 10 reservas por transferencia
+// por hora en toda la tienda. Con piezas únicas, más que eso solo puede ser un abuso.
+const VENTANA_RESERVAS_MS = 60 * 60 * 1000;
+const MAX_RESERVAS = 10;
+let reservasRecientes: number[] = [];
+
+function superaReservasGlobales() {
+  const ahora = Date.now();
+  reservasRecientes = reservasRecientes.filter((t) => ahora - t < VENTANA_RESERVAS_MS);
+  if (reservasRecientes.length >= MAX_RESERVAS) return true;
+  reservasRecientes.push(ahora);
+  return false;
+}
+
+const MAX_PIEZAS = 20;
+const MAX_TEXTO = 200;
+
 // Lee las piezas del carrito en Sanity y comprueba que todas existen y siguen disponibles
 async function cargarPiezasDisponibles(lines: CartLine[], locale: string) {
   const ids = [...new Set(lines.map((line) => String(line.productId)))];
@@ -135,12 +167,23 @@ export async function POST(request: Request) {
     // Mensajes que ve el cliente, en su idioma
     const msg = (es: string, en: string) => (esIngles ? en : es);
 
+    const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || "desconocida";
+    if (superaLimite(ip)) {
+      return NextResponse.json(
+        { error: msg("Demasiados intentos seguidos. Espera unos minutos y vuelve a probar.", "Too many attempts in a row. Please wait a few minutes and try again.") },
+        { status: 429 }
+      );
+    }
+
     if (aceptaCondiciones !== true) {
       return NextResponse.json({ error: msg("Debes aceptar las condiciones de venta y la política de privacidad", "You must accept the terms of sale and the privacy policy") }, { status: 400 });
     }
 
     if (!Array.isArray(lines) || lines.length === 0) {
       return NextResponse.json({ error: msg("El carrito está vacío", "Your cart is empty") }, { status: 400 });
+    }
+    if (lines.length > MAX_PIEZAS || !lines.every((l) => l && (typeof l.productId === "string" || typeof l.productId === "number"))) {
+      return NextResponse.json({ error: msg("El carrito no es válido. Recarga la página.", "Your cart is not valid. Please reload the page.") }, { status: 400 });
     }
 
     if (!esRegionEnvio(regionRecibida)) {
@@ -159,6 +202,13 @@ export async function POST(request: Request) {
 
     if (!emailCliente) {
       return NextResponse.json({ error: msg("El email es obligatorio", "Email is required") }, { status: 400 });
+    }
+    if (emailCliente.length > MAX_TEXTO || !EMAIL_VALIDO.test(emailCliente)) {
+      return NextResponse.json({ error: msg("Revisa el email: no parece válido", "Please check your email address") }, { status: 400 });
+    }
+    const textosCliente = [nombreCliente, dir?.calle, dir?.localidad, dir?.codigoPostal, dir?.regionUbicacion, dir?.paisBase];
+    if (textosCliente.some((v) => v !== undefined && (typeof v !== "string" || v.length > MAX_TEXTO))) {
+      return NextResponse.json({ error: msg("Algún dato de envío es demasiado largo", "Some shipping details are too long") }, { status: 400 });
     }
 
     // Cortafuegos de seguridad global
@@ -250,6 +300,14 @@ export async function POST(request: Request) {
               : "El pago por transferencia no está disponible ahora mismo. Paga con tarjeta o escríbenos.",
           },
           { status: 503 }
+        );
+      }
+
+      if (superaReservasGlobales()) {
+        console.error("❌ Tope de reservas por transferencia alcanzado: posible abuso");
+        return NextResponse.json(
+          { error: msg("Ahora mismo no podemos reservar por transferencia. Paga con tarjeta o escríbenos.", "We can't take bank transfer reservations right now. Please pay by card or contact us.") },
+          { status: 429 }
         );
       }
 
@@ -397,15 +455,14 @@ export async function POST(request: Request) {
         `,
       });
 
-      const params = new URLSearchParams({
-        method: "transferencia",
-        orderId: numeroPedido,
-        items: resumenPiezas,
-        total: totalPedido.toFixed(2),
-        clientEmail: emailCliente,
-      });
+      // La URL solo lleva el número de pedido: el email y el resumen van en la respuesta
+      // (el navegador los guarda en sessionStorage) para que no acaben en historiales ni en Analytics
+      const params = new URLSearchParams({ method: "transferencia", orderId: numeroPedido });
 
-      return NextResponse.json({ url: `/${locale}/checkout/success?${params.toString()}` });
+      return NextResponse.json({
+        url: `/${locale}/checkout/success?${params.toString()}`,
+        pedido: { orderId: numeroPedido, email: emailCliente, items: resumenPiezas, total: totalPedido.toFixed(2) },
+      });
     }
 
     return NextResponse.json({ error: msg("Método de pago no válido", "Invalid payment method") }, { status: 400 });

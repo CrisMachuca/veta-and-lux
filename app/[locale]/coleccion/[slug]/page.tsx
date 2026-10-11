@@ -52,6 +52,7 @@ const CAMPOS_PIEZA = `
   medidas,
   cuidados,
   tipo,
+  madera,
   electrico,
   ${ESTADO_EFECTIVO}
 `;
